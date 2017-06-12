@@ -3,9 +3,9 @@
 
     <h1>Three Materials Experiments</h1>
 
-    <Material></Material>
-    <Material></Material>
-    <Material></Material>
+    <Material color=0xff0000></Material>
+    <Material color=0x00ff00></Material>
+    <Material color=0x0000ff></Material>
 
   </div>
 </template>
