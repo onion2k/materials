@@ -3,16 +3,26 @@
 
     <h1>Three Materials Experiments</h1>
 
+    <Material></Material>
+    <Material></Material>
+    <Material></Material>
+
   </div>
 </template>
 
 <script>
+
+import Material from './components/Material.vue';
+
 export default {
   name: 'app',
   data () {
     return {
 
     }
+  },
+  components: {
+    Material
   }
 }
 </script>
