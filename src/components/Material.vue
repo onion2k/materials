@@ -15,7 +15,10 @@ import {
     Vector3,
     FlatShading,
     PerspectiveCamera,
-    PointLight
+    PointLight,
+    EdgesGeometry,
+    LineBasicMaterial,
+    LineSegments
 } from '../../node_modules/three/build/three.module';
 
 export default {
@@ -51,7 +54,13 @@ export default {
     let box = new Mesh(boxgeo, this.material);
         scene.add(box);
 
+    var wiregeo = new EdgesGeometry( box.geometry );
+    var wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
+    var wireframe = new LineSegments( wiregeo, wiremat );
+        box.add(wireframe);
+
     wrapper.appendChild(renderer.domElement);
+
 
     function animate() {
 
