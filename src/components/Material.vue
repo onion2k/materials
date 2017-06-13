@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="material" ref="wrapper">Material</div>
+    <div class="material" ref="wrapper"></div>
   </div>
 </template>
 
@@ -10,7 +10,6 @@ import {
     Scene,
     WebGLRenderer, 
     BoxGeometry, 
-    MeshPhongMaterial, 
     Mesh,
     Object3D,
     Vector3,
@@ -21,7 +20,7 @@ import {
 
 export default {
   name: 'Material',
-  props: ['color'],
+  props: ['material'],
   data () {
     return {
 
@@ -37,19 +36,23 @@ export default {
         alpha: true
     });
     renderer.setClearColor(0xffff00, 0);
-    renderer.setSize(300,300);
+    renderer.setSize(600,600);
 
-    let camera = new PerspectiveCamera(65, 300/300, 1, 10000);
+    let camera = new PerspectiveCamera(65, 600/600, 1, 10000);
         camera.position.set(0, 85, 85);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
 
     let light = new PointLight(0xffffff);
-        light.position.set(150, 250, -50);
+        light.position.set(75, 50, 75);
         scene.add(light);
 
+    let light2 = new PointLight(0xffffff);
+        light2.position.set(-75, 50, 75);
+        scene.add(light2);
+
     let boxgeo = new BoxGeometry(50,50,50);
-    let box = new Mesh(boxgeo, new MeshPhongMaterial({ color: parseInt(this.color, 16), shininess: 10, shading: FlatShading }));
+    let box = new Mesh(boxgeo, this.material);
         scene.add(box);
 
     wrapper.appendChild(renderer.domElement);
@@ -81,8 +84,8 @@ export default {
 <style scoped>
   .material {
     float: left;
-    width: 300px;
-    min-height: 300px;
+    width: 100%;
+    min-height: 600px;
     border: 1px solid #eee;
     margin: 10px;
   }

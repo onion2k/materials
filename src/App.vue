@@ -1,16 +1,19 @@
 <template>
   <div id="app">
 
-    <h1>Three Materials Experiments</h1>
+    <h1>Three Material Viewer</h1>
 
-    <Material color=0xff0000></Material>
-    <Material color=0x00ff00></Material>
-    <Material color=0x0000ff></Material>
+    <Material :material="this.material"></Material>
 
   </div>
 </template>
 
 <script>
+
+import {
+    MeshPhongMaterial, 
+    FlatShading
+} from '../node_modules/three/build/three.module';
 
 import Material from './components/Material.vue';
 
@@ -18,7 +21,7 @@ export default {
   name: 'app',
   data () {
     return {
-
+        material: new MeshPhongMaterial({ color: 0xff00ff, shininess: 0, shading: FlatShading })
     }
   },
   components: {
