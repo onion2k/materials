@@ -11,7 +11,9 @@
 <script>
 
 import {
-    MeshPhongMaterial, 
+    MeshPhysicalMaterial,
+    MeshPhongMaterial,
+    SmoothShading,
     FlatShading
 } from '../node_modules/three/build/three.module';
 
@@ -21,7 +23,8 @@ export default {
   name: 'app',
   data () {
     return {
-        material: new MeshPhongMaterial({ color: 0xff00ff, shininess: 0, shading: FlatShading })
+        //material: new MeshPhongMaterial({ color: 0xff00ff, shininess: 5, shading: FlatShading })
+        material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 25, shading: FlatShading })
     }
   },
   components: {

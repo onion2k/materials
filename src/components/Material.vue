@@ -39,17 +39,13 @@ export default {
     renderer.setSize(600,600);
 
     let camera = new PerspectiveCamera(65, 600/600, 1, 10000);
-        camera.position.set(0, 85, 85);
+        camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
 
     let light = new PointLight(0xffffff);
-        light.position.set(75, 50, 75);
+        light.position.set(0, -75, -75);
         scene.add(light);
-
-    let light2 = new PointLight(0xffffff);
-        light2.position.set(-75, 50, 75);
-        scene.add(light2);
 
     let boxgeo = new BoxGeometry(50,50,50);
     let box = new Mesh(boxgeo, this.material);
@@ -60,7 +56,6 @@ export default {
     function animate() {
 
         requestAnimationFrame(animate);
-        //scene.cameraControl.update();
         box.rotation.y += 0.02;
         render();
 
