@@ -23,8 +23,7 @@ export default {
   name: 'app',
   data () {
     return {
-        //material: new MeshPhongMaterial({ color: 0xff00ff, shininess: 5, shading: FlatShading })
-        material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 25, shading: FlatShading })
+        material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading })
     }
   },
   components: {
