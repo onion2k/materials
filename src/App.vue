@@ -1,9 +1,10 @@
 <template>
   <div id="app">
 
-    <h1>Three Material Viewer</h1>
+    <h1>Three Material Builder</h1>
 
     <Material :material="this.material"></Material>
+    <Editor :material="this.material"></Editor>
 
   </div>
 </template>
@@ -18,6 +19,7 @@ import {
 } from '../node_modules/three/build/three.module';
 
 import Material from './components/Material.vue';
+import Editor from './components/Editor.vue';
 
 export default {
   name: 'app',
@@ -27,7 +29,8 @@ export default {
     }
   },
   components: {
-    Material
+    Material,
+    Editor
   }
 }
 </script>
@@ -40,5 +43,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.material {
+  float: left;
+  width: 75%;
+}
+.editor {
+  float: left;
+  width: 25%;
 }
 </style>

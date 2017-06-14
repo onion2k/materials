@@ -1,6 +1,5 @@
 <template>
-  <div class="main">
-    <div class="material" ref="wrapper"></div>
+  <div class="material" ref="wrapper">
   </div>
 </template>
 
@@ -32,11 +31,11 @@ export default {
   },
   mounted: function(){
 
-    let wrapper = this.$refs["wrapper"]; //document.getElementById('wrapper');
+    let wrapper = this.$refs["wrapper"];
 
     let scene = new Scene();
     let renderer = new WebGLRenderer({
-        antialias: true,	// to get smoother output
+        antialias: true,
         alpha: true
     });
     renderer.setClearColor(0xffff00, 0);
@@ -55,11 +54,7 @@ export default {
         light2.position.set(-50, 75, -75);
         scene.add(light2);
 
-    // let boxgeo = new BoxGeometry(50,50,50);
-    // let box = new Mesh(boxgeo, this.material);
-    //     scene.add(box);
-
-    let boxgeo = new SphereGeometry(50, 32, 32);
+    let boxgeo = new SphereGeometry(50, 24, 24);
     let box = new Mesh(boxgeo, this.material);
         scene.add(box);
 
@@ -74,7 +69,7 @@ export default {
     function animate() {
 
         requestAnimationFrame(animate);
-        box.rotation.y += 0.02;
+        box.rotation.y += 0.01;
         render();
 
     }
@@ -94,12 +89,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  .material {
-    float: left;
-    width: 100%;
-    min-height: 600px;
-    border: 1px solid #eee;
-    margin: 10px;
-  }
+<style>
+
 </style>
