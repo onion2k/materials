@@ -10,6 +10,7 @@ import {
     WebGLRenderer, 
     BoxGeometry,
     SphereGeometry,
+    TorusKnotGeometry,
     Mesh,
     Object3D,
     Vector3,
@@ -47,14 +48,10 @@ export default {
         scene.add(camera);
 
     let light = new PointLight(0xffffff);
-        light.position.set(50, 75, 75);
+        light.position.set(50, 150, 50);
         scene.add(light);
 
-    let light2 = new PointLight(0xffffff);
-        light2.position.set(-50, 75, -75);
-        scene.add(light2);
-
-    let boxgeo = new SphereGeometry(50, 24, 24);
+    let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
     let box = new Mesh(boxgeo, this.material);
         scene.add(box);
 

@@ -4,7 +4,7 @@
     <h1>Three Material Builder</h1>
 
     <Material :material="this.material"></Material>
-    <Editor :material="this.material"></Editor>
+    <Editor   :material="this.material"></Editor>
 
   </div>
 </template>
@@ -14,6 +14,8 @@
 import {
     MeshPhysicalMaterial,
     MeshPhongMaterial,
+    MeshToonMaterial,
+    ShaderMaterial,
     SmoothShading,
     FlatShading
 } from '../node_modules/three/build/three.module';
@@ -25,7 +27,13 @@ export default {
   name: 'app',
   data () {
     return {
-        material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading })
+
+        material: new MeshToonMaterial({ color: 0xff00ff })
+
+        //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, shading: SmoothShading })
+        //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading })
+        //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.1, metalness: 0.1, shading: SmoothShading })
+        //material: new MeshPhongMaterial({ color: 0xff00ff, shininess: 100, shading: SmoothShading })
     }
   },
   components: {
