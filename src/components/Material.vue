@@ -1,6 +1,5 @@
 <template>
-  <div class="material" ref="wrapper">
-  </div>
+  <div class="material" ref="wrapper"></div>
 </template>
 
 <script>
@@ -24,10 +23,10 @@ import {
 
 export default {
   name: 'Material',
-  props: ['material'],
+  props: ['materialId', 'material'],
   data () {
     return {
-
+        'm': this.material
     }
   },
   mounted: function(){
@@ -52,7 +51,7 @@ export default {
         scene.add(light);
 
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
-    let box = new Mesh(boxgeo, this.material);
+    let box = new Mesh(boxgeo, this.m);
         scene.add(box);
 
     var wiregeo = new EdgesGeometry( box.geometry );
@@ -61,7 +60,6 @@ export default {
         box.add(wireframe);
 
     wrapper.appendChild(renderer.domElement);
-
 
     function animate() {
 

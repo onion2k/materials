@@ -3,8 +3,8 @@
 
     <h1>Three Material Builder</h1>
 
-    <Material :material="this.material"></Material>
-    <Editor   :material="this.material"></Editor>
+    <Material :materialId="this.materialId" :material="this.material"></Material>
+    <Editor   :materialId="this.materialId" v-on:change="change"></Editor>
 
   </div>
 </template>
@@ -27,13 +27,20 @@ export default {
   name: 'app',
   data () {
     return {
-
-        material: new MeshToonMaterial({ color: 0xff00ff })
+        materialId: 'toon1',
+        // material: new MeshToonMaterial({ color: 0xff00ff })
+        material: new MeshToonMaterial({ color: 0xff00ff, shininess: 50, shading: SmoothShading })
 
         //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, shading: SmoothShading })
         //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading })
         //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.1, metalness: 0.1, shading: SmoothShading })
         //material: new MeshPhongMaterial({ color: 0xff00ff, shininess: 100, shading: SmoothShading })
+    }
+  },
+  methods: {
+    change: function(payload) {
+        this.materialId = payload.material;
+        //this.material = new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading })
     }
   },
   components: {
