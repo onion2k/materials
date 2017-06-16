@@ -23,10 +23,17 @@ import {
 
 export default {
   name: 'Material',
-  props: ['materialId', 'material'],
-  data () {
+  props: ['material'],
+  data: function() {
+    let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
     return {
-        'm': this.material
+        box: new Mesh(boxgeo, this.material)
+    }
+  },
+  watch : {
+    material : function(value) {
+        this.box.material = value;
+        this.box.material.needsUpdate = true;
     }
   },
   mounted: function(){
@@ -50,21 +57,22 @@ export default {
         light.position.set(50, 150, 50);
         scene.add(light);
 
-    let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
-    let box = new Mesh(boxgeo, this.m);
-        scene.add(box);
+    //let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
+    //this.box = new Mesh(boxgeo, this.m);
+    let hook = this.box;
+        scene.add(hook);
 
-    var wiregeo = new EdgesGeometry( box.geometry );
+    var wiregeo = new EdgesGeometry( this.box.geometry );
     var wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
     var wireframe = new LineSegments( wiregeo, wiremat );
-        box.add(wireframe);
+        this.box.add(wireframe);
 
     wrapper.appendChild(renderer.domElement);
 
     function animate() {
 
         requestAnimationFrame(animate);
-        box.rotation.y += 0.01;
+        hook.rotation.y += 0.01;
         render();
 
     }

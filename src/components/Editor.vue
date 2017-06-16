@@ -1,9 +1,9 @@
 <template>
   <div class="editor">
     <div>Editor: {{ id }}</div>
-    <a v-on:click="change('toon1')">Toon 1</a>
-    <a v-on:click="change('phong1')">Phong 1</a>
-    <a v-on:click="change('physical1')">Physical 1</a>
+      <div v-on:click="change(0)">Toon 1</div>
+      <div v-on:click="change(1)">Phong 1</div>
+      <div v-on:click="change(2)">Physical 1</div>
   </div>
 </template>
 

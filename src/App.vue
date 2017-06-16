@@ -23,24 +23,26 @@ import {
 import Material from './components/Material.vue';
 import Editor from './components/Editor.vue';
 
+let materials = [
+  new MeshToonMaterial({ color: 0xff00ff }),
+  new MeshToonMaterial({ color: 0xff00ff, shininess: 50, shading: SmoothShading }),
+  new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, shading: SmoothShading }),
+  new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading }),
+  new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.1, metalness: 0.1, shading: SmoothShading }),
+  new MeshPhongMaterial({ color: 0xff00ff, shininess: 100, shading: SmoothShading })
+];
+
 export default {
   name: 'app',
   data () {
     return {
-        materialId: 'toon1',
-        // material: new MeshToonMaterial({ color: 0xff00ff })
-        material: new MeshToonMaterial({ color: 0xff00ff, shininess: 50, shading: SmoothShading })
-
-        //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, shading: SmoothShading })
-        //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading })
-        //material: new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.1, metalness: 0.1, shading: SmoothShading })
-        //material: new MeshPhongMaterial({ color: 0xff00ff, shininess: 100, shading: SmoothShading })
+        materialId: 0,
+        material: materials[0]
     }
   },
   methods: {
     change: function(payload) {
-        this.materialId = payload.material;
-        //this.material = new MeshPhysicalMaterial({ color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading })
+        this.material = materials[payload.material];
     }
   },
   components: {
