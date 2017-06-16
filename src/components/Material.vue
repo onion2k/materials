@@ -23,7 +23,7 @@ import {
 
 export default {
   name: 'Material',
-  props: ['material'],
+  props: ['material', 'wire'],
   data: function() {
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
     return {
@@ -60,10 +60,14 @@ export default {
     let hook = this.box;
         scene.add(hook);
 
-    var wiregeo = new EdgesGeometry( this.box.geometry );
-    var wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
-    var wireframe = new LineSegments( wiregeo, wiremat );
-        this.box.add(wireframe);
+    if (this.wire) {
+
+        var wiregeo = new EdgesGeometry( this.box.geometry );
+        var wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
+        var wireframe = new LineSegments( wiregeo, wiremat );
+            this.box.add(wireframe);
+
+    }
 
     wrapper.appendChild(renderer.domElement);
 
