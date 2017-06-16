@@ -43,12 +43,12 @@ export default {
     let scene = new Scene();
     let renderer = new WebGLRenderer({
         antialias: true,
-        alpha: true
+        alpha: false
     });
-    renderer.setClearColor(0xffff00, 0);
-    renderer.setSize(600,600);
+    renderer.setClearColor(0x000000, 0);
+    renderer.setSize(800,600);
 
-    let camera = new PerspectiveCamera(65, 600/600, 1, 10000);
+    let camera = new PerspectiveCamera(65, 800/600, 1, 10000);
         camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
@@ -57,8 +57,6 @@ export default {
         light.position.set(50, 150, 50);
         scene.add(light);
 
-    //let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
-    //this.box = new Mesh(boxgeo, this.m);
     let hook = this.box;
         scene.add(hook);
 

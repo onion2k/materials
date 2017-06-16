@@ -1,12 +1,8 @@
 <template>
-  <div id="app">
-
-    <h1>Three Material Builder</h1>
-
-    <Material :materialId="this.materialId" :material="this.material"></Material>
-    <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change"></Editor>
-
-  </div>
+    <div id="app">
+        <Material :materialId="this.materialId" :material="this.material"></Material>
+        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change"></Editor>
+    </div>
 </template>
 
 <script>
@@ -51,6 +47,7 @@ export default {
     Editor
   }
 }
+
 </script>
 
 <style lang="scss">
