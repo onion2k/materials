@@ -25,7 +25,9 @@ let materials = [
     new MeshToonMaterial({      name:'Toon 2', color: 0xff00ff, shininess: 50, shading: SmoothShading }),
     new MeshToonMaterial({      name:'Toon Flat', color: 0xff00ff, shading: FlatShading }),
 
-    new MeshPhysicalMaterial({  name:'Physical 1', color: 0xff8800, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, shading: SmoothShading }),
+    new MeshPhysicalMaterial({  name:'Physical Bronze', color: 0xff8800, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, reflectivity: 0.6, shading: SmoothShading }),
+    new MeshPhysicalMaterial({  name:'Physical Silver', color: 0xc0c0c0, roughness: 0.5, metalness: 0.3, clearCoat: 0, reflectivity: 0.8, shading: SmoothShading }),
+    new MeshPhysicalMaterial({  name:'Physical Gold!', color: 0xffd700, roughness: 0.2, metalness: 0.2, clearCoat: 0, reflectivity: 0.8, shading: SmoothShading }),
     new MeshPhysicalMaterial({  name:'Physical 2', color: 0xffffff, roughness: 1.0, metalness: 0, clearCoat: 0.1, shading: SmoothShading }),
     new MeshPhysicalMaterial({  name:'Physical Uncoated', color: 0xffffff, roughness: 0, metalness: 0, clearCoat: 0, clearCoatRoughness: 0, shading: SmoothShading }),
     new MeshPhysicalMaterial({  name:'Physical Coated', color: 0xffffff, roughness: 0, metalness: 0, clearCoat: 1.0, clearCoatRoughness: 0, shading: SmoothShading }),
