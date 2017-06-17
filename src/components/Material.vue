@@ -23,7 +23,7 @@ import {
 
 export default {
   name: 'Material',
-  props: ['material'],
+  props: ['material', 'wire'],
   data: function() {
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
     return {
@@ -43,12 +43,12 @@ export default {
     let scene = new Scene();
     let renderer = new WebGLRenderer({
         antialias: true,
-        alpha: true
+        alpha: false
     });
-    renderer.setClearColor(0xffff00, 0);
-    renderer.setSize(600,600);
+    renderer.setClearColor(0x000000, 0);
+    renderer.setSize(800,600);
 
-    let camera = new PerspectiveCamera(65, 600/600, 1, 10000);
+    let camera = new PerspectiveCamera(65, 800/600, 1, 10000);
         camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
@@ -60,10 +60,14 @@ export default {
     let hook = this.box;
         scene.add(hook);
 
-    var wiregeo = new EdgesGeometry( this.box.geometry );
-    var wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
-    var wireframe = new LineSegments( wiregeo, wiremat );
-        this.box.add(wireframe);
+    if (this.wire) {
+
+        var wiregeo = new EdgesGeometry( this.box.geometry );
+        var wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
+        var wireframe = new LineSegments( wiregeo, wiremat );
+            this.box.add(wireframe);
+
+    }
 
     wrapper.appendChild(renderer.domElement);
 
