@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Material :materialId="this.materialId" :material="this.material" :wire="this.wire"></Material>
+        <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
         <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change"></Editor>
     </div>
 </template>
@@ -51,7 +51,8 @@ export default {
         materialId: 0,
         material: materials[0],
         materials: materials,
-        wire: false
+        wire: false,
+        shadow: false
     }
   },
   methods: {

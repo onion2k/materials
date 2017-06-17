@@ -12,7 +12,7 @@ import {
     TorusKnotGeometry,
     PlaneGeometry,
     Mesh,
-    MeshBasicMaterial,
+    MeshLambertMaterial,
     DoubleSide,
     Object3D,
     Vector3,
@@ -29,10 +29,12 @@ import {
 
 export default {
   name: 'Material',
-  props: ['material', 'wire'],
+  props: ['material', 'wire', 'shadow'],
   data: function() {
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
     let mesh = new Mesh(boxgeo, this.material);
+        mesh.castShadow = true;
+        mesh.receiveShadow = false;
     return {
         box: mesh
     }
@@ -57,47 +59,40 @@ export default {
     renderer.setSize(800,600);
 
     let camera = new PerspectiveCamera(65, 800/600, 1, 10000);
-        camera.position.set(0, 275, 275);
+        camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
 
     let hook = new Object3D();
         hook.add(this.box);
-        hook.castShadow = true;
-        hook.receiveShadow = false;
         scene.add(hook);
 
-    let light = new PointLight(0xffffff, 100);
-        light.position.set(0, 175, 0);
+    let light = new PointLight(0xffffff, 1);
+        light.position.set(100, 200, 75);
         light.lookAt(new Vector3(0,0,0));
-        light.castShadow = true;
-
-        light.shadow.mapSize.width = 512;  // default
-        light.shadow.mapSize.height = 512; // default
-        light.shadow.camera.near = 1;       // default
-        light.shadow.camera.far = 1250      // default
-
         scene.add(light);
 
-    let shadCam = new CameraHelper( light.shadow.camera );
-        scene.add(shadCam);
+    if (this.shadow) {
 
-    let planeGeo = new BoxGeometry(1500,2,1500);
-    let planeMat = new MeshBasicMaterial( {color: 0xffffff} );
-    let plane = new Mesh( planeGeo, planeMat );
-        plane.position.y = -100;
-        plane.castShadow = false;
-        plane.receiveShadow = true;
-        scene.add( plane );
+        light.castShadow = true;
+        light.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
+        light.shadow.camera.near = 1;
+        light.shadow.camera.far = 500;
+        light.shadow.bias = 0.0001;
+        light.shadow.radius = 4;
 
-    // let planeGeo = new PlaneGeometry( 1500, 1500 );
-    // var planeMat = new MeshBasicMaterial( {color: 0xffffff} );
-    // var plane = new Mesh( planeGeo, planeMat );
-    //     plane.rotation.x = Math.PI * 1.5;
-    //     plane.position.y = -100;
-    //     plane.castShadow = false;
-    //     plane.receiveShadow = true;
-    //     scene.add( plane );
+
+        let planeGeo = new PlaneGeometry( 500, 500 );
+        let planeMat = new MeshLambertMaterial( {color: 0xffffff} );
+        let plane = new Mesh( planeGeo, planeMat );
+            plane.rotation.x = Math.PI * 1.5;
+            plane.position.y = -100;
+            plane.castShadow = false;
+            plane.receiveShadow = true;
+            scene.add( plane );
+
+    }
 
     if (this.wire) {
 
