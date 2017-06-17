@@ -22,7 +22,7 @@ import Editor from './components/Editor.vue';
 
 let materials = [
     new MeshToonMaterial({      name:'Toon 1', color: 0xff00ff }),
-    new MeshToonMaterial({      name:'Toon 2', color: 0xff00ff, shininess: 50, shading: SmoothShading }),
+    new MeshToonMaterial({      name:'Toon 2', color: 0xff00ff, shininess: 100, shading: SmoothShading }),
     new MeshToonMaterial({      name:'Toon Flat', color: 0xff00ff, shading: FlatShading }),
 
     new MeshPhysicalMaterial({  name:'Physical Bronze', color: 0xff8800, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, reflectivity: 0.6, shading: SmoothShading }),

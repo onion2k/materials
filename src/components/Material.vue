@@ -10,12 +10,18 @@ import {
     BoxGeometry,
     SphereGeometry,
     TorusKnotGeometry,
+    PlaneGeometry,
     Mesh,
+    MeshBasicMaterial,
+    DoubleSide,
     Object3D,
     Vector3,
     FlatShading,
     PerspectiveCamera,
+    CameraHelper,
     PointLight,
+    DirectionalLight,
+    DirectionalLightHelper,
     EdgesGeometry,
     LineBasicMaterial,
     LineSegments
@@ -26,8 +32,9 @@ export default {
   props: ['material', 'wire'],
   data: function() {
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
+    let mesh = new Mesh(boxgeo, this.material);
     return {
-        box: new Mesh(boxgeo, this.material)
+        box: mesh
     }
   },
   watch : {
@@ -46,19 +53,51 @@ export default {
         alpha: false
     });
     renderer.setClearColor(0x000000, 0);
+    renderer.shadowMap.enabled = true;
     renderer.setSize(800,600);
 
     let camera = new PerspectiveCamera(65, 800/600, 1, 10000);
-        camera.position.set(0, 75, 75);
+        camera.position.set(0, 275, 275);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
 
-    let light = new PointLight(0xffffff);
-        light.position.set(50, 150, 50);
+    let hook = new Object3D();
+        hook.add(this.box);
+        hook.castShadow = true;
+        hook.receiveShadow = false;
+        scene.add(hook);
+
+    let light = new PointLight(0xffffff, 100);
+        light.position.set(0, 175, 0);
+        light.lookAt(new Vector3(0,0,0));
+        light.castShadow = true;
+
+        light.shadow.mapSize.width = 512;  // default
+        light.shadow.mapSize.height = 512; // default
+        light.shadow.camera.near = 1;       // default
+        light.shadow.camera.far = 1250      // default
+
         scene.add(light);
 
-    let hook = this.box;
-        scene.add(hook);
+    let shadCam = new CameraHelper( light.shadow.camera );
+        scene.add(shadCam);
+
+    let planeGeo = new BoxGeometry(1500,2,1500);
+    let planeMat = new MeshBasicMaterial( {color: 0xffffff} );
+    let plane = new Mesh( planeGeo, planeMat );
+        plane.position.y = -100;
+        plane.castShadow = false;
+        plane.receiveShadow = true;
+        scene.add( plane );
+
+    // let planeGeo = new PlaneGeometry( 1500, 1500 );
+    // var planeMat = new MeshBasicMaterial( {color: 0xffffff} );
+    // var plane = new Mesh( planeGeo, planeMat );
+    //     plane.rotation.x = Math.PI * 1.5;
+    //     plane.position.y = -100;
+    //     plane.castShadow = false;
+    //     plane.receiveShadow = true;
+    //     scene.add( plane );
 
     if (this.wire) {
 
