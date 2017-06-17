@@ -5,6 +5,9 @@
             <a href="#" v-on:click="change(index)">{{ material.name }}</a>
         </li>
     </ul>
+    <label>
+        <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
+    </label>
   </div>
 </template>
 
@@ -12,13 +15,17 @@
 
 export default {
   name: 'Editor',
-  props: ['materialId', 'materials'],
+  props: ['materialId', 'materials', 'wire'],
   data: function(){
-    return { 
+    return {
+        showwire: this.wire,
         id: this.materialId
     }
   },
   methods: {
+    updatewire: function() {
+        this.$emit('updatewire', { 'wire': this.showwire });
+    },
     change: function(v) {
         this.$emit('change', { 'material': v });
     }

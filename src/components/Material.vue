@@ -35,11 +35,20 @@ export default {
     let mesh = new Mesh(boxgeo, this.material);
         mesh.castShadow = true;
         mesh.receiveShadow = false;
+
+    let wiregeo = new EdgesGeometry( mesh.geometry );
+    let wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
+    let wireframe = new LineSegments( wiregeo, wiremat );
+
     return {
+        wireframe: wireframe,
         box: mesh
     }
   },
   watch : {
+    wire : function(value) {
+        this.wireframe.visible = value;
+    },
     material : function(value) {
         this.box.material = value;
         this.box.material.needsUpdate = true;
@@ -63,6 +72,9 @@ export default {
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
 
+    this.box.add(this.wireframe);
+        this.wireframe.visible = this.wire;
+
     let hook = new Object3D();
         hook.add(this.box);
         scene.add(hook);
@@ -82,26 +94,16 @@ export default {
         light.shadow.bias = 0.0001;
         light.shadow.radius = 4;
 
-
-        let planeGeo = new PlaneGeometry( 500, 500 );
-        let planeMat = new MeshLambertMaterial( {color: 0xffffff} );
-        let plane = new Mesh( planeGeo, planeMat );
-            plane.rotation.x = Math.PI * 1.5;
-            plane.position.y = -100;
-            plane.castShadow = false;
-            plane.receiveShadow = true;
-            scene.add( plane );
-
     }
 
-    if (this.wire) {
-
-        var wiregeo = new EdgesGeometry( this.box.geometry );
-        var wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
-        var wireframe = new LineSegments( wiregeo, wiremat );
-            this.box.add(wireframe);
-
-    }
+    let planeGeo = new PlaneGeometry( 500, 500 );
+    let planeMat = new MeshLambertMaterial( {color: 0xffffff} );
+    let plane = new Mesh( planeGeo, planeMat );
+        plane.rotation.x = Math.PI * 1.5;
+        plane.position.y = -100;
+        plane.castShadow = false;
+        plane.receiveShadow = true;
+        scene.add( plane );
 
     wrapper.appendChild(renderer.domElement);
 

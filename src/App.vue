@@ -1,7 +1,7 @@
 <template>
-    <div id="app">
+    <div id="app">{{ this.wire }}
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
-        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change"></Editor>
+        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatewire="updatewire"></Editor>
     </div>
 </template>
 
@@ -56,6 +56,9 @@ export default {
     }
   },
   methods: {
+    updatewire: function(payload) {
+        this.wire = payload.wire;
+    },
     change: function(payload) {
         this.material = materials[payload.material];
     }
