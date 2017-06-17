@@ -57,8 +57,6 @@ export default {
         light.position.set(50, 150, 50);
         scene.add(light);
 
-    //let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
-    //this.box = new Mesh(boxgeo, this.m);
     let hook = this.box;
         scene.add(hook);
 
