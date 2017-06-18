@@ -13,8 +13,10 @@ import {
     PlaneGeometry,
     Mesh,
     MeshLambertMaterial,
+    ShaderMaterial,
     DoubleSide,
     Object3D,
+    Vector2,
     Vector3,
     FlatShading,
     PerspectiveCamera,
@@ -55,6 +57,8 @@ export default {
     }
   },
   mounted: function(){
+
+    return;
 
     let wrapper = this.$refs["wrapper"];
 

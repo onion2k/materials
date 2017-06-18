@@ -45,7 +45,6 @@ li {
     text-align: left;
 }
 a {
-    color: #ffffff;
     text-decoration: none;
 }
 </style>
