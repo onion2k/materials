@@ -1,5 +1,7 @@
 <template>
-  <div class="material" ref="wrapper"></div>
+    <div class="material col-sm-9 col-md-8 hidden-xs-down">
+        <div ref="wrapper"></div>
+    </div>
 </template>
 
 <script>
@@ -58,8 +60,6 @@ export default {
   },
   mounted: function(){
 
-    return;
-
     let wrapper = this.$refs["wrapper"];
 
     let scene = new Scene();
@@ -69,9 +69,9 @@ export default {
     });
     renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
-    renderer.setSize(800,600);
+    renderer.setSize(wrapper.offsetWidth,wrapper.offsetWidth*0.6);
 
-    let camera = new PerspectiveCamera(65, 800/600, 1, 10000);
+    let camera = new PerspectiveCamera(65, wrapper.offsetWidth/(wrapper.offsetWidth*0.6), 1, 10000);
         camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);

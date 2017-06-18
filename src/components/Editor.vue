@@ -1,14 +1,14 @@
 <template>
-  <div class="editor">
-    <ul>
-        <li v-for="(material, index) in materials">
-            <a href="#" v-on:click="change(index)">{{ material.name }}</a>
-        </li>
-    </ul>
-    <label>
-        <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
-    </label>
-  </div>
+    <div class="editor col-sm-3 col-md-4 hidden-xs-down bg-faded sidebar">
+        <ul>
+            <li v-for="(material, index) in materials">
+                <a href="#" v-on:click="change(index)">{{ material.name }}</a>
+            </li>
+        </ul>
+        <label>
+            <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
+        </label>
+    </div>
 </template>
 
 <script>

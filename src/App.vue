@@ -1,7 +1,9 @@
 <template>
-    <div id="app">{{ this.wire }}
+    <div id="app container-fluid">
+      <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
         <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatewire="updatewire"></Editor>
+      </div>
     </div>
 </template>
 
@@ -79,13 +81,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-.material {
-  float: left;
-  width: 75%;
-}
-.editor {
-  float: left;
-  width: 25%;
 }
 </style>
