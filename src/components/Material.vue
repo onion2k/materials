@@ -1,5 +1,5 @@
 <template>
-    <div class="material col-sm-9 col-md-8 hidden-xs-down">
+    <div class="material col-sm-9 col-md-8 p-0">
         <div ref="wrapper"></div>
     </div>
 </template>
