@@ -7,8 +7,13 @@
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
             </div>
-            <div class="list-group-item justify-content-center">
+            <div class="list-group-item justify-content-between">
+                <span>Color</span>
                 <color-picker :value="colors" @input="updateValue"></color-picker>
+            </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Shininess</span>
+                <vue-slider ref="slider" v-bind="shiny" v-model="shininess"></vue-slider>
             </div>
 
             <a v-for="(material, index) in materials" href="#" v-on:click="change(index)" class="list-group-item list-group-item-action">{{ material.name }}</a>
@@ -20,6 +25,7 @@
 <script>
 
 import { Sketch } from 'vue-color';
+import vueSlider from 'vue-slider-component'
 
 export default {
   name: 'Editor',
@@ -27,13 +33,18 @@ export default {
   data: function(){
     return {
         colors: {},
+        shininess: 0,
         showwire: this.wire,
-        id: this.materialId
+        id: this.materialId,
+        shiny: { width: '80%', tooltip: 'hover' }
     }
   },
   methods: {
     updateValue: function(color) {
         this.$emit('updatecolor', { 'color': color.hex });
+    },
+    updateshininess: function() {
+        this.$emit('updateshininess', { 'shininess': this.shininess });
     },
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
@@ -43,7 +54,8 @@ export default {
     }
   },
   components: {
-    'color-picker': Sketch
+    'color-picker': Sketch,
+    vueSlider
   }
 }
 

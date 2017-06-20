@@ -2,7 +2,7 @@
     <div id="app" class="container-fluid">
       <div class="row align-items-center">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
-        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updatewire="updatewire"></Editor>
+        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updateshininess="updateshininess" v-on:updatewire="updatewire"></Editor>
       </div>
     </div>
 </template>
@@ -64,6 +64,9 @@ export default {
     updatecolor: function(payload) {
         this.color = payload.color;
         this.material.color.setStyle(payload.color);
+    },
+    updateshininess: function(payload) {
+        this.shininess = payload.shininess;
     },
     updatewire: function(payload) {
         this.wire = payload.wire;
