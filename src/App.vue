@@ -2,7 +2,7 @@
     <div id="app" class="container-fluid">
       <div class="row align-items-center">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
-        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatewire="updatewire"></Editor>
+        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updatewire="updatewire"></Editor>
       </div>
     </div>
 </template>
@@ -55,15 +55,23 @@ export default {
         materialId: 0,
         material: materials[0],
         materials: materials,
+        color: '',
         wire: false,
         shadow: false
     }
   },
   methods: {
+    updatecolor: function(payload) {
+        this.color = payload.color;
+        this.material.color.setStyle(payload.color);
+    },
     updatewire: function(payload) {
         this.wire = payload.wire;
     },
     change: function(payload) {
+        if (this.color !== '') {
+            materials[payload.material].color.setStyle(this.color);
+        }
         this.material = materials[payload.material];
     }
   },
@@ -77,11 +85,11 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-color: #000;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    background-color: #000;
 }
 </style>

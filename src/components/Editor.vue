@@ -7,11 +7,9 @@
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
             </div>
-            <div class="list-group-item">
-                <label>Color</label>
-                <input type="color" id="color">
+            <div class="list-group-item justify-content-center">
+                <color-picker :value="colors" @input="updateValue"></color-picker>
             </div>
-
 
             <a v-for="(material, index) in materials" href="#" v-on:click="change(index)" class="list-group-item list-group-item-action">{{ material.name }}</a>
 
@@ -21,22 +19,31 @@
 
 <script>
 
+import { Sketch } from 'vue-color';
+
 export default {
   name: 'Editor',
   props: ['materialId', 'materials', 'wire'],
   data: function(){
     return {
+        colors: {},
         showwire: this.wire,
         id: this.materialId
     }
   },
   methods: {
+    updateValue: function(color) {
+        this.$emit('updatecolor', { 'color': color.hex });
+    },
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
     },
     change: function(v) {
         this.$emit('change', { 'material': v });
     }
+  },
+  components: {
+    'color-picker': Sketch
   }
 }
 
