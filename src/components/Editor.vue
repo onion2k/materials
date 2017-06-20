@@ -13,10 +13,8 @@
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Shininess</span>
-                <vue-slider ref="slider" v-bind="shiny" v-model="shininess"></vue-slider>
+                <vue-slider ref="slider" v-bind="shiny" v-model="shininess" @input="updateshininess"></vue-slider>
             </div>
-
-            <a v-for="(material, index) in materials" href="#" v-on:click="change(index)" class="list-group-item list-group-item-action">{{ material.name }}</a>
 
         </div>
     </div>

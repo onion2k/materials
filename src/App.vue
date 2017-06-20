@@ -52,8 +52,8 @@ export default {
   name: 'app',
   data () {
     return {
-        materialId: 0,
-        material: materials[0],
+        materialId: 4,
+        material: materials[4],
         materials: materials,
         color: '',
         wire: false,
@@ -67,6 +67,8 @@ export default {
     },
     updateshininess: function(payload) {
         this.shininess = payload.shininess;
+        this.material.shininess = payload.shininess;
+        //this.material.needsUpdate = true;
     },
     updatewire: function(payload) {
         this.wire = payload.wire;
