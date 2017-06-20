@@ -2,11 +2,19 @@
     <div class="editor col-sm-3 col-md-4 hidden-xs-down bg-faded sidebar">
         <h1>Material Examples</h1>
         <div class="list-group">
-            <a v-for="(material, index) in materials" href="#" v-on:click="change(index)" class="list-group-item list-group-item-action">{{ material.name }}</a>
+
             <div class="list-group-item list-group-item-action justify-content-between">
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
             </div>
+            <div class="list-group-item">
+                <label>Color</label>
+                <input type="color" id="color">
+            </div>
+
+
+            <a v-for="(material, index) in materials" href="#" v-on:click="change(index)" class="list-group-item list-group-item-action">{{ material.name }}</a>
+
         </div>
     </div>
 </template>
