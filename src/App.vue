@@ -18,12 +18,14 @@ import {
     SmoothShading,
     FlatShading,
     Texture,
+    RepeatWrapping,
     LinearFilter,
     ImageUtils
 } from '../node_modules/three/build/three.module';
 
 import Material from './components/Material.vue';
 import Editor from './components/Editor.vue';
+import rgbHex from 'rgb-hex';
 
 let materials = [
 
@@ -58,16 +60,14 @@ export default {
         materialId: 4,
         material: materials[4],
         materials: materials,
-        color: '',
+        color: {},
         wire: false,
         shadow: false
     }
   },
   methods: {
     updatecolor: function(payload) {
-        //this.material.color.setStyle(payload.color);
-        this.material.color.setHex(0xff0080);
-        
+        this.material.color.setHex( parseInt(rgbHex(payload.r,payload.g,payload.b), 16) );
     },
     updateshininess: function(payload) {
         this.shininess = payload.shininess;
@@ -77,17 +77,17 @@ export default {
         this.wire = payload.wire;
     },
     colorMap: function(image){
-
         var i = document.createElement( 'img' );
         i.src = image.image;
         var t = new Texture(i);
+        t.wrapS = t.wrapT = RepeatWrapping;
+        t.repeat.set( 30, 3 );
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;
         t.needsUpdate = true;
         this.material.map = t;
         this.material.needsUpdate = true;
-
     },
     change: function(payload) {
         if (this.color !== '') {

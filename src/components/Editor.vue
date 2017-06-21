@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     updateValue: function(color) {
-        this.$emit('updatecolor', { 'color': color.hex });
+        this.$emit('updatecolor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
     },
     updateshininess: function() {
         this.$emit('updateshininess', { 'shininess': this.shininess });

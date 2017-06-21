@@ -48,5 +48,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.preview { width: 400px;}
+    .preview { width: 200px;}
 </style>
