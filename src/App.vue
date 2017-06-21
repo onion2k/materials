@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="container-fluid">
-      <div class="row align-items-center">
+      <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
         <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updateshininess="updateshininess" v-on:updatewire="updatewire"></Editor>
       </div>
@@ -95,6 +95,5 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    background-color: #000;
 }
 </style>

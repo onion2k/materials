@@ -1,5 +1,5 @@
 <template>
-    <div class="material col-sm-9 col-md-8 p-0">
+    <div class="material col-sm-9 col-md-8 p-0 bg-faded">
         <div ref="wrapper"></div>
     </div>
 </template>
@@ -69,7 +69,8 @@ export default {
     });
     renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
-    renderer.setSize(wrapper.offsetWidth,wrapper.offsetWidth*0.6);
+
+    renderer.setSize(wrapper.offsetWidth, wrapper.offsetWidth*0.6);
 
     let camera = new PerspectiveCamera(65, wrapper.offsetWidth/(wrapper.offsetWidth*0.6), 1, 10000);
         camera.position.set(0, 75, 75);
@@ -135,5 +136,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.material { background-color: #000; }
+
 </style>

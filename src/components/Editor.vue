@@ -1,19 +1,20 @@
 <template>
     <div class="editor col-sm-3 col-md-4 hidden-xs-down bg-faded sidebar">
-        <h1>Material Examples</h1>
         <div class="list-group">
-
             <div class="list-group-item list-group-item-action justify-content-between">
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
             </div>
             <div class="list-group-item justify-content-between">
-                <span>Color</span>
                 <color-picker :value="colors" @input="updateValue"></color-picker>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Shininess</span>
                 <vue-slider ref="slider" v-bind="shiny" v-model="shininess" @input="updateshininess"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Color Map</span>
+                <vueImageLoader></vueImageLoader>
             </div>
 
         </div>
@@ -22,8 +23,9 @@
 
 <script>
 
-import { Sketch } from 'vue-color';
-import vueSlider from 'vue-slider-component'
+import { Slider } from 'vue-color';
+import vueImageLoader from './vueImageLoader.vue';
+import vueSlider from 'vue-slider-component';
 
 export default {
   name: 'Editor',
@@ -49,11 +51,15 @@ export default {
     },
     change: function(v) {
         this.$emit('change', { 'material': v });
+    },
+    showSuccess: function(){
+
     }
   },
   components: {
-    'color-picker': Sketch,
-    vueSlider
+    'color-picker': Slider,
+    vueSlider,
+    vueImageLoader
   }
 }
 
