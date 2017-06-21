@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="file-upload-form">
-            Upload an image file:
             <input type="file" @change="previewImage" accept="image/*">
         </div>
         <div class="image-preview" v-if="imageData.length > 0">
@@ -14,7 +13,7 @@
 
 export default {
   name: 'vueImageLoader',
-  props: [],
+  props: ['imageLoaded'],
   data: function(){
     return {
         imageData:''
@@ -33,6 +32,7 @@ export default {
                 // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
                 // Read image as base64 and set to imageData
                 this.imageData = e.target.result;
+                this.$emit('imageLoaded', { image: e.target.result });
             }
             // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0]);
@@ -48,4 +48,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.preview { width: 400px;}
 </style>

@@ -14,7 +14,7 @@
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Color Map</span>
-                <vueImageLoader></vueImageLoader>
+                <vueImageLoader v-on:imageLoaded="colorMap"></vueImageLoader>
             </div>
 
         </div>
@@ -52,8 +52,8 @@ export default {
     change: function(v) {
         this.$emit('change', { 'material': v });
     },
-    showSuccess: function(){
-
+    colorMap: function(image){
+        this.$emit('colorMap', image);
     }
   },
   components: {

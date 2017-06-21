@@ -2,7 +2,7 @@
     <div id="app" class="container-fluid">
       <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
-        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updateshininess="updateshininess" v-on:updatewire="updatewire"></Editor>
+        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updateshininess="updateshininess"  v-on:colorMap="colorMap" v-on:updatewire="updatewire"></Editor>
       </div>
     </div>
 </template>
@@ -16,7 +16,10 @@ import {
     MeshToonMaterial,
     ShaderMaterial,
     SmoothShading,
-    FlatShading
+    FlatShading,
+    Texture,
+    LinearFilter,
+    ImageUtils
 } from '../node_modules/three/build/three.module';
 
 import Material from './components/Material.vue';
@@ -62,16 +65,29 @@ export default {
   },
   methods: {
     updatecolor: function(payload) {
-        this.color = payload.color;
-        this.material.color.setStyle(payload.color);
+        //this.material.color.setStyle(payload.color);
+        this.material.color.setHex(0xff0080);
+        
     },
     updateshininess: function(payload) {
         this.shininess = payload.shininess;
         this.material.shininess = payload.shininess;
-        //this.material.needsUpdate = true;
     },
     updatewire: function(payload) {
         this.wire = payload.wire;
+    },
+    colorMap: function(image){
+
+        var i = document.createElement( 'img' );
+        i.src = image.image;
+        var t = new Texture(i);
+        t.generateMipmaps = false;
+        t.minFilter = LinearFilter;
+        t.magFilter = LinearFilter;
+        t.needsUpdate = true;
+        this.material.map = t;
+        this.material.needsUpdate = true;
+
     },
     change: function(payload) {
         if (this.color !== '') {
