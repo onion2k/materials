@@ -2,7 +2,7 @@
     <div id="app" class="container-fluid">
       <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
-        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updateshininess="updateshininess"  v-on:colorMap="colorMap" v-on:updatewire="updatewire"></Editor>
+        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updateshininess="updateshininess"  v-on:colorMap="colorMap"  v-on:bumpMap="bumpMap" v-on:updatewire="updatewire"></Editor>
       </div>
     </div>
 </template>
@@ -81,12 +81,25 @@ export default {
         i.src = image.image;
         var t = new Texture(i);
         t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( 30, 3 );
+        t.repeat.set( 20, 2 );
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;
         t.needsUpdate = true;
         this.material.map = t;
+        this.material.needsUpdate = true;
+    },
+    bumpMap: function(image){
+        var i = document.createElement( 'img' );
+        i.src = image.image;
+        var t = new Texture(i);
+        t.wrapS = t.wrapT = RepeatWrapping;
+        t.repeat.set( 20, 2 );
+        t.generateMipmaps = false;
+        t.minFilter = LinearFilter;
+        t.magFilter = LinearFilter;
+        t.needsUpdate = true;
+        this.material.bumpMap = t;
         this.material.needsUpdate = true;
     },
     change: function(payload) {

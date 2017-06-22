@@ -5,7 +5,7 @@
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-center">
                 <color-picker :value="colors" @input="updateValue"></color-picker>
             </div>
             <div class="list-group-item justify-content-between">
@@ -17,13 +17,17 @@
                 <vueImageLoader v-on:imageLoaded="colorMap"></vueImageLoader>
             </div>
 
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Bump Map</span>
+                <vueImageLoader v-on:imageLoaded="bumpMap"></vueImageLoader>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 
-import { Slider } from 'vue-color';
+import { Sketch } from 'vue-color';
 import vueImageLoader from './vueImageLoader.vue';
 import vueSlider from 'vue-slider-component';
 
@@ -54,10 +58,13 @@ export default {
     },
     colorMap: function(image){
         this.$emit('colorMap', image);
+    },
+    bumpMap: function(image){
+        this.$emit('bumpMap', image);
     }
   },
   components: {
-    'color-picker': Slider,
+    'color-picker': Sketch,
     vueSlider,
     vueImageLoader
   }
