@@ -16,10 +16,13 @@
                 <span class="align-bottom">Color Map</span>
                 <vueImageLoader v-on:imageLoaded="colorMap"></vueImageLoader>
             </div>
-
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Bump Map</span>
                 <vueImageLoader v-on:imageLoaded="bumpMap"></vueImageLoader>
+            </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Alpha Map</span>
+                <vueImageLoader v-on:imageLoaded="alphaMap"></vueImageLoader>
             </div>
         </div>
     </div>
@@ -61,6 +64,9 @@ export default {
     },
     bumpMap: function(image){
         this.$emit('bumpMap', image);
+    },
+    alphaMap: function(image){
+        this.$emit('alphaMap', image);
     }
   },
   components: {
