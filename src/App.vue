@@ -41,7 +41,7 @@ import rgbHex from 'rgb-hex';
 
 let materials = [
 
-    new MeshPhongMaterial({     name:'Standard', color: 0xff00ff, shininess: 100, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 100 }),
+    new MeshPhongMaterial({     name:'Standard', color: 0xff00ff, shininess: 100, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 }),
 
     new MeshLambertMaterial({     name:'Lambert 1', color: 0xff00ff, shading: SmoothShading, transparent:true }),
     new MeshLambertMaterial({     name:'Lambert Flat', color: 0xff00ff, shading: FlatShading, transparent:true }),

@@ -1,6 +1,7 @@
 <template>
     <div class="material col-sm-9 col-md-8 p-0 bg-faded">
         <div ref="wrapper"></div>
+        <div class="code">Material code</div>
     </div>
 </template>
 
@@ -136,5 +137,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
+.code {
+    text-align: left;
+    padding: 40px;
+    font-family: monospace;
+    white-space: pre;
+}
 </style>
