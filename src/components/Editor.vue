@@ -24,6 +24,15 @@
                 <span class="align-bottom">Alpha Map</span>
                 <vueImageLoader v-on:imageLoaded="alphaMap"></vueImageLoader>
             </div>
+
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Emissive Map</span>
+                <vueImageLoader v-on:imageLoaded="emissiveMap"></vueImageLoader>
+            </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Intensity</span>
+                <vue-slider ref="slider" v-bind="intense" v-model="intensity" @input="updateintensity"></vue-slider>
+            </div>
         </div>
     </div>
 </template>
@@ -41,9 +50,11 @@ export default {
     return {
         colors: {},
         shininess: 0,
+        intensity: 0,
         showwire: this.wire,
         id: this.materialId,
-        shiny: { width: '80%', tooltip: 'hover' }
+        shiny: { width: '80%', tooltip: 'hover' },
+        intense: { width: '80%', tooltip: 'hover' }
     }
   },
   methods: {
@@ -52,6 +63,9 @@ export default {
     },
     updateshininess: function() {
         this.$emit('updateshininess', { 'shininess': this.shininess });
+    },
+    updateintensity: function() {
+        this.$emit('updateintensity', { 'intensity': this.intensity });
     },
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
@@ -67,6 +81,9 @@ export default {
     },
     alphaMap: function(image){
         this.$emit('alphaMap', image);
+    },
+    emissiveMap: function(image){
+        this.$emit('emissiveMap', image);
     }
   },
   components: {

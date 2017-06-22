@@ -2,7 +2,18 @@
     <div id="app" class="container-fluid">
       <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
-        <Editor   :materialId="this.materialId" :materials="this.materials" v-on:change="change" v-on:updatecolor="updatecolor" v-on:updateshininess="updateshininess"  v-on:colorMap="colorMap"  v-on:bumpMap="bumpMap" v-on:alphaMap="alphaMap" v-on:updatewire="updatewire"></Editor>
+        <Editor 
+            :materialId="this.materialId" 
+            :materials="this.materials" 
+            v-on:change="change" 
+            v-on:updatecolor="updatecolor" 
+            v-on:updateintensity="updateintensity" 
+            v-on:updateshininess="updateshininess" 
+            v-on:colorMap="colorMap" 
+            v-on:bumpMap="bumpMap" 
+            v-on:alphaMap="alphaMap" 
+            v-on:emissiveMap="emissiveMap" 
+            v-on:updatewire="updatewire"></Editor>
       </div>
     </div>
 </template>
@@ -10,6 +21,7 @@
 <script>
 
 import {
+    MeshStandardMaterial,
     MeshPhysicalMaterial,
     MeshPhongMaterial,
     MeshLambertMaterial,
@@ -28,6 +40,8 @@ import Editor from './components/Editor.vue';
 import rgbHex from 'rgb-hex';
 
 let materials = [
+
+    new MeshPhongMaterial({     name:'Standard', color: 0xff00ff, shininess: 100, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 100 }),
 
     new MeshLambertMaterial({     name:'Lambert 1', color: 0xff00ff, shading: SmoothShading, transparent:true }),
     new MeshLambertMaterial({     name:'Lambert Flat', color: 0xff00ff, shading: FlatShading, transparent:true }),
@@ -57,8 +71,8 @@ export default {
   name: 'app',
   data () {
     return {
-        materialId: 4,
-        material: materials[4],
+        materialId: 0,
+        material: materials[0],
         materials: materials,
         color: {},
         wire: false,
@@ -72,6 +86,10 @@ export default {
     updateshininess: function(payload) {
         this.shininess = payload.shininess;
         this.material.shininess = payload.shininess;
+    },
+    updateintensity: function(payload) {
+        this.intensity = payload.intensity/100;
+        this.material.emissiveIntensity = payload.intensity/100;
     },
     updatewire: function(payload) {
         this.wire = payload.wire;
@@ -115,6 +133,21 @@ export default {
         t.bumpScale = 0.5;
         t.needsUpdate = true;
         this.material.alphaMap = t;
+        this.material.needsUpdate = true;
+    },
+    emissiveMap: function(image){
+        var i = document.createElement( 'img' );
+        i.src = image.image;
+        var t = new Texture(i);
+        t.wrapS = t.wrapT = RepeatWrapping;
+        t.repeat.set( 30, 3 );
+        t.generateMipmaps = false;
+        t.minFilter = LinearFilter;
+        t.magFilter = LinearFilter;
+        t.needsUpdate = true;
+        this.material.emissive.setHex(parseInt(rgbHex(255,0,0), 16));
+        this.material.emissiveMap = t;
+        this.material.emissiveIntensity = 100;
         this.material.needsUpdate = true;
     },
     change: function(payload) {
