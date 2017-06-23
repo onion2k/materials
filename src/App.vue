@@ -76,7 +76,8 @@ export default {
         materials: materials,
         color: {},
         wire: false,
-        shadow: false
+        shadow: false,
+        repeat: {x:5,y:5}
     }
   },
   methods: {
@@ -99,7 +100,7 @@ export default {
         i.src = image.image;
         var t = new Texture(i);
         t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( 30, 3 );
+        t.repeat.set( this.repeat.x, this.repeat.y );
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;
@@ -112,7 +113,7 @@ export default {
         i.src = image.image;
         var t = new Texture(i);
         t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( 30, 3 );
+        t.repeat.set( this.repeat.x, this.repeat.y );
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;
@@ -126,7 +127,7 @@ export default {
         i.src = image.image;
         var t = new Texture(i);
         t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( 30, 3 );
+        t.repeat.set( this.repeat.x, this.repeat.y );
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;
@@ -140,7 +141,7 @@ export default {
         i.src = image.image;
         var t = new Texture(i);
         t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( 30, 3 );
+        t.repeat.set( this.repeat.x, this.repeat.y );
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;

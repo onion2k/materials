@@ -32,7 +32,7 @@
                 <vueImageLoader v-on:imageLoaded="alphaMap"></vueImageLoader>
             </div>
             <div class="list-group-item justify-content-between">
-                <span class="align-bottom">Emissive</span>
+                <span class="align-bottom">Emissive Map</span>
                 <vueImageLoader v-on:imageLoaded="emissiveMap"></vueImageLoader>
             </div>
             <div class="list-group-item justify-content-between">
