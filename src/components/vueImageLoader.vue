@@ -1,13 +1,30 @@
 <template>
-    <div class="imageform">
-        <div class="file-upload-form">
-            <input type="file" @change="previewImage" accept="image/*">
-            {{ image || 'No image selected' }}
+    <div class="imageform map" v-on:click.self="show">
+        <div v-if="modal" class="card mapmodal">
+            <div class="card-block text-left">
+                <h4 class="card-title">Map</h4>
+                <p class="card-text">The map does stuff</p>
+            </div>
+            <div class="file-upload-form card-block">
+                <input type="file" @change="previewImage" accept="image/*">
+                {{ image || 'No image selected' }}
+            </div>
+            <ul class="list-group list-group-flush">
+                <div class="list-group-item justify-content-between">
+                    <span>Intensity</span>
+                    <vue-slider ref="slider" v-bind="intense"></vue-slider>
+                </div>
+            </ul>
+            <div class="card-block">
+                <a href="#" v-on:click="close" class="card-link">Close</a>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+
+import vueSlider from 'vue-slider-component';
 
 export default {
   name: 'vueImageLoader',
@@ -15,7 +32,9 @@ export default {
   data: function(){
     return {
         image: '',
-        background: ''
+        background: '',
+        modal: false,
+        intense: { width: '75%', tooltip: 'hover' },
     }
   },
   methods: {
@@ -37,10 +56,16 @@ export default {
             // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0]);
         }
+    },
+    show: function(){
+        this.modal = true;
+    },
+    close: function(){
+        this.modal = false;
     }
   },
   components: {
-
+    vueSlider
   }
 }
 
@@ -56,16 +81,13 @@ export default {
         width: 100%;
         position: relative;
         background-color: #eee;
-        border: 1px dashed #ccc;
-    }
-    span {
-        width: 100%;
-        z-index: 1;
     }
     input {
         position: absolute;
         top: 0;
+        bottom: 0;
         left: 0;
+        right: 0;
         opacity: 0;
         width: 100%;
         z-index: 2;
@@ -73,5 +95,21 @@ export default {
     .preview { 
         text-align: right;
         width: 20px;
+    }
+
+    .map {
+        position: relative;
+        width: 60%;
+        height: 30px;
+        background-color: #ff0;
+        border: #bbb dashed 1px;
+    }
+    .mapmodal {
+        position: absolute;
+        border: 1px solid #ccc;
+        top: -8.0rem;
+        left: -8.0rem;
+        right: -1.0rem;
+        z-index: 99;
     }
 </style>
