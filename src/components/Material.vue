@@ -127,7 +127,7 @@ export default {
         renderer.render(scene, camera);
     }
 
-    //animate();
+    animate();
 
   },
   methods: {

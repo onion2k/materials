@@ -17,7 +17,7 @@
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Color</span>
-                <div v-bind:style="color" id="colors" v-on:click="showcolors">
+                <div v-bind:style="color" id="colors" v-on:click.self="showcolors">
                     <div v-if="colormodal" id="colorsmodal">
                         <color-picker :value="colors" @input="updateValue"></color-picker>
                     </div>
