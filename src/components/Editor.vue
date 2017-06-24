@@ -1,5 +1,5 @@
 <template>
-    <div class="editor col-sm-3 col-md-4 hidden-xs-down bg-faded sidebar">
+    <div class="editor col-sm-12 col-md-6 hidden-xs-down bg-faded sidebar">
         <div class="list-group">
             <div class="list-group-item list-group-item-action justify-content-between">
                 <div class="btn-group col-xs-12">
@@ -17,7 +17,11 @@
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Color</span>
-                <color-picker :value="colors" @input="updateValue"></color-picker>
+                <div v-bind:style="color" id="colors" v-on:click="showcolors">
+                    <div v-if="colormodal" id="colorsmodal">
+                        <color-picker :value="colors" @input="updateValue"></color-picker>
+                    </div>
+                </div>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Color Map</span>
@@ -66,11 +70,14 @@ export default {
         shiny: { width: '80%', tooltip: 'hover' },
         intense: { width: '80%', tooltip: 'hover' },
         materialTypes: ['Basic','Lambert','Phone','Standard','Physical','Toon','Shader'],
-        materialTypeSelected: 'Basic'
+        materialTypeSelected: 'Basic',
+        colormodal: false,
+        color: { 'background-color': '#f00' }
     }
   },
   methods: {
     updateValue: function(color) {
+        this.color = { 'background-color': color.hex };
         this.$emit('updatecolor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
     },
     updateshininess: function() {
@@ -96,6 +103,9 @@ export default {
     },
     emissiveMap: function(image){
         this.$emit('emissiveMap', image);
+    },
+    showcolors: function(){
+        this.colormodal = !this.colormodal;
     }
   },
   components: {
@@ -123,4 +133,18 @@ a {
 
 .btn-group, .btn-fullwidth { width: 100%; }
 .dropdown-menu { width: 100%; }
+
+#colors {
+    position: relative;
+    width: 60%;
+    height: 30px;
+    background-color: #ff0;
+    border: #bbb dashed 1px;
+}
+#colorsmodal {
+    position: absolute;
+    top: -80px;
+    right: -10px;
+    z-index: 99;
+}
 </style>

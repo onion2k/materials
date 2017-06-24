@@ -1,5 +1,5 @@
 <template>
-    <div class="material col-sm-9 col-md-8 p-0 bg-faded">
+    <div class="material col-sm-12 col-md-6 p-0 bg-faded">
         <div ref="wrapper"></div>
         <div class="code">Material code</div>
     </div>
@@ -72,9 +72,10 @@ export default {
     renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
 
-    renderer.setSize(wrapper.offsetWidth, wrapper.offsetWidth*0.6);
+    let aspect = 0.75;
+    renderer.setSize(wrapper.offsetWidth, wrapper.offsetWidth*aspect);
 
-    let camera = new PerspectiveCamera(65, wrapper.offsetWidth/(wrapper.offsetWidth*0.6), 1, 10000);
+    let camera = new PerspectiveCamera(65, wrapper.offsetWidth/(wrapper.offsetWidth*aspect), 1, 10000);
         camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,0,0));
         scene.add(camera);
@@ -126,7 +127,7 @@ export default {
         renderer.render(scene, camera);
     }
 
-    animate();
+    //animate();
 
   },
   methods: {
