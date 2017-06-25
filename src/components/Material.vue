@@ -1,7 +1,7 @@
 <template>
     <div class="material col-sm-12 col-md-6 p-0 bg-faded">
         <div ref="wrapper"></div>
-        <div class="code">Material code</div>
+        <div class="code">Material code: {{ emissiveIntensity }}</div>
     </div>
 </template>
 
@@ -59,6 +59,11 @@ export default {
     material : function(value) {
         this.box.material = value;
         this.box.material.needsUpdate = true;
+    }
+  },
+  computed: {
+    emissiveIntensity () {
+        return this.$store.state.emissive.intensity;
     }
   },
   mounted: function(){

@@ -4,20 +4,29 @@ import App from './App.vue'
 
 Vue.use(Vuex);
 
-let store = new Vuex.Store({
-    state: {
-        id: ''
-    },
-    mutations: {
-      updateEmissiveIntensity (state, payload) {
-        console.log(payload);
-      }
-    },
-    actions: {
-      geocode (state, payload) { socket.emit('geocode', payload); }
+const emissiveState = {
+  state: {
+    map: {},
+    intensity: 0
+  },
+  mutations: {
+    updateEmissiveIntensity (state, payload) {
+      state.intensity = payload.v;
     }
-});
+  },
+  actions: {
+    updateEmissiveIntensity (state, payload) {
 
+    }
+  },
+  getters: {  }
+}
+
+let store = new Vuex.Store({
+  modules: {
+    emissive: emissiveState
+  }
+});
 
 new Vue({
   el: '#app',

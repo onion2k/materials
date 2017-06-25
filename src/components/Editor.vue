@@ -47,10 +47,6 @@
                 <span class="align-bottom">Specular Map</span>
                 <mapLoader v-on:imageLoaded="specularMap" v-bind:data="specularMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between">
-                <span class="align-bottom">Intensity</span>
-                <vue-slider ref="slider" v-bind="intense" v-model="intensity" @input="updateintensity"></vue-slider>
-            </div>
             <div class="list-group-item list-group-item-action justify-content-between">
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
