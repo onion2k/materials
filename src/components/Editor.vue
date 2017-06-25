@@ -95,7 +95,9 @@ export default {
         },
         emissiveMapData: {
             title: 'Emissive Map',
-            description: 'Map an image\'s green channel as the object\s emissive light.'
+            description: 'Map an image\'s green channel as the object\s emissive light.',
+            sliderUpdateEvent: 'updateEmissiveIntensity',
+            sliderValue: 50
         },
         lightMapData: {
             title: 'Light Map',

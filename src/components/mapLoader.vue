@@ -12,7 +12,7 @@
             <ul class="list-group list-group-flush">
                 <div class="list-group-item justify-content-between">
                     <span>Intensity</span>
-                    <vue-slider ref="slider" v-bind="intense"></vue-slider>
+                    <vue-slider ref="slider" v-bind="sliderSettings" v-model="sliderValue" @input="sliderUpdate"></vue-slider>
                 </div>
             </ul>
             <div class="card-block">
@@ -34,7 +34,8 @@ export default {
         image: '',
         background: '',
         modal: false,
-        intense: { width: '75%', tooltip: 'hover' },
+        sliderValue: this.data.sliderValue,
+        sliderSettings: { width: '75%', tooltip: 'hover' }
     }
   },
   methods: {
@@ -62,6 +63,12 @@ export default {
     },
     close: function(){
         this.modal = false;
+    },
+    sliderUpdate: function(){
+
+        this.$store.commit(this.data.sliderUpdateEvent, { 'v': this.sliderValue });
+
+        //this.$emit(this.data.sliderUpdateEvent, { 'intensity': this.intensity });
     }
   },
   components: {
