@@ -2,12 +2,12 @@
     <div class="imageform map" v-on:click.self="show">
         <div v-if="modal" class="card mapmodal">
             <div class="card-block text-left">
-                <h4 class="card-title">Map</h4>
-                <p class="card-text">The map does stuff</p>
+                <h4 class="card-title">{{ this.data.title }}</h4>
+                <p class="card-text">{{ this.data.description }}</p>
             </div>
             <div class="file-upload-form card-block">
                 <input type="file" @change="previewImage" accept="image/*">
-                {{ image || 'No image selected' }}
+                {{ image || 'Click to select an image' }}
             </div>
             <ul class="list-group list-group-flush">
                 <div class="list-group-item justify-content-between">
@@ -27,8 +27,8 @@
 import vueSlider from 'vue-slider-component';
 
 export default {
-  name: 'vueImageLoader',
-  props: ['imageLoaded'],
+  name: 'mapLoader',
+  props: ['imageLoaded', 'data'],
   data: function(){
     return {
         image: '',
@@ -73,6 +73,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    h4 {
+        font-family: 'Taviraj', serif;
+    }
     .imageform {
         width: 60%;
         text-align: center;
@@ -96,7 +99,6 @@ export default {
         text-align: right;
         width: 20px;
     }
-
     .map {
         position: relative;
         width: 60%;
@@ -106,7 +108,7 @@ export default {
     }
     .mapmodal {
         position: absolute;
-        border: 1px solid #ccc;
+        border: 1px dashed #aaa;
         top: -8.0rem;
         left: -8.0rem;
         right: -1.0rem;

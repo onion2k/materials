@@ -13,6 +13,8 @@
             v-on:bumpMap="bumpMap" 
             v-on:alphaMap="alphaMap" 
             v-on:emissiveMap="emissiveMap" 
+            v-on:lightMap="lightMap" 
+            v-on:specularMap="specularMap" 
             v-on:updatewire="updatewire"></Editor>
       </div>
     </div>
@@ -151,6 +153,32 @@ export default {
         this.material.emissiveIntensity = 100;
         this.material.needsUpdate = true;
     },
+    lightMap: function(image){
+        var i = document.createElement( 'img' );
+        i.src = image.image;
+        var t = new Texture(i);
+        t.wrapS = t.wrapT = RepeatWrapping;
+        t.repeat.set( this.repeat.x, this.repeat.y );
+        t.generateMipmaps = false;
+        t.minFilter = LinearFilter;
+        t.magFilter = LinearFilter;
+        t.needsUpdate = true;
+        this.material.lightMap = t;
+        this.material.needsUpdate = true;
+    },
+    specularMap: function(image){
+        var i = document.createElement( 'img' );
+        i.src = image.image;
+        var t = new Texture(i);
+        t.wrapS = t.wrapT = RepeatWrapping;
+        t.repeat.set( this.repeat.x, this.repeat.y );
+        t.generateMipmaps = false;
+        t.minFilter = LinearFilter;
+        t.magFilter = LinearFilter;
+        t.needsUpdate = true;
+        this.material.specularMap = t;
+        this.material.needsUpdate = true;
+    },
     change: function(payload) {
         if (this.color !== '') {
             materials[payload.material].color.setStyle(this.color);
@@ -168,7 +196,7 @@ export default {
 
 <style lang="scss">
 #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Work Sans', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

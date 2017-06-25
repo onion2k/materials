@@ -25,19 +25,27 @@
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Color Map</span>
-                <vueImageLoader v-on:imageLoaded="colorMap"></vueImageLoader>
+                <mapLoader v-on:imageLoaded="colorMap" v-bind:data="colorMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Bump Map</span>
-                <vueImageLoader v-on:imageLoaded="bumpMap"></vueImageLoader>
+                <mapLoader v-on:imageLoaded="bumpMap" v-bind:data="bumpMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Alpha Map</span>
-                <vueImageLoader v-on:imageLoaded="alphaMap"></vueImageLoader>
+                <mapLoader v-on:imageLoaded="alphaMap" v-bind:data="alphaMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Emissive Map</span>
-                <vueImageLoader v-on:imageLoaded="emissiveMap"></vueImageLoader>
+                <mapLoader v-on:imageLoaded="emissiveMap" v-bind:data="emissiveMapData"></mapLoader>
+            </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Light Map</span>
+                <mapLoader v-on:imageLoaded="lightMap" v-bind:data="lightMapData"></mapLoader>
+            </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Specular Map</span>
+                <mapLoader v-on:imageLoaded="specularMap" v-bind:data="specularMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Intensity</span>
@@ -54,7 +62,7 @@
 <script>
 
 import { Sketch } from 'vue-color';
-import vueImageLoader from './vueImageLoader.vue';
+import mapLoader from './mapLoader.vue';
 import vueSlider from 'vue-slider-component';
 
 export default {
@@ -72,7 +80,31 @@ export default {
         materialTypes: ['Basic','Lambert','Phone','Standard','Physical','Toon','Shader'],
         materialTypeSelected: 'Basic',
         colormodal: false,
-        color: { 'background-color': '#f00' }
+        color: { 'background-color': '#f00' },
+        colorMapData: {
+            title: 'Color Map',
+            description: 'Map an image\'s color data to the object.'
+        },
+        bumpMapData: {
+            title: 'Bump Map',
+            description: 'Map an image\'s green channel as a bumpy texture on the object.'
+        },
+        alphaMapData: {
+            title: 'Alpha Map',
+            description: 'Map an image\'s blue channel to the object\s transparency.'
+        },
+        emissiveMapData: {
+            title: 'Emissive Map',
+            description: 'Map an image\'s green channel as the object\s emissive light.'
+        },
+        lightMapData: {
+            title: 'Light Map',
+            description: 'Map an image\'s green channel as the object\s lights.'
+        },
+        specularMapData: {
+            title: 'Specular Map',
+            description: 'Map an image\'s blue channel as the object\s specular reflectivity.'
+        }
     }
   },
   methods: {
@@ -104,6 +136,12 @@ export default {
     emissiveMap: function(image){
         this.$emit('emissiveMap', image);
     },
+    lightMap: function(image){
+        this.$emit('lightMap', image);
+    },
+    specularMap: function(image){
+        this.$emit('specularMap', image);
+    },
     showcolors: function(){
         this.colormodal = !this.colormodal;
     }
@@ -111,7 +149,7 @@ export default {
   components: {
     'color-picker': Sketch,
     vueSlider,
-    vueImageLoader
+    mapLoader
   }
 }
 
