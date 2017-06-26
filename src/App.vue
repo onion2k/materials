@@ -3,9 +3,12 @@
       <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
         <Editor 
+            :spec="this.materialSpec" 
+            :materialTypeSelected="this.materialTypeSelected"
             :materialId="this.materialId" 
             :materials="this.materials" 
             v-on:change="change" 
+            v-on:updatematerial="updatematerial" 
             v-on:updatecolor="updatecolor" 
             v-on:updateintensity="updateintensity" 
             v-on:updateshininess="updateshininess" 
@@ -70,10 +73,14 @@ let materials = [
 
 ];
 
+import materialSpecs from './material_defs';
+
 export default {
   name: 'app',
   data () {
     return {
+        materialTypeSelected: 'MeshBasicMaterial',
+        materialSpec: materialSpecs['MeshBasicMaterial'],
         materialId: 0,
         material: materials[0],
         materials: materials,
@@ -84,6 +91,10 @@ export default {
     }
   },
   methods: {
+    updatematerial: function(payload){
+        this.materialTypeSelected = payload.material;
+        this.materialSpec = materialSpecs[payload.material];
+    },
     updatecolor: function(payload) {
         this.material.color.setHex( parseInt(rgbHex(payload.r,payload.g,payload.b), 16) );
     },

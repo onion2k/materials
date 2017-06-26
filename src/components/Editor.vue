@@ -11,11 +11,11 @@
                     </div>
                 </div>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
                 <span class="align-bottom">Shininess</span>
                 <vue-slider ref="slider" v-bind="shiny" v-model="shininess" @input="updateshininess"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
                 <span class="align-bottom">Color</span>
                 <div v-bind:style="color" id="colors" v-on:click.self="showcolors">
                     <div v-if="colormodal" id="colorsmodal">
@@ -23,31 +23,31 @@
                     </div>
                 </div>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.map!==true }">
                 <span class="align-bottom">Color Map</span>
                 <mapLoader v-on:imageLoaded="colorMap" v-bind:data="colorMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.bumpMap!==true }">
                 <span class="align-bottom">Bump Map</span>
                 <mapLoader v-on:imageLoaded="bumpMap" v-bind:data="bumpMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
                 <span class="align-bottom">Alpha Map</span>
                 <mapLoader v-on:imageLoaded="alphaMap" v-bind:data="alphaMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.emissiveMap!==true }">
                 <span class="align-bottom">Emissive Map</span>
                 <mapLoader v-on:imageLoaded="emissiveMap" v-bind:data="emissiveMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.aoMap!==true }">
                 <span class="align-bottom">AO Map</span>
                 <mapLoader v-on:imageLoaded="occlusionMap" v-bind:data="occlusionMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.lightMap!==true }">
                 <span class="align-bottom">Light Map</span>
                 <mapLoader v-on:imageLoaded="lightMap" v-bind:data="lightMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.specularMap!==true }">
                 <span class="align-bottom">Specular Map</span>
                 <mapLoader v-on:imageLoaded="specularMap" v-bind:data="specularMapData"></mapLoader>
             </div>
@@ -67,7 +67,7 @@ import vueSlider from 'vue-slider-component';
 
 export default {
   name: 'Editor',
-  props: ['materialId', 'materials', 'wire'],
+  props: ['materialId', 'materials', 'wire', 'spec', 'materialTypeSelected'],
   data: function(){
     return {
         colors: {},
@@ -76,8 +76,7 @@ export default {
         showwire: this.wire,
         id: this.materialId,
         shiny: { width: '60%', tooltip: 'hover' },
-        materialTypes: ['Basic','Lambert','Phong','Standard','Physical','Toon','Shader'],
-        materialTypeSelected: 'Basic',
+        materialTypes: ['MeshBasicMaterial','MeshLambertMaterial','MeshPhongMaterial','MeshStandardMaterial','MeshPhysicalMaterial','MeshToonMaterial','ShaderMaterial'],
         colormodal: false,
         color: { 'background-color': '#fff' },
         colorMapData: {
@@ -114,7 +113,7 @@ export default {
   },
   methods: {
     materialSelector: function(material){
-        this.materialTypeSelected = material;
+        this.$emit('updatematerial', { 'material': material });
     },
     updateValue: function(color) {
         this.color = { 'background-color': color.hex };
@@ -196,4 +195,16 @@ a {
     right: -10px;
     z-index: 99;
 }
+
+.disabled {
+    pointer-events: none;
+    border-color: #e2e2e2;
+    color: #ccc;
+    background-color: #f8f8f8;
+}
+
+.disabled > .map {
+    background-color: #f8f8f8;
+}
+
 </style>
