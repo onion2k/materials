@@ -110,15 +110,16 @@ export default {
         position: relative;
         width: 60%;
         height: 30px;
-        background-color: #ff0;
-        border: #bbb dashed 1px;
+        background-color: #fff;
+        border: 1px dashed #bbb;
     }
     .mapmodal {
         position: absolute;
-        border: 1px dashed #aaa;
+        border: 1px solid #444;
         top: -8.0rem;
-        left: -8.0rem;
+        left: -1.0rem;
         right: -1.0rem;
         z-index: 99;
+        box-shadow: 0px 6px 6px 2px rgba(0, 0, 0, 0.3);
     }
 </style>

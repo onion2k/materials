@@ -7,7 +7,7 @@
                         Material Type: {{ materialTypeSelected }}
                     </button>
                     <div class="dropdown-menu col-xs-12">
-                        <button class="dropdown-item" type="button" v-for="material in materialTypes">{{ material }}</button>
+                        <button class="dropdown-item" type="button" v-for="material in materialTypes" v-on:click="materialSelector(material)" v-bind:class="{ active: material===materialTypeSelected }">{{ material }}</button>
                     </div>
                 </div>
             </div>
@@ -38,6 +38,10 @@
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Emissive Map</span>
                 <mapLoader v-on:imageLoaded="emissiveMap" v-bind:data="emissiveMapData"></mapLoader>
+            </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">AO Map</span>
+                <mapLoader v-on:imageLoaded="occlusionMap" v-bind:data="occlusionMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Light Map</span>
@@ -71,12 +75,11 @@ export default {
         intensity: 0,
         showwire: this.wire,
         id: this.materialId,
-        shiny: { width: '80%', tooltip: 'hover' },
-        intense: { width: '80%', tooltip: 'hover' },
-        materialTypes: ['Basic','Lambert','Phone','Standard','Physical','Toon','Shader'],
+        shiny: { width: '60%', tooltip: 'hover' },
+        materialTypes: ['Basic','Lambert','Phong','Standard','Physical','Toon','Shader'],
         materialTypeSelected: 'Basic',
         colormodal: false,
-        color: { 'background-color': '#f00' },
+        color: { 'background-color': '#fff' },
         colorMapData: {
             title: 'Color Map',
             description: 'Map an image\'s color data to the object.'
@@ -95,6 +98,10 @@ export default {
             sliderUpdateEvent: 'updateEmissiveIntensity',
             sliderValue: 50
         },
+        occlusionMapData: {
+            title: 'Ambient occlusion Map',
+            description: 'Map an image\'s color data as the object\s abmient occlusion.'
+        },
         lightMapData: {
             title: 'Light Map',
             description: 'Map an image\'s green channel as the object\s lights.'
@@ -106,6 +113,9 @@ export default {
     }
   },
   methods: {
+    materialSelector: function(material){
+        this.materialTypeSelected = material;
+    },
     updateValue: function(color) {
         this.color = { 'background-color': color.hex };
         this.$emit('updatecolor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
@@ -130,6 +140,9 @@ export default {
     },
     alphaMap: function(image){
         this.$emit('alphaMap', image);
+    },
+    occlusionMap: function(image){
+        this.$emit('occlusionMap', image);
     },
     emissiveMap: function(image){
         this.$emit('emissiveMap', image);

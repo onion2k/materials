@@ -13,6 +13,7 @@
             v-on:bumpMap="bumpMap" 
             v-on:alphaMap="alphaMap" 
             v-on:emissiveMap="emissiveMap" 
+            v-on:occlusionMap="occlusionMap" 
             v-on:lightMap="lightMap" 
             v-on:specularMap="specularMap" 
             v-on:updatewire="updatewire"></Editor>
@@ -151,6 +152,19 @@ export default {
         this.material.emissive.setHex(parseInt(rgbHex(255,0,0), 16));
         this.material.emissiveMap = t;
         this.material.emissiveIntensity = 100;
+        this.material.needsUpdate = true;
+    },
+    occlusionMap: function(image){
+        var i = document.createElement( 'img' );
+        i.src = image.image;
+        var t = new Texture(i);
+        t.wrapS = t.wrapT = RepeatWrapping;
+        t.repeat.set( this.repeat.x, this.repeat.y );
+        t.generateMipmaps = false;
+        t.minFilter = LinearFilter;
+        t.magFilter = LinearFilter;
+        t.needsUpdate = true;
+        this.material.aoMap = t;
         this.material.needsUpdate = true;
     },
     lightMap: function(image){
