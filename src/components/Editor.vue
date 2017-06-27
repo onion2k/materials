@@ -81,12 +81,13 @@ export default {
         color: { 'background-color': '#fff' },
         colorMapData: {
             title: 'Color Map',
-            description: 'Map an image\'s color data to the object.'
+            description: 'Map an image\'s color data to the object.',
+            imageUpdateEvent: 'colormap/updateMap',
         },
         bumpMapData: {
             title: 'Bump Map',
             description: 'Map an image\'s green channel as a bumpy texture on the object.',
-            imageUpdateEvent: 'updateBumpMap',
+            imageUpdateEvent: 'bumpmap/updateMap',
         },
         alphaMapData: {
             title: 'Alpha Map',
@@ -127,7 +128,6 @@ export default {
         this.$emit('updateintensity', { 'intensity': this.intensity });
     },
     updatewire: function() {
-        console.log(this.$store.state.bump)
         this.$emit('updatewire', { 'wire': this.showwire });
     },
     change: function(v) {

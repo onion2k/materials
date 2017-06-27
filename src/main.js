@@ -24,38 +24,14 @@ let emissiveState = {
   getters: {  }
 }
 
-let bumpState = {
-  state: {
-    texture: null,
-    repeat: { x: 5, y: 5 },
-    scale: 1.0
-  },
-  mutations: {
-    updateBumpRepeat (state, payload) {
-      state.repeat = payload.v;
-    },
-    updateBumpScale (state, payload) {
-      state.bumpScale = payload.v;
-    },
-    updateBumpTexture (state, payload) {
-      state.texture = payload.image;
-    }
-  },
-  actions: {
-    updateBumpMap(state, payload) {
-      state.commit('updateBumpTexture', payload);
-    }
-  },
-  getters: {
-
-  }
-}
-
+import colormap from './state/colormap';
+import bumpmap from './state/bumpmap';
 
 let store = new Vuex.Store({
   modules: {
+    colormap: colormap,
     emissive: emissiveState,
-    bump: bumpState
+    bumpmap: bumpmap
   }
 });
 

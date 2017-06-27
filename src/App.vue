@@ -94,22 +94,12 @@ export default {
   },
   computed: {
     bumpTexture: function () {
-      return this.$store.state.bump.texture;
+      return this.$store.state.bumpmap.texture;
     }
   },
   watch: {
     bumpTexture: function(val) {
-        var i = document.createElement( 'img' );
-        i.src = val;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.bumpScale = 0.5;
-        t.needsUpdate = true;
-        this.material.bumpMap = t;
+        this.material.bumpMap = this.bumpTexture;
         this.material.needsUpdate = true;
     }
   },  
