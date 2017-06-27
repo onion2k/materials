@@ -10,6 +10,17 @@
                 {{ image || 'Click to select an image' }}
             </div>
             <ul class="list-group list-group-flush">
+
+                <div class="list-group-item justify-content-between">
+                    <span>x Repeat</span>
+                    <vue-slider ref="slider" v-bind="sliderSettings" v-model="xRepeatSliderValue" @input="xRepeatSliderUpdate"></vue-slider>
+                </div>
+
+                <div class="list-group-item justify-content-between">
+                    <span>y Repeat</span>
+                    <vue-slider ref="slider" v-bind="sliderSettings" v-model="yRepeatSliderValue" @input="yRepeatSliderUpdate"></vue-slider>
+                </div>
+
                 <div class="list-group-item justify-content-between">
                     <span>Intensity</span>
                     <vue-slider ref="slider" v-bind="sliderSettings" v-model="sliderValue" @input="sliderUpdate"></vue-slider>
@@ -35,7 +46,9 @@ export default {
         background: '',
         modal: false,
         sliderValue: this.data.sliderValue,
-        sliderSettings: { width: '75%', tooltip: 'hover' }
+        sliderSettings: { width: '75%', tooltip: 'hover' },
+        xRepeatSliderValue: 0,
+        yRepeatSliderValue: 0
     }
   },
   methods: {
@@ -53,7 +66,7 @@ export default {
                 //this.imageData = e.target.result;
                 this.image = input.files[0].name;
                 //this.$emit('imageLoaded', { image: e.target.result });
-                this.$store.dispatch(this.data.imageUpdateEvent, { map: 'bump', filename: input.files[0].name, image: e.target.result });
+                this.$store.dispatch(this.data.namespace+'/mapUpdate', { map: 'bump', filename: input.files[0].name, image: e.target.result });
             }
             // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0]);
@@ -66,11 +79,14 @@ export default {
         this.modal = false;
     },
     sliderUpdate: function(){
-
-        this.$store.commit(this.data.sliderUpdateEvent, { 'v': this.sliderValue });
-
-        //this.$emit(this.data.sliderUpdateEvent, { 'intensity': this.intensity });
-    }
+        this.$store.commit(this.data.namespace+'/sliderUpdate', { 'v': this.sliderValue });
+    },
+    xRepeatSliderUpdate: function(){
+        this.$store.commit(this.data.namespace+'/xRepeatSliderUpdate', { 'v': this.xRepeatSliderValue });
+    },
+    yRepeatSliderUpdate: function(){
+        this.$store.commit(this.data.namespace+'/yRepeatSliderUpdate', { 'v': this.yRepeatSliderValue });
+    }    
   },
   components: {
     vueSlider

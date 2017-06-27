@@ -25,7 +25,7 @@ export default {
     }
   },
   actions: {
-    updateMap(context, payload) {
+    mapUpdate(context, payload) {
 
         console.log(context.state.repeat.x);
 

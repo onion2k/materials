@@ -82,11 +82,13 @@ export default {
         colorMapData: {
             title: 'Color Map',
             description: 'Map an image\'s color data to the object.',
+            namespace: 'colormap',
             imageUpdateEvent: 'colormap/updateMap',
         },
         bumpMapData: {
             title: 'Bump Map',
             description: 'Map an image\'s green channel as a bumpy texture on the object.',
+            namespace: 'bumpmap',
             imageUpdateEvent: 'bumpmap/updateMap',
         },
         alphaMapData: {

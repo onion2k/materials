@@ -17,7 +17,7 @@ export default {
     }
   },
   actions: {
-    updateMap(state, payload) {
+    mapUpdate(state, payload) {
       state.commit('updateTexture', payload);
     }
   },
