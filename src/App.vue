@@ -1,6 +1,5 @@
 <template>
     <div id="app" class="container-fluid">
-      -{{ this.bumpTexture }}-
       <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
         <Editor 
@@ -20,7 +19,8 @@
             v-on:occlusionMap="occlusionMap" 
             v-on:lightMap="lightMap" 
             v-on:specularMap="specularMap" 
-            v-on:updatewire="updatewire"></Editor>
+            v-on:updatewire="updatewire">
+        </Editor>
       </div>
     </div>
 </template>
@@ -98,8 +98,19 @@ export default {
     }
   },
   watch: {
-    bumpTexture: function() {
-        console.log("watched");
+    bumpTexture: function(val) {
+        var i = document.createElement( 'img' );
+        i.src = val;
+        var t = new Texture(i);
+        t.wrapS = t.wrapT = RepeatWrapping;
+        t.repeat.set( this.repeat.x, this.repeat.y );
+        t.generateMipmaps = false;
+        t.minFilter = LinearFilter;
+        t.magFilter = LinearFilter;
+        t.bumpScale = 0.5;
+        t.needsUpdate = true;
+        this.material.bumpMap = t;
+        this.material.needsUpdate = true;
     }
   },  
   methods: {
