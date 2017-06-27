@@ -18,6 +18,7 @@ export default {
         'refractionRatio': true,
         'skinning': true,
         'specularMap': true
+
     },
 
     'MeshLambertMaterial': {

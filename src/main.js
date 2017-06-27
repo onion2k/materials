@@ -4,8 +4,10 @@ import App from './App.vue'
 
 Vue.use(Vuex);
 
-const emissiveState = {
+let emissiveState = {
   state: {
+    texture: null,
+    material: {},
     map: {},
     intensity: 0
   },
@@ -15,16 +17,45 @@ const emissiveState = {
     }
   },
   actions: {
-    updateEmissiveIntensity (state, payload) {
+    updateEmissiveMap(state, payload) {
 
     }
   },
   getters: {  }
 }
 
+let bumpState = {
+  state: {
+    texture: null,
+    repeat: { x: 5, y: 5 },
+    scale: 1.0
+  },
+  mutations: {
+    updateBumpRepeat (state, payload) {
+      state.repeat = payload.v;
+    },
+    updateBumpScale (state, payload) {
+      state.bumpScale = payload.v;
+    },
+    updateBumpTexture (state, payload) {
+      state.texture = payload.image;
+    }
+  },
+  actions: {
+    updateBumpMap(state, payload) {
+      state.commit('updateBumpTexture', payload);
+    }
+  },
+  getters: {
+
+  }
+}
+
+
 let store = new Vuex.Store({
   modules: {
-    emissive: emissiveState
+    emissive: emissiveState,
+    bump: bumpState
   }
 });
 

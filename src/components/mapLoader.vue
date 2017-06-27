@@ -52,7 +52,8 @@ export default {
                 // Read image as base64 and set to imageData
                 //this.imageData = e.target.result;
                 this.image = input.files[0].name;
-                this.$emit('imageLoaded', { image: e.target.result });
+                //this.$emit('imageLoaded', { image: e.target.result });
+                this.$store.dispatch(this.data.imageUpdateEvent, { map: 'bump', filename: input.files[0].name, image: e.target.result });
             }
             // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0]);

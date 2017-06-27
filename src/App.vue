@@ -1,5 +1,6 @@
 <template>
     <div id="app" class="container-fluid">
+      -{{ this.bumpTexture }}-
       <div class="row">
         <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
         <Editor 
@@ -41,6 +42,7 @@ import {
     ImageUtils
 } from '../node_modules/three/build/three.module';
 
+import { mapState, mapActions } from 'vuex'
 import Material from './components/Material.vue';
 import Editor from './components/Editor.vue';
 import rgbHex from 'rgb-hex';
@@ -79,8 +81,8 @@ export default {
   name: 'app',
   data () {
     return {
-        materialTypeSelected: 'MeshBasicMaterial',
-        materialSpec: materialSpecs['MeshBasicMaterial'],
+        materialTypeSelected: 'MeshPhongMaterial',
+        materialSpec: materialSpecs['MeshPhongMaterial'],
         materialId: 0,
         material: materials[0],
         materials: materials,
@@ -90,6 +92,16 @@ export default {
         repeat: {x:5,y:5}
     }
   },
+  computed: {
+    bumpTexture: function () {
+      return this.$store.state.bump.texture;
+    }
+  },
+  watch: {
+    bumpTexture: function() {
+        console.log("watched");
+    }
+  },  
   methods: {
     updatematerial: function(payload){
         this.materialTypeSelected = payload.material;
@@ -107,6 +119,8 @@ export default {
         this.material.emissiveIntensity = payload.intensity/100;
     },
     updatewire: function(payload) {
+        this.$store.dispatch('updateBumpMap', { image: 123 });
+
         this.wire = payload.wire;
     },
     colorMap: function(image){
@@ -123,18 +137,20 @@ export default {
         this.material.needsUpdate = true;
     },
     bumpMap: function(image){
-        var i = document.createElement( 'img' );
-        i.src = image.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.bumpScale = 0.5;
-        t.needsUpdate = true;
-        this.material.bumpMap = t;
-        this.material.needsUpdate = true;
+
+        // var i = document.createElement( 'img' );
+        // i.src = image.image;
+        // var t = new Texture(i);
+        // t.wrapS = t.wrapT = RepeatWrapping;
+        // t.repeat.set( this.repeat.x, this.repeat.y );
+        // t.generateMipmaps = false;
+        // t.minFilter = LinearFilter;
+        // t.magFilter = LinearFilter;
+        // t.bumpScale = 0.5;
+        // t.needsUpdate = true;
+        // this.material.bumpMap = t;
+        // this.material.needsUpdate = true;
+
     },
     alphaMap: function(image){
         var i = document.createElement( 'img' );
