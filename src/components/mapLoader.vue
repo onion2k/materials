@@ -1,5 +1,6 @@
 <template>
     <div class="imageform map" v-on:click.self="show">
+        {{ this.image }}
         <div v-if="modal" class="card mapmodal">
             <div class="card-block text-left">
                 <h4 class="card-title">{{ this.data.title }}</h4>

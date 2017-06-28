@@ -23,7 +23,7 @@ export default {
     },
     updateColor: function(state, payload) {
       state.color = payload.rgba;
-    }
+    },
     updateIntensity (state, payload) {
       state.intensity = payload.v / 100;
     },
