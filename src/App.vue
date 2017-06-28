@@ -12,7 +12,8 @@
             v-on:updatecolor="updatecolor" 
             v-on:updateintensity="updateintensity" 
             v-on:updateshininess="updateshininess" 
-            v-on:updatewire="updatewire">
+            v-on:updatewire="updatewire"
+            v-on:updateshadows="updateshadows">
         </Editor>
       </div>
     </div>
@@ -81,7 +82,7 @@ export default {
         materials: materials,
         color: {},
         wire: false,
-        shadow: false,
+        shadow: true,
         repeat: {x:5,y:5}
     }
   },
@@ -90,9 +91,13 @@ export default {
     bumpTexture: function () { return this.$store.state.bumpmap.texture; },
     colorTexture: function () { return this.$store.state.colormap.texture; },
     emissiveTexture: function () { return this.$store.state.emissivemap.texture; },
+    emissiveIntensity: function () { return this.$store.state.emissivemap.intensity; },
     lightTexture: function () { return this.$store.state.lightmap.texture; },
     occlusionTexture: function () { return this.$store.state.occlusionmap.texture; },
-    specularTexture: function () { return this.$store.state.specularmap.texture; }
+    specularTexture: function () { return this.$store.state.specularmap.texture; },
+
+    envTexture: function () { return this.$store.state.envmap.texture; },
+
   },
   watch: {
     alphaTexture: function(val) {
@@ -109,6 +114,12 @@ export default {
     },
     emissiveTexture: function(val) {
         this.material.emissiveMap = this.emissiveTexture;
+        this.material.emissive.setRGB( 255,0,0 );
+        this.material.needsUpdate = true;
+    },
+    emissiveIntensity: function(val) {
+        this.material.emissive.setRGB( 255,0,0 );
+        this.material.emissiveIntensity = this.emissiveIntensity;
         this.material.needsUpdate = true;
     },
     lightTexture: function(val) {
@@ -121,6 +132,10 @@ export default {
     },
     specularTexture: function(val) {
         this.material.specularMap = this.specularTexture;
+        this.material.needsUpdate = true;
+    },
+    envTexture: function(val) {
+        this.material.envMap = this.envTexture;
         this.material.needsUpdate = true;
     }
   },  
@@ -141,9 +156,10 @@ export default {
         this.material.emissiveIntensity = payload.intensity/100;
     },
     updatewire: function(payload) {
-        this.$store.dispatch('updateBumpMap', { image: 123 });
-
         this.wire = payload.wire;
+    },
+    updateshadows: function(payload) {
+        this.shadow = payload.shadow;
     },
     change: function(payload) {
         if (this.color !== '') {

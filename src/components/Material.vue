@@ -27,6 +27,7 @@ import {
     PointLight,
     DirectionalLight,
     DirectionalLightHelper,
+    SpotLight,
     EdgesGeometry,
     LineBasicMaterial,
     LineSegments
@@ -36,9 +37,11 @@ export default {
   name: 'Material',
   props: ['material', 'wire', 'shadow'],
   data: function() {
+
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
     //let boxgeo = new BoxGeometry(60, 60, 60);
     //let boxgeo = new SphereGeometry(40, 60, 60);
+
     let mesh = new Mesh(boxgeo, this.material);
         mesh.castShadow = true;
         mesh.receiveShadow = false;
@@ -47,14 +50,20 @@ export default {
     let wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
     let wireframe = new LineSegments( wiregeo, wiremat );
 
+    let light = new SpotLight(0xffffff, 1);;
+
     return {
         wireframe: wireframe,
-        box: mesh
+        box: mesh,
+        light: light
     }
   },
   watch : {
     wire : function(value) {
         this.wireframe.visible = value;
+    },
+    shadow : function(value) {
+        this.light.castShadow = value;
     },
     material : function(value) {
         this.box.material = value;
@@ -93,20 +102,19 @@ export default {
         hook.add(this.box);
         scene.add(hook);
 
-    let light = new PointLight(0xffffff, 1);
-        light.position.set(100, 200, 75);
-        light.lookAt(new Vector3(0,0,0));
-        scene.add(light);
+    this.light.position.set(100, 200, 75);
+        this.light.lookAt(new Vector3(0,0,0));
+        scene.add(this.light);
 
     if (this.shadow) {
 
-        light.castShadow = true;
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
-        light.shadow.camera.near = 1;
-        light.shadow.camera.far = 500;
-        light.shadow.bias = 0.0001;
-        light.shadow.radius = 4;
+        this.light.castShadow = true;
+        this.light.shadow.mapSize.width = 1024;
+        this.light.shadow.mapSize.height = 1024;
+        this.light.shadow.camera.near = 1;
+        this.light.shadow.camera.far = 1500;
+        this.light.shadow.bias = 0.0001;
+        this.light.shadow.radius = 4;
 
     }
 

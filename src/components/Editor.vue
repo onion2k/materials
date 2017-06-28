@@ -23,37 +23,45 @@
                     </div>
                 </div>
             </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
+                <span class="align-bottom">Alpha Map</span>
+                <mapLoader v-bind:data="alphaMapData"></mapLoader>
+            </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.map!==true }">
                 <span class="align-bottom">Color Map</span>
-                <mapLoader v-on:imageLoaded="colorMap" v-bind:data="colorMapData"></mapLoader>
+                <mapLoader v-bind:data="colorMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.bumpMap!==true }">
                 <span class="align-bottom">Bump Map</span>
-                <mapLoader v-on:imageLoaded="bumpMap" v-bind:data="bumpMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
-                <span class="align-bottom">Alpha Map</span>
-                <mapLoader v-on:imageLoaded="alphaMap" v-bind:data="alphaMapData"></mapLoader>
+                <mapLoader v-bind:data="bumpMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.emissiveMap!==true }">
                 <span class="align-bottom">Emissive Map</span>
-                <mapLoader v-on:imageLoaded="emissiveMap" v-bind:data="emissiveMapData"></mapLoader>
+                <mapLoader v-bind:data="emissiveMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.aoMap!==true }">
                 <span class="align-bottom">AO Map</span>
-                <mapLoader v-on:imageLoaded="occlusionMap" v-bind:data="occlusionMapData"></mapLoader>
+                <mapLoader v-bind:data="occlusionMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.lightMap!==true }">
                 <span class="align-bottom">Light Map</span>
-                <mapLoader v-on:imageLoaded="lightMap" v-bind:data="lightMapData"></mapLoader>
+                <mapLoader v-bind:data="lightMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.specularMap!==true }">
                 <span class="align-bottom">Specular Map</span>
-                <mapLoader v-on:imageLoaded="specularMap" v-bind:data="specularMapData"></mapLoader>
+                <mapLoader v-bind:data="specularMapData"></mapLoader>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.envMap!==true }">
+                <span class="align-bottom">Environment Map</span>
+                <mapLoader v-bind:data="envMapData"></mapLoader>
             </div>
             <div class="list-group-item list-group-item-action justify-content-between">
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
+            </div>
+            <div class="list-group-item list-group-item-action justify-content-between">
+                Cast shadows
+                <input type="checkbox" id="shadows" v-model="showshadow" v-on:click="updateshadows">
             </div>
         </div>
     </div>
@@ -67,13 +75,14 @@ import vueSlider from 'vue-slider-component';
 
 export default {
   name: 'Editor',
-  props: ['materialId', 'materials', 'wire', 'spec', 'materialTypeSelected'],
+  props: ['materialId', 'materials', 'wire', 'shadow', 'spec', 'materialTypeSelected'],
   data: function(){
     return {
         colors: {},
         shininess: 0,
         intensity: 0,
         showwire: this.wire,
+        showshadow: this.shadow,
         id: this.materialId,
         shiny: { width: '60%', tooltip: 'hover' },
         materialTypes: ['MeshBasicMaterial','MeshLambertMaterial','MeshPhongMaterial','MeshStandardMaterial','MeshPhysicalMaterial','MeshToonMaterial','ShaderMaterial'],
@@ -113,6 +122,11 @@ export default {
             title: 'Specular Map',
             description: 'Map an image\'s blue channel as the object\s specular reflectivity.',
             namespace: 'specularmap'
+        },
+        envMapData: {
+            title: 'Environment Map',
+            description: '',
+            namespace: 'envmap'
         }
     }
   },
@@ -133,29 +147,11 @@ export default {
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
     },
+    updateshadows: function() {
+        this.$emit('updateshadows', { 'shadow': this.showshadow });
+    },
     change: function(v) {
         this.$emit('change', { 'material': v });
-    },
-    colorMap: function(image){
-        this.$emit('colorMap', image);
-    },
-    bumpMap: function(image){
-        this.$emit('bumpMap', image);
-    },
-    alphaMap: function(image){
-        this.$emit('alphaMap', image);
-    },
-    occlusionMap: function(image){
-        this.$emit('occlusionMap', image);
-    },
-    emissiveMap: function(image){
-        this.$emit('emissiveMap', image);
-    },
-    lightMap: function(image){
-        this.$emit('lightMap', image);
-    },
-    specularMap: function(image){
-        this.$emit('specularMap', image);
     },
     showcolors: function(){
         this.colormodal = !this.colormodal;

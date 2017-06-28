@@ -10,14 +10,18 @@ export default {
   state: {
     texture: null,
     repeat: { x: 5, y: 5 },
-    scale: 1.0
+    intensity: 1.0
   },
   mutations: {
     updateRepeat (state, payload) {
-      state.repeat = payload.v;
+      state.repeat = payload;
+      if (state.texture !== null) {
+        state.texture.repeat.set( state.repeat.x, state.repeat.y );
+        state.texture.needsUpdate = true;
+      }
     },
-    updateScale (state, payload) {
-      state.bumpScale = payload.v;
+    updateIntensity (state, payload) {
+      state.intensity = payload.v / 100;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -25,8 +29,6 @@ export default {
   },
   actions: {
     mapUpdate(context, payload) {
-
-        console.log(context.state.repeat.x);
 
         var i = document.createElement( 'img' );
         i.src = payload.image;
@@ -36,11 +38,19 @@ export default {
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;
-        t.bumpScale = context.state.scale;
         t.needsUpdate = true;
 
         context.commit('updateTexture', { texture: t });
 
+    },
+    xRepeatSliderUpdate(context, payload) {
+        context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
+    },
+    yRepeatSliderUpdate(context, payload) {
+        context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
+    },
+    sliderUpdate(context, payload) {
+        context.commit('updateIntensity', payload );
     }
   }
 }

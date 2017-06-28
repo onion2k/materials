@@ -21,7 +21,7 @@ export default {
       }
     },
     updateScale (state, payload) {
-      state.bumpScale = payload.v;
+      state.scale = payload.v / 100;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -49,6 +49,9 @@ export default {
     },
     yRepeatSliderUpdate(context, payload) {
         context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
+    },
+    sliderUpdate(context, payload) {
+        context.commit('updateScale', payload );
     }
   }
 }
