@@ -82,36 +82,37 @@ export default {
         colorMapData: {
             title: 'Color Map',
             description: 'Map an image\'s color data to the object.',
-            namespace: 'colormap',
-            imageUpdateEvent: 'colormap/updateMap',
+            namespace: 'colormap'
         },
         bumpMapData: {
             title: 'Bump Map',
             description: 'Map an image\'s green channel as a bumpy texture on the object.',
-            namespace: 'bumpmap',
-            imageUpdateEvent: 'bumpmap/updateMap',
+            namespace: 'bumpmap'
         },
         alphaMapData: {
             title: 'Alpha Map',
-            description: 'Map an image\'s blue channel to the object\s transparency.'
+            description: 'Map an image\'s blue channel to the object\s transparency.',
+            namespace: 'alphamap'
         },
         emissiveMapData: {
             title: 'Emissive Map',
             description: 'Map an image\'s green channel as the object\s emissive light.',
-            sliderUpdateEvent: 'updateEmissiveIntensity',
-            sliderValue: 50
+            namespace: 'emissivemap'
         },
         occlusionMapData: {
             title: 'Ambient occlusion Map',
-            description: 'Map an image\'s color data as the object\s abmient occlusion.'
+            description: 'Map an image\'s color data as the object\s abmient occlusion.',
+            namespace: 'occlusionmap'
         },
         lightMapData: {
             title: 'Light Map',
-            description: 'Map an image\'s green channel as the object\s lights.'
+            description: 'Map an image\'s green channel as the object\s lights.',
+            namespace: 'lightmap'
         },
         specularMapData: {
             title: 'Specular Map',
-            description: 'Map an image\'s blue channel as the object\s specular reflectivity.'
+            description: 'Map an image\'s blue channel as the object\s specular reflectivity.',
+            namespace: 'specularmap'
         }
     }
   },

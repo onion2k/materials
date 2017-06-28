@@ -1,7 +1,7 @@
 <template>
     <div class="material col-sm-12 col-md-6 p-0 bg-faded">
         <div ref="wrapper"></div>
-        <div class="code">Material code: {{ emissiveIntensity }}</div>
+        <div class="code">Material code:</div>
     </div>
 </template>
 

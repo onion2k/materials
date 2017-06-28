@@ -12,13 +12,6 @@
             v-on:updatecolor="updatecolor" 
             v-on:updateintensity="updateintensity" 
             v-on:updateshininess="updateshininess" 
-            v-on:colorMap="colorMap" 
-            v-on:bumpMap="bumpMap" 
-            v-on:alphaMap="alphaMap" 
-            v-on:emissiveMap="emissiveMap" 
-            v-on:occlusionMap="occlusionMap" 
-            v-on:lightMap="lightMap" 
-            v-on:specularMap="specularMap" 
             v-on:updatewire="updatewire">
         </Editor>
       </div>
@@ -93,13 +86,41 @@ export default {
     }
   },
   computed: {
-    bumpTexture: function () {
-      return this.$store.state.bumpmap.texture;
-    }
+    alphaTexture: function () { return this.$store.state.alphamap.texture; },
+    bumpTexture: function () { return this.$store.state.bumpmap.texture; },
+    colorTexture: function () { return this.$store.state.colormap.texture; },
+    emissiveTexture: function () { return this.$store.state.emissivemap.texture; },
+    lightTexture: function () { return this.$store.state.lightmap.texture; },
+    occlusionTexture: function () { return this.$store.state.occlusionmap.texture; },
+    specularTexture: function () { return this.$store.state.specularmap.texture; }
   },
   watch: {
+    alphaTexture: function(val) {
+        this.material.alphaMap = this.alphaTexture;
+        this.material.needsUpdate = true;
+    },
     bumpTexture: function(val) {
         this.material.bumpMap = this.bumpTexture;
+        this.material.needsUpdate = true;
+    },
+    colorTexture: function(val) {
+        this.material.map = this.colorTexture;
+        this.material.needsUpdate = true;
+    },
+    emissiveTexture: function(val) {
+        this.material.emissiveMap = this.emissiveTexture;
+        this.material.needsUpdate = true;
+    },
+    lightTexture: function(val) {
+        this.material.lightMap = this.lightTexture;
+        this.material.needsUpdate = true;
+    },
+    occlusionTexture: function(val) {
+        this.material.occlusionMap = this.occlusionTexture;
+        this.material.needsUpdate = true;
+    },
+    specularTexture: function(val) {
+        this.material.specularMap = this.specularTexture;
         this.material.needsUpdate = true;
     }
   },  
@@ -123,103 +144,6 @@ export default {
         this.$store.dispatch('updateBumpMap', { image: 123 });
 
         this.wire = payload.wire;
-    },
-    colorMap: function(image){
-        var i = document.createElement( 'img' );
-        i.src = image.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.needsUpdate = true;
-        this.material.map = t;
-        this.material.needsUpdate = true;
-    },
-    bumpMap: function(image){
-
-        // var i = document.createElement( 'img' );
-        // i.src = image.image;
-        // var t = new Texture(i);
-        // t.wrapS = t.wrapT = RepeatWrapping;
-        // t.repeat.set( this.repeat.x, this.repeat.y );
-        // t.generateMipmaps = false;
-        // t.minFilter = LinearFilter;
-        // t.magFilter = LinearFilter;
-        // t.bumpScale = 0.5;
-        // t.needsUpdate = true;
-        // this.material.bumpMap = t;
-        // this.material.needsUpdate = true;
-
-    },
-    alphaMap: function(image){
-        var i = document.createElement( 'img' );
-        i.src = image.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.bumpScale = 0.5;
-        t.needsUpdate = true;
-        this.material.alphaMap = t;
-        this.material.needsUpdate = true;
-    },
-    emissiveMap: function(image){
-        var i = document.createElement( 'img' );
-        i.src = image.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.needsUpdate = true;
-        this.material.emissive.setHex(parseInt(rgbHex(255,0,0), 16));
-        this.material.emissiveMap = t;
-        this.material.emissiveIntensity = 100;
-        this.material.needsUpdate = true;
-    },
-    occlusionMap: function(image){
-        var i = document.createElement( 'img' );
-        i.src = image.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.needsUpdate = true;
-        this.material.aoMap = t;
-        this.material.needsUpdate = true;
-    },
-    lightMap: function(image){
-        var i = document.createElement( 'img' );
-        i.src = image.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.needsUpdate = true;
-        this.material.lightMap = t;
-        this.material.needsUpdate = true;
-    },
-    specularMap: function(image){
-        var i = document.createElement( 'img' );
-        i.src = image.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( this.repeat.x, this.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.needsUpdate = true;
-        this.material.specularMap = t;
-        this.material.needsUpdate = true;
     },
     change: function(payload) {
         if (this.color !== '') {

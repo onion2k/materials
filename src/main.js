@@ -4,34 +4,23 @@ import App from './App.vue'
 
 Vue.use(Vuex);
 
-let emissiveState = {
-  state: {
-    texture: null,
-    material: {},
-    map: {},
-    intensity: 0
-  },
-  mutations: {
-    updateEmissiveIntensity (state, payload) {
-      state.intensity = payload.v;
-    }
-  },
-  actions: {
-    updateEmissiveMap(state, payload) {
-
-    }
-  },
-  getters: {  }
-}
-
-import colormap from './state/colormap';
+import alphamap from './state/alphamap';
 import bumpmap from './state/bumpmap';
+import colormap from './state/colormap';
+import emissivemap from './state/emissivemap';
+import lightmap from './state/lightmap';
+import occlusionmap from './state/occlusionmap';
+import specularmap from './state/specularmap';
 
 let store = new Vuex.Store({
   modules: {
+    alphamap: alphamap,
+    bumpmap: bumpmap,
     colormap: colormap,
-    emissive: emissiveState,
-    bumpmap: bumpmap
+    emissivemap: emissivemap,
+    lightmap: lightmap,
+    occlusionmap: occlusionmap,
+    specularmap: specularmap
   }
 });
 

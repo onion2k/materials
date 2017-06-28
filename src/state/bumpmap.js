@@ -1,4 +1,3 @@
-
 import {
     Texture,
     RepeatWrapping,
@@ -15,7 +14,11 @@ export default {
   },
   mutations: {
     updateRepeat (state, payload) {
-      state.repeat = payload.v;
+      state.repeat = payload;
+      if (state.texture !== null) {
+        state.texture.repeat.set( state.repeat.x, state.repeat.y );
+        state.texture.needsUpdate = true;
+      }
     },
     updateScale (state, payload) {
       state.bumpScale = payload.v;
@@ -26,8 +29,6 @@ export default {
   },
   actions: {
     mapUpdate(context, payload) {
-
-        console.log(context.state.repeat.x);
 
         var i = document.createElement( 'img' );
         i.src = payload.image;
@@ -42,6 +43,12 @@ export default {
 
         context.commit('updateTexture', { texture: t });
 
+    },
+    xRepeatSliderUpdate(context, payload) {
+        context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
+    },
+    yRepeatSliderUpdate(context, payload) {
+        context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
     }
   }
 }

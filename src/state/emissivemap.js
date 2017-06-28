@@ -26,6 +26,8 @@ export default {
   actions: {
     mapUpdate(context, payload) {
 
+        console.log(context.state.repeat.x);
+
         var i = document.createElement( 'img' );
         i.src = payload.image;
         var t = new Texture(i);

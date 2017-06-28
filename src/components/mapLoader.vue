@@ -79,13 +79,13 @@ export default {
         this.modal = false;
     },
     sliderUpdate: function(){
-        this.$store.commit(this.data.namespace+'/sliderUpdate', { 'v': this.sliderValue });
+        this.$store.dispatch(this.data.namespace+'/sliderUpdate', { 'v': this.sliderValue });
     },
     xRepeatSliderUpdate: function(){
-        this.$store.commit(this.data.namespace+'/xRepeatSliderUpdate', { 'v': this.xRepeatSliderValue });
+        this.$store.dispatch(this.data.namespace+'/xRepeatSliderUpdate', { 'v': this.xRepeatSliderValue });
     },
     yRepeatSliderUpdate: function(){
-        this.$store.commit(this.data.namespace+'/yRepeatSliderUpdate', { 'v': this.yRepeatSliderValue });
+        this.$store.dispatch(this.data.namespace+'/yRepeatSliderUpdate', { 'v': this.yRepeatSliderValue });
     }    
   },
   components: {
