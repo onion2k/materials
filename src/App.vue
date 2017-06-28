@@ -89,11 +89,13 @@ export default {
   computed: {
     alphaTexture: function () { return this.$store.state.alphamap.texture; },
     bumpTexture: function () { return this.$store.state.bumpmap.texture; },
+    bumpScale: function () { return this.$store.state.bumpmap.scale; },
     colorTexture: function () { return this.$store.state.colormap.texture; },
     emissiveTexture: function () { return this.$store.state.emissivemap.texture; },
     emissiveIntensity: function () { return this.$store.state.emissivemap.intensity; },
     lightTexture: function () { return this.$store.state.lightmap.texture; },
     occlusionTexture: function () { return this.$store.state.occlusionmap.texture; },
+    occlusionIntensity: function () { return this.$store.state.occlusionmap.intensity; },
     specularTexture: function () { return this.$store.state.specularmap.texture; },
 
     envTexture: function () { return this.$store.state.envmap.texture; },
@@ -106,6 +108,10 @@ export default {
     },
     bumpTexture: function(val) {
         this.material.bumpMap = this.bumpTexture;
+        this.material.needsUpdate = true;
+    },
+    bumpScale: function(val) {
+        this.material.bumpScale = this.bumpScale;
         this.material.needsUpdate = true;
     },
     colorTexture: function(val) {
@@ -128,6 +134,10 @@ export default {
     },
     occlusionTexture: function(val) {
         this.material.occlusionMap = this.occlusionTexture;
+        this.material.needsUpdate = true;
+    },
+    occlusionIntensity: function(val) {
+        this.material.occlusionIntensity = this.occlusionIntensity;
         this.material.needsUpdate = true;
     },
     specularTexture: function(val) {

@@ -10,7 +10,7 @@ export default {
   state: {
     texture: null,
     repeat: { x: 5, y: 5 },
-    scale: 1.0
+    intensity: 1.0
   },
   mutations: {
     updateRepeat (state, payload) {
@@ -20,9 +20,8 @@ export default {
         state.texture.needsUpdate = true;
       }
     },
-    updateScale (state, payload) {
-      state.scale = payload.v / 100;
-      //state.texture.bumpScale = state.scale ;
+    updateIntensity (state, payload) {
+      state.intensity = payload.v / 100;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -51,7 +50,7 @@ export default {
         context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
     },
     sliderUpdate(context, payload) {
-        context.commit('updateScale', payload );
+        context.commit('updateIntensity', payload );
     }
   }
 }

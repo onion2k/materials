@@ -8,6 +8,7 @@ import {
 export default {
   namespaced: true,
   state: {
+    color: null,
     texture: null,
     repeat: { x: 5, y: 5 },
     scale: 1.0
@@ -19,6 +20,9 @@ export default {
         state.texture.repeat.set( state.repeat.x, state.repeat.y );
         state.texture.needsUpdate = true;
       }
+    },
+    updateColor: function(state, payload) {
+      state.color = payload.rgba;
     },
     updateScale (state, payload) {
       state.scale = payload.v / 100;
@@ -52,6 +56,9 @@ export default {
     },
     sliderUpdate(context, payload) {
         context.commit('updateScale', payload );
+    },
+    colorUpdate(context, payload) {
+        context.commit('updateColor', payload );
     }
   }
 }

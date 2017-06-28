@@ -8,6 +8,7 @@ import {
 export default {
   namespaced: true,
   state: {
+    color: null,
     texture: null,
     repeat: { x: 5, y: 5 },
     intensity: 1.0
@@ -20,6 +21,9 @@ export default {
         state.texture.needsUpdate = true;
       }
     },
+    updateColor: function(state, payload) {
+      state.color = payload.rgba;
+    }
     updateIntensity (state, payload) {
       state.intensity = payload.v / 100;
     },
@@ -51,6 +55,9 @@ export default {
     },
     sliderUpdate(context, payload) {
         context.commit('updateIntensity', payload );
+    },
+    colorUpdate(context, payload) {
+        context.commit('updateColor', payload );
     }
   }
 }
