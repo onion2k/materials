@@ -22,8 +22,8 @@
                     <vue-slider ref="slider" v-bind="sliderSettings" v-model="yRepeatSliderValue" @input="yRepeatSliderUpdate"></vue-slider>
                 </div>
 
-                <div class="list-group-item justify-content-between">
-                    <span>Intensity</span>
+                <div class="list-group-item justify-content-between" v-if="sliderTitle">
+                    <span>{{ sliderTitle }}</span>
                     <vue-slider ref="slider" v-bind="sliderSettings" v-model="sliderValue" @input="sliderUpdate"></vue-slider>
                 </div>
             </ul>
@@ -46,6 +46,7 @@ export default {
         image: '',
         background: '',
         modal: false,
+        sliderTitle: this.data.sliderTitle,
         sliderValue: this.data.sliderValue,
         sliderSettings: { width: '75%', tooltip: 'hover' },
         xRepeatSliderValue: 0,

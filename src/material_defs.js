@@ -173,7 +173,7 @@ export default {
         'gradientMap': true
     },
 
-    'MeshShaderMaterial': {
+    'ShaderMaterial': {
 
         'clipping': true,
         'defaultAttributeValues': true,

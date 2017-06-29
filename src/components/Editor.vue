@@ -43,6 +43,9 @@
                 <span class="align-bottom">AO Map</span>
                 <mapLoader v-bind:data="occlusionMapData"></mapLoader>
             </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.normalMap!==true }">
+                <span class="align-bottom">Normal Map</span>
+            </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.lightMap!==true }">
                 <span class="align-bottom">Light Map</span>
                 <mapLoader v-bind:data="lightMapData"></mapLoader>
@@ -55,13 +58,59 @@
                 <span class="align-bottom">Environment Map</span>
                 <mapLoader v-bind:data="envMapData"></mapLoader>
             </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.envMap!==true }">
+                <span class="align-bottom">Combine Op.</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.reflectivity!==true }">
+                <span class="align-bottom">Reflectivity</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.refractionRatio!==true }">
+                <span class="align-bottom">Refraction Ratio</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.displacementMap!==true }">
+                <span class="align-bottom">Displacement Map</span>
+            </div>
+
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughness!==true }">
+                <span class="align-bottom">Roughness</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughnessMap!==true }">
+                <span class="align-bottom">Roughness Map</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalness!==true }">
+                <span class="align-bottom">Metalness</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
+                <span class="align-bottom">Metalness Map</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearcoat!==true }">
+                <span class="align-bottom">Clearcoat</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearcoatRoughness!==true }">
+                <span class="align-bottom">Clearcoard Roughness</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.reflectivity!==true }">
+                <span class="align-bottom">Reflectivity</span>
+            </div>
+            
+
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">
+                <span class="align-top">Fragment Shader</span>
+                <textarea name="fShader"></textarea>
+            </div>
+
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.vertexShader!==true }">
+                <span class="align-top">Vertex Shader</span>
+                <textarea name="vShader"></textarea>
+            </div>
+
             <div class="list-group-item list-group-item-action justify-content-between">
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
             </div>
             <div class="list-group-item list-group-item-action justify-content-between">
-                Cast shadows
-                <input type="checkbox" id="shadows" v-model="showshadow" v-on:click="updateshadows">
+                Show shadows
+                <input type="checkbox" id="shadows" v-model="showshadow" v-on:click="updateshadow">
             </div>
         </div>
     </div>
@@ -88,25 +137,27 @@ export default {
         materialTypes: ['MeshBasicMaterial','MeshLambertMaterial','MeshPhongMaterial','MeshStandardMaterial','MeshPhysicalMaterial','MeshToonMaterial','ShaderMaterial'],
         colormodal: false,
         color: { 'background-color': '#fff' },
-        colorMapData: {
-            title: 'Color Map',
-            description: 'Map an image\'s color data to the object.',
-            namespace: 'colormap'
-        },
-        bumpMapData: {
-            title: 'Bump Map',
-            description: 'Map an image\'s green channel as a bumpy texture on the object.',
-            namespace: 'bumpmap'
-        },
         alphaMapData: {
             title: 'Alpha Map',
             description: 'Map an image\'s blue channel to the object\s transparency.',
             namespace: 'alphamap'
         },
+        bumpMapData: {
+            title: 'Bump Map',
+            description: 'Map an image\'s green channel as a bumpy texture on the object.',
+            namespace: 'bumpmap',
+            sliderTitle: 'Scale'
+        },
+        colorMapData: {
+            title: 'Color Map',
+            description: 'Map an image\'s color data to the object.',
+            namespace: 'colormap'
+        },
         emissiveMapData: {
             title: 'Emissive Map',
             description: 'Map an image\'s green channel as the object\s emissive light.',
-            namespace: 'emissivemap'
+            namespace: 'emissivemap',
+            sliderTitle: 'Intensity'
         },
         occlusionMapData: {
             title: 'Ambient occlusion Map',
@@ -121,7 +172,8 @@ export default {
         specularMapData: {
             title: 'Specular Map',
             description: 'Map an image\'s blue channel as the object\s specular reflectivity.',
-            namespace: 'specularmap'
+            namespace: 'specularmap',
+            sliderTitle: 'Intensity'
         },
         envMapData: {
             title: 'Environment Map',
@@ -147,7 +199,7 @@ export default {
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
     },
-    updateshadows: function() {
+    updateshadow: function() {
         this.$emit('updateshadows', { 'shadow': this.showshadow });
     },
     change: function(v) {
@@ -187,9 +239,10 @@ a {
     position: relative;
     width: 60%;
     height: 30px;
-    background-color: #ff0;
+    background-color: #fff;
     border: #bbb dashed 1px;
 }
+
 #colorsmodal {
     position: absolute;
     top: -80px;
@@ -204,8 +257,22 @@ a {
     background-color: #f8f8f8;
 }
 
+.disabled #colors {
+    background-color: #f8f8f8 !important;
+}
+
+.hidden {
+    display: none;
+}
+
 .disabled > .map {
     background-color: #f8f8f8;
+}
+
+textarea {
+    width: 60%;
+    min-height: 200px;
+    border: 1px dashed #bbb;
 }
 
 </style>

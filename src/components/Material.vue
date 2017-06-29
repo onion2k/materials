@@ -109,12 +109,12 @@ export default {
     if (this.shadow) {
 
         this.light.castShadow = true;
-        this.light.shadow.mapSize.width = 1024;
-        this.light.shadow.mapSize.height = 1024;
+        this.light.shadow.mapSize.width = 2048;
+        this.light.shadow.mapSize.height = 2048;
         this.light.shadow.camera.near = 1;
-        this.light.shadow.camera.far = 1500;
-        this.light.shadow.bias = 0.0001;
-        this.light.shadow.radius = 4;
+        this.light.shadow.camera.far = 750;
+        this.light.shadow.bias = 0.001;
+        this.light.shadow.radius = 2;
 
     }
 
