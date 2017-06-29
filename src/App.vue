@@ -24,6 +24,7 @@
 <script>
 
 import {
+    MeshBasicMaterial,
     MeshStandardMaterial,
     MeshPhysicalMaterial,
     MeshPhongMaterial,
@@ -45,7 +46,7 @@ import rgbHex from 'rgb-hex';
 
 let materials = [
 
-    new MeshPhongMaterial({     name:'Standard', color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 }),
+    new MeshPhongMaterial({ name:'Standard', color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 }),
 
     // new MeshLambertMaterial({     name:'Lambert 1', color: 0xff00ff, shading: SmoothShading, transparent:true }),
     // new MeshLambertMaterial({     name:'Lambert Flat', color: 0xff00ff, shading: FlatShading, transparent:true }),
@@ -99,9 +100,7 @@ export default {
     occlusionTexture: function () { return this.$store.state.occlusionmap.texture; },
     occlusionIntensity: function () { return this.$store.state.occlusionmap.intensity; },
     specularTexture: function () { return this.$store.state.specularmap.texture; },
-
-    envTexture: function () { return this.$store.state.envmap.texture; },
-
+    envTexture: function () { return this.$store.state.envmap.texture; }
   },
   watch: {
     alphaTexture: function(val) {
@@ -155,6 +154,42 @@ export default {
     updatematerial: function(payload){
         this.materialTypeSelected = payload.material;
         this.materialSpec = materialSpecs[payload.material];
+
+        switch (payload.material) {
+
+            case "MeshBasicMaterial":
+                this.material = new MeshBasicMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material.needsUpdate = true;
+            break;
+
+            case "MeshLambertMaterial":
+                this.material = new MeshLambertMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material.needsUpdate = true;
+            break;
+
+            case "MeshLambertMaterial":
+                this.material = new MeshPhongMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material.needsUpdate = true;
+            break;
+
+            case "MeshLambertMaterial":
+                this.material = new MeshPhysicalMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material.needsUpdate = true;
+            break;
+
+            case "MeshToonMaterial":
+                this.material = new MeshToonMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material.needsUpdate = true;
+            break;
+
+            case "MeshStandardMaterial":
+                this.material = new MeshStandardMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material.needsUpdate = true;
+            break;
+            
+
+        }
+
     },
     updatecolor: function(payload) {
         this.material.color.setHex( parseInt(rgbHex(payload.r,payload.g,payload.b), 16) );
