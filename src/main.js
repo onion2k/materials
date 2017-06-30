@@ -4,6 +4,7 @@ import App from './App.vue'
 
 Vue.use(Vuex);
 
+import properties from './state/properties';
 import alphamap from './state/alphamap';
 import bumpmap from './state/bumpmap';
 import colormap from './state/colormap';
@@ -15,6 +16,7 @@ import envmap from './state/envmap';
 
 let store = new Vuex.Store({
   modules: {
+    properties: properties,
     alphamap: alphamap,
     bumpmap: bumpmap,
     colormap: colormap,

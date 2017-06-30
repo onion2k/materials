@@ -16,7 +16,7 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
                 <span class="align-bottom">Shininess</span>
-                <vue-slider ref="slider" v-bind="shiny" v-model="shininess" @input="updateshininess"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
                 <span class="align-bottom">Color</span>
@@ -86,8 +86,9 @@
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
                 <span class="align-bottom">Metalness Map</span>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearcoat!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoat!==true }">
                 <span class="align-bottom">Clearcoat</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearcoatRoughness!==true }">
                 <span class="align-bottom">Clearcoard Roughness</span>
@@ -136,7 +137,7 @@ export default {
         showwire: this.wire,
         showshadow: this.shadow,
         id: this.materialId,
-        shiny: { width: '60%', tooltip: 'hover' },
+        slider: { width: '60%', tooltip: 'hover' },
         materialTypes: ['MeshBasicMaterial','MeshLambertMaterial','MeshPhongMaterial','MeshStandardMaterial','MeshPhysicalMaterial','MeshToonMaterial','ShaderMaterial'],
         colormodal: false,
         color: { 'background-color': '#fff' },
@@ -182,8 +183,12 @@ export default {
             title: 'Environment Map',
             description: '',
             namespace: 'envmap'
-        }
+        },
+        clearcoat: this._clearcoat
     }
+  },
+  computed: {
+      _clearcoat: function(){ return this.$store.state.properties.clearcoat; }
   },
   methods: {
     materialSelector: function(material){
@@ -195,6 +200,9 @@ export default {
     },
     updateshininess: function() {
         this.$emit('updateshininess', { 'shininess': this.shininess });
+    },
+    updateclearcoat: function() {
+        this.$store.commit('properties/updateClearcoat', { 'clearcoat': this.clearcoat });
     },
     updateintensity: function() {
         this.$emit('updateintensity', { 'intensity': this.intensity });

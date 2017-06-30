@@ -100,7 +100,8 @@ export default {
     occlusionTexture: function () { return this.$store.state.occlusionmap.texture; },
     occlusionIntensity: function () { return this.$store.state.occlusionmap.intensity; },
     specularTexture: function () { return this.$store.state.specularmap.texture; },
-    envTexture: function () { return this.$store.state.envmap.texture; }
+    envTexture: function () { return this.$store.state.envmap.texture; },
+    propertiesClearcoat: function () { return this.$store.state.properties.clearcoat }
   },
   watch: {
     alphaTexture: function(val) {
@@ -148,6 +149,10 @@ export default {
     envTexture: function(val) {
         this.material.envMap = this.envTexture;
         this.material.needsUpdate = true;
+    },
+    propertiesClearcoat: function(val) {
+        this.material.clearCoat = val/100;
+        this.material.needsUpdate = true;
     }
   },  
   methods: {
@@ -167,13 +172,13 @@ export default {
                 this.material.needsUpdate = true;
             break;
 
-            case "MeshLambertMaterial":
+            case "MeshPhongMaterial":
                 this.material = new MeshPhongMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
                 this.material.needsUpdate = true;
             break;
 
-            case "MeshLambertMaterial":
-                this.material = new MeshPhysicalMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+            case "MeshPhysicalMaterial":
+                this.material = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.0, metalness: 1.0, shading: SmoothShading, transparent:true, clearCoat: 0.0, clearCoatRoughness: 0.0 });
                 this.material.needsUpdate = true;
             break;
 
