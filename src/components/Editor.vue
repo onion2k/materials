@@ -20,9 +20,9 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
                 <span class="align-bottom">Color</span>
-                <div v-bind:style="color" id="colors" v-on:click.self="showcolors">
-                    <div v-if="colormodal" id="colorsmodal">
-                        <color-picker :value="colors" @input="updateValue"></color-picker>
+                <div id="colors" v-on:click.self="showcolors">
+                    <div v-if="colorModal" id="colorsmodal">
+                        <color-picker :value="color" @input="updatecolor"></color-picker>
                     </div>
                 </div>
             </div>
@@ -131,16 +131,26 @@ export default {
   props: ['materialId', 'materials', 'wire', 'shadow', 'spec', 'materialTypeSelected'],
   data: function(){
     return {
-        colors: {},
-        shininess: 0,
-        intensity: 0,
+        id: this.materialId,
+
+        materialTypes: ['MeshBasicMaterial','MeshLambertMaterial','MeshPhongMaterial','MeshStandardMaterial','MeshPhysicalMaterial','MeshToonMaterial','ShaderMaterial'],
+
         showwire: this.wire,
         showshadow: this.shadow,
-        id: this.materialId,
+
         slider: { width: '60%', tooltip: 'hover' },
-        materialTypes: ['MeshBasicMaterial','MeshLambertMaterial','MeshPhongMaterial','MeshStandardMaterial','MeshPhysicalMaterial','MeshToonMaterial','ShaderMaterial'],
-        colormodal: false,
-        color: { 'background-color': '#fff' },
+
+        colorModal: false,
+        colorStyle: { 'background-color': '#fff' },
+
+        color: this.$store.state.properties.color,
+        shininess: this._shininess,
+        reflectivity: this._reflectivity,
+        roughness: this._roughness,
+        metalness: this._metalness,
+        clearcoat: this._clearcoat,
+        clearcoatRoughness: this._clearcoatRoughness,
+
         alphaMapData: {
             title: 'Alpha Map',
             description: 'Map an image\'s blue channel to the object\s transparency.',
@@ -183,41 +193,66 @@ export default {
             title: 'Environment Map',
             description: '',
             namespace: 'envmap'
-        },
-        clearcoat: this._clearcoat
+        }
     }
   },
   computed: {
-      _clearcoat: function(){ return this.$store.state.properties.clearcoat; }
+      //_color: function(){ return this.$store.state.properties.color; },
+      _shininess: function(){ return this.$store.state.properties.shininess; },
+      _reflectivity: function(){ return this.$store.state.properties.reflectivity; },
+      _roughness: function(){ return this.$store.state.properties.roughness; },
+      _metalness: function(){ return this.$store.state.properties.metalness; },
+      _clearcoat: function(){ return this.$store.state.properties.clearcoat; },
+      _clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; }
   },
   methods: {
     materialSelector: function(material){
         this.$emit('updatematerial', { 'material': material });
     },
-    updateValue: function(color) {
-        this.color = { 'background-color': color.hex };
-        this.$emit('updatecolor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
+    // updateValue: function(color) {
+    //     this.color = { 'background-color': color.hex };
+    //     this.$emit('updatecolor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
+    // },
+    // updateshininess: function() {
+    //     this.$emit('updateshininess', { 'shininess': this.shininess });
+    // },
+
+    updatecolor: function(color) {
+        this.$store.commit('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
     },
     updateshininess: function() {
-        this.$emit('updateshininess', { 'shininess': this.shininess });
+        this.$store.commit('properties/updateShininess', { 'shininess': this.shininess });
+    },
+    updatereflectivity: function() {
+        this.$store.commit('properties/updateReflectivity', { 'reflectivity': this.reflectivity });
     },
     updateclearcoat: function() {
         this.$store.commit('properties/updateClearcoat', { 'clearcoat': this.clearcoat });
     },
-    updateintensity: function() {
-        this.$emit('updateintensity', { 'intensity': this.intensity });
+    updateclearcoatroughness: function() {
+        this.$store.commit('properties/updateClearcoatRoughness', { 'clearcoatRoughness': this.clearcoatRoughness });
     },
+    updatemetalness: function() {
+        this.$store.commit('properties/updateMetalness', { 'metalness': this.metalness });
+    },
+    updateroughness: function() {
+        this.$store.commit('properties/updateRoughness', { 'roughness': this.roughness });
+    },
+
+    // updateintensity: function() {
+    //     this.$emit('updateintensity', { 'intensity': this.intensity });
+    // },
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
     },
     updateshadow: function() {
         this.$emit('updateshadows', { 'shadow': this.showshadow });
     },
-    change: function(v) {
-        this.$emit('change', { 'material': v });
-    },
+    // change: function(v) {
+    //     this.$emit('change', { 'material': v });
+    // },
     showcolors: function(){
-        this.colormodal = !this.colormodal;
+        this.colorModal = !this.colorModal;
     }
   },
   components: {

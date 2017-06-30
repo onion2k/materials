@@ -11,9 +11,6 @@
             :shadow="this.shadow"
             v-on:change="change" 
             v-on:updatematerial="updatematerial" 
-            v-on:updatecolor="updatecolor" 
-            v-on:updateintensity="updateintensity" 
-            v-on:updateshininess="updateshininess" 
             v-on:updatewire="updatewire"
             v-on:updateshadows="updateshadows">
         </Editor>
@@ -83,13 +80,13 @@ export default {
         materialId: 0,
         material: materials[0],
         materials: materials,
-        color: {},
         wire: true,
         shadow: true,
         repeat: {x:5,y:5}
     }
   },
   computed: {
+
     alphaTexture: function () { return this.$store.state.alphamap.texture; },
     bumpTexture: function () { return this.$store.state.bumpmap.texture; },
     bumpScale: function () { return this.$store.state.bumpmap.scale; },
@@ -101,7 +98,15 @@ export default {
     occlusionIntensity: function () { return this.$store.state.occlusionmap.intensity; },
     specularTexture: function () { return this.$store.state.specularmap.texture; },
     envTexture: function () { return this.$store.state.envmap.texture; },
-    propertiesClearcoat: function () { return this.$store.state.properties.clearcoat }
+
+    color: function () { return this.$store.state.properties.color },
+    shininess: function () { return this.$store.state.properties.shininess },
+    reflectivity: function () { return this.$store.state.properties.reflectivity },
+    roughness: function () { return this.$store.state.properties.roughness },
+    metalness: function () { return this.$store.state.properties.metalness },
+    clearcoat: function () { return this.$store.state.properties.clearcoat },
+    clearcoatRoughness: function () { return this.$store.state.properties.clearcoatRoughness }
+
   },
   watch: {
     alphaTexture: function(val) {
@@ -150,13 +155,38 @@ export default {
         this.material.envMap = this.envTexture;
         this.material.needsUpdate = true;
     },
-    propertiesClearcoat: function(val) {
+    color: function(val) {
+        this.material.color.setHex(val);
+        this.material.needsUpdate = true;
+    },
+    shininess: function(val) {
+        this.material.shininess = val;
+        this.material.needsUpdate = true;
+    },
+    reflectivity: function(val) {
+        this.material.reflectivity = val/100;
+        this.material.needsUpdate = true;
+    },
+    roughness: function(val) {
+        this.material.roughness = val/100;
+        this.material.needsUpdate = true;
+    },
+    metalness: function(val) {
+        this.material.metalness = val/100;
+        this.material.needsUpdate = true;
+    },
+    clearcoat: function(val) {
         this.material.clearCoat = val/100;
+        this.material.needsUpdate = true;
+    },
+    clearcoatRoughness: function(val) {
+        this.material.clearCoatRoughness = val/100;
         this.material.needsUpdate = true;
     }
   },  
   methods: {
     updatematerial: function(payload){
+
         this.materialTypeSelected = payload.material;
         this.materialSpec = materialSpecs[payload.material];
 
@@ -191,22 +221,21 @@ export default {
                 this.material = new MeshStandardMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
                 this.material.needsUpdate = true;
             break;
-            
 
         }
 
     },
-    updatecolor: function(payload) {
-        this.material.color.setHex( parseInt(rgbHex(payload.r,payload.g,payload.b), 16) );
-    },
-    updateshininess: function(payload) {
-        this.shininess = payload.shininess;
-        this.material.shininess = payload.shininess;
-    },
-    updateintensity: function(payload) {
-        this.intensity = payload.intensity/100;
-        this.material.emissiveIntensity = payload.intensity/100;
-    },
+    // updatecolor: function(payload) {
+    //     this.material.color.setHex( parseInt(rgbHex(payload.r,payload.g,payload.b), 16) );
+    // },
+    // updateshininess: function(payload) {
+    //     this.shininess = payload.shininess;
+    //     this.material.shininess = payload.shininess;
+    // },
+    // updateintensity: function(payload) {
+    //     this.intensity = payload.intensity/100;
+    //     this.material.emissiveIntensity = payload.intensity/100;
+    // },
     updatewire: function(payload) {
         this.wire = payload.wire;
     },
@@ -214,9 +243,9 @@ export default {
         this.shadow = payload.shadow;
     },
     change: function(payload) {
-        if (this.color !== '') {
-            materials[payload.material].color.setStyle(this.color);
-        }
+        // if (this.color !== '') {
+        //     materials[payload.material].color.setStyle(this.color);
+        // }
         this.material = materials[payload.material];
     }
   },
