@@ -11,6 +11,9 @@
                     </div>
                 </div>
             </div>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Sidedness</span>
+            </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
                 <span class="align-bottom">Shininess</span>
                 <vue-slider ref="slider" v-bind="shiny" v-model="shininess" @input="updateshininess"></vue-slider>
