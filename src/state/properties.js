@@ -10,12 +10,12 @@ import rgbHex from 'rgb-hex';
 export default {
   namespaced: true,
   state: {
-    color: '',
+    color: 16000000,
     shininess: 0,
     reflectivity: 0,
-    roughness: 0,
-    metalness: 0,
-    clearcoat: 0,
+    roughness: 0.1,
+    metalness: 0.1,
+    clearcoat: 0.1,
     clearcoatRoughness: 0
   },
   mutations: {

@@ -14,10 +14,7 @@
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">Sidedness</span>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
-                <span class="align-bottom">Shininess</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
-            </div>
+
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
                 <span class="align-bottom">Color</span>
                 <div id="colors" v-on:click.self="showcolors">
@@ -26,6 +23,40 @@
                     </div>
                 </div>
             </div>
+
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
+                <span class="align-bottom">Shininess</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
+            </div>
+
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughness!==true }">
+                <span class="align-bottom">Roughness</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="roughness" @input="updateroughness"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughnessMap!==true }">
+                <span class="align-bottom">Roughness Map</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalness!==true }">
+                <span class="align-bottom">Metalness</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="metalness" @input="updatemetalness"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
+                <span class="align-bottom">Metalness Map</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoat!==true }">
+                <span class="align-bottom">Clearcoat</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoatRoughness!==true }">
+                <span class="align-bottom">Clearcoard Roughness</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.reflectivity!==true }">
+                <span class="align-bottom">Reflectivity</span>
+            </div>
+            
+
+
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
                 <span class="align-bottom">Alpha Map</span>
                 <mapLoader v-bind:data="alphaMapData"></mapLoader>
@@ -74,30 +105,6 @@
                 <span class="align-bottom">Displacement Map</span>
             </div>
 
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughness!==true }">
-                <span class="align-bottom">Roughness</span>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughnessMap!==true }">
-                <span class="align-bottom">Roughness Map</span>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalness!==true }">
-                <span class="align-bottom">Metalness</span>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
-                <span class="align-bottom">Metalness Map</span>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoat!==true }">
-                <span class="align-bottom">Clearcoat</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearcoatRoughness!==true }">
-                <span class="align-bottom">Clearcoard Roughness</span>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.reflectivity!==true }">
-                <span class="align-bottom">Reflectivity</span>
-            </div>
-            
-
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">
                 <span class="align-top">Fragment Shader</span>
                 <textarea name="fShader"></textarea>
@@ -143,13 +150,13 @@ export default {
         colorModal: false,
         colorStyle: { 'background-color': '#fff' },
 
-        //color: this._color,
-        //shininess: this._shininess,
-        reflectivity: this._reflectivity,
-        roughness: this._roughness,
-        metalness: this._metalness,
-        clearcoat: this._clearcoat,
-        clearcoatRoughness: this._clearcoatRoughness,
+        // color: this._color,
+        // shininess: this._shininess,
+        // reflectivity: this._reflectivity,
+        // roughness: this._roughness,
+        // metalness: this._metalness,
+        // clearcoat: this._clearcoat,
+        // clearcoatRoughness: this._clearcoatRoughness,
 
         alphaMapData: {
             title: 'Alpha Map',
@@ -199,11 +206,11 @@ export default {
   computed: {
       color: function(){ return this.$store.state.properties.color; },
       shininess: function(){ return this.$store.state.properties.shininess; },
-      _reflectivity: function(){ return this.$store.state.properties.reflectivity; },
-      _roughness: function(){ return this.$store.state.properties.roughness; },
-      _metalness: function(){ return this.$store.state.properties.metalness; },
-      _clearcoat: function(){ return this.$store.state.properties.clearcoat; },
-      _clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; }
+      reflectivity: function(){ return this.$store.state.properties.reflectivity; },
+      roughness: function(){ return this.$store.state.properties.roughness; },
+      metalness: function(){ return this.$store.state.properties.metalness; },
+      clearcoat: function(){ return this.$store.state.properties.clearcoat; },
+      clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; }
   },
   methods: {
 
@@ -217,20 +224,20 @@ export default {
     updateshininess: function(shininess) {
         this.$store.commit('properties/updateShininess', { 'shininess': shininess });
     },
-    updatereflectivity: function() {
-        this.$store.commit('properties/updateReflectivity', { 'reflectivity': this.reflectivity });
+    updatereflectivity: function(reflectivity) {
+        this.$store.commit('properties/updateReflectivity', { 'reflectivity': reflectivity });
     },
-    updateclearcoat: function() {
-        this.$store.commit('properties/updateClearcoat', { 'clearcoat': this.clearcoat });
+    updateclearcoat: function(clearcoat) {
+        this.$store.commit('properties/updateClearcoat', { 'clearcoat': clearcoat });
     },
-    updateclearcoatroughness: function() {
-        this.$store.commit('properties/updateClearcoatRoughness', { 'clearcoatRoughness': this.clearcoatRoughness });
+    updateclearcoatroughness: function(clearcoatRoughness) {
+        this.$store.commit('properties/updateClearcoatRoughness', { 'clearcoatRoughness': clearcoatRoughness });
     },
-    updatemetalness: function() {
-        this.$store.commit('properties/updateMetalness', { 'metalness': this.metalness });
+    updatemetalness: function(metalness) {
+        this.$store.commit('properties/updateMetalness', { 'metalness': metalness });
     },
-    updateroughness: function() {
-        this.$store.commit('properties/updateRoughness', { 'roughness': this.roughness });
+    updateroughness: function(roughness) {
+        this.$store.commit('properties/updateRoughness', { 'roughness': roughness });
     },
 
     updatewire: function() {

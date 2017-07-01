@@ -6,10 +6,8 @@
             :spec="this.materialSpec" 
             :materialTypeSelected="this.materialTypeSelected"
             :materialId="this.materialId" 
-            :materials="this.materials" 
             :wire="this.wire"
             :shadow="this.shadow"
-            v-on:change="change" 
             v-on:updatematerial="updatematerial" 
             v-on:updatewire="updatewire"
             v-on:updateshadows="updateshadows">
@@ -41,33 +39,7 @@ import Material from './components/Material.vue';
 import Editor from './components/Editor.vue';
 import rgbHex from 'rgb-hex';
 
-let materials = [
-
-    new MeshPhongMaterial({ name:'Standard', color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 }),
-
-    // new MeshLambertMaterial({     name:'Lambert 1', color: 0xff00ff, shading: SmoothShading, transparent:true }),
-    // new MeshLambertMaterial({     name:'Lambert Flat', color: 0xff00ff, shading: FlatShading, transparent:true }),
-
-    // new MeshPhongMaterial({     name:'Phong 1', color: 0xff00ff, shininess: 0, shading: SmoothShading, transparent:true }),
-    // new MeshPhongMaterial({     name:'Phong 2', color: 0xff00ff, shininess: 50, shading: SmoothShading, transparent:true }),
-    // new MeshPhongMaterial({     name:'Phong 3', color: 0xff00ff, shininess: 100, shading: SmoothShading, transparent:true }),
-    // new MeshPhongMaterial({     name:'Phong Flat', color: 0xff00ff, shininess: 0, shading: FlatShading }),
-
-    // new MeshPhysicalMaterial({  name:'Physical Bronze', color: 0xff8800, roughness: 0.5, metalness: 0.5, clearCoat: 0.1, reflectivity: 0.6, shading: SmoothShading, transparent:true }),
-    // new MeshPhysicalMaterial({  name:'Physical Silver', color: 0xc0c0c0, roughness: 0.5, metalness: 0.3, clearCoat: 0, reflectivity: 0.8, shading: SmoothShading, transparent:true }),
-    // new MeshPhysicalMaterial({  name:'Physical Gold!', color: 0xffd700, roughness: 0.2, metalness: 0.2, clearCoat: 0, reflectivity: 0.8, shading: SmoothShading, transparent:true }),
-    // new MeshPhysicalMaterial({  name:'Physical 2', color: 0xffffff, roughness: 1.0, metalness: 0, clearCoat: 0.1, shading: SmoothShading, transparent:true }),
-    // new MeshPhysicalMaterial({  name:'Physical Uncoated', color: 0xffffff, roughness: 0, metalness: 0, clearCoat: 0, clearCoatRoughness: 0, shading: SmoothShading, transparent:true }),
-    // new MeshPhysicalMaterial({  name:'Physical Coated', color: 0xffffff, roughness: 0, metalness: 0, clearCoat: 1.0, clearCoatRoughness: 0, shading: SmoothShading, transparent:true }),
-    // new MeshPhysicalMaterial({  name:'Physical Rough Coated', color: 0xffffff, roughness: 0, metalness: 0, clearCoat: 1.0, clearCoatRoughness: 1.0, shading: SmoothShading, transparent:true }),    
-    // new MeshPhysicalMaterial({  name:'Physical 3', color: 0xff00ff, roughness: 0.5, metalness: 0.5, shading: SmoothShading, transparent:true }),
-    // new MeshPhysicalMaterial({  name:'Physical 4', color: 0xff00ff, roughness: 0.1, metalness: 0.1, shading: SmoothShading, transparent:true }),
-
-    // new MeshToonMaterial({      name:'Toon 1', color: 0xff00ff, transparent:true }),
-    // new MeshToonMaterial({      name:'Toon 2', color: 0xff00ff, shininess: 100, shading: SmoothShading, transparent:true }),
-    // new MeshToonMaterial({      name:'Toon Flat', color: 0xff00ff, shading: FlatShading, transparent:true })
-
-];
+let base = new MeshPhysicalMaterial({ name:'Standard', color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
 
 import materialSpecs from './material_defs';
 
@@ -75,11 +47,10 @@ export default {
   name: 'app',
   data () {
     return {
-        materialTypeSelected: 'MeshPhongMaterial',
-        materialSpec: materialSpecs['MeshPhongMaterial'],
+        materialTypeSelected: 'MeshPhysicalMaterial',
+        materialSpec: materialSpecs['MeshPhysicalMaterial'],
         materialId: 0,
-        material: materials[0],
-        materials: materials,
+        material: base,
         wire: true,
         shadow: true,
         repeat: {x:5,y:5}
@@ -241,12 +212,6 @@ export default {
     },
     updateshadows: function(payload) {
         this.shadow = payload.shadow;
-    },
-    change: function(payload) {
-        // if (this.color !== '') {
-        //     materials[payload.material].color.setStyle(this.color);
-        // }
-        this.material = materials[payload.material];
     }
   },
   components: {
