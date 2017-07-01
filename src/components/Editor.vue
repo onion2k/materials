@@ -143,8 +143,8 @@ export default {
         colorModal: false,
         colorStyle: { 'background-color': '#fff' },
 
-        color: this.$store.state.properties.color,
-        shininess: this._shininess,
+        //color: this._color,
+        //shininess: this._shininess,
         reflectivity: this._reflectivity,
         roughness: this._roughness,
         metalness: this._metalness,
@@ -197,8 +197,8 @@ export default {
     }
   },
   computed: {
-      //_color: function(){ return this.$store.state.properties.color; },
-      _shininess: function(){ return this.$store.state.properties.shininess; },
+      color: function(){ return this.$store.state.properties.color; },
+      shininess: function(){ return this.$store.state.properties.shininess; },
       _reflectivity: function(){ return this.$store.state.properties.reflectivity; },
       _roughness: function(){ return this.$store.state.properties.roughness; },
       _metalness: function(){ return this.$store.state.properties.metalness; },
@@ -206,22 +206,16 @@ export default {
       _clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; }
   },
   methods: {
+
     materialSelector: function(material){
         this.$emit('updatematerial', { 'material': material });
     },
-    // updateValue: function(color) {
-    //     this.color = { 'background-color': color.hex };
-    //     this.$emit('updatecolor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
-    // },
-    // updateshininess: function() {
-    //     this.$emit('updateshininess', { 'shininess': this.shininess });
-    // },
 
     updatecolor: function(color) {
         this.$store.commit('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
     },
-    updateshininess: function() {
-        this.$store.commit('properties/updateShininess', { 'shininess': this.shininess });
+    updateshininess: function(shininess) {
+        this.$store.commit('properties/updateShininess', { 'shininess': shininess });
     },
     updatereflectivity: function() {
         this.$store.commit('properties/updateReflectivity', { 'reflectivity': this.reflectivity });
@@ -239,18 +233,13 @@ export default {
         this.$store.commit('properties/updateRoughness', { 'roughness': this.roughness });
     },
 
-    // updateintensity: function() {
-    //     this.$emit('updateintensity', { 'intensity': this.intensity });
-    // },
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
     },
     updateshadow: function() {
         this.$emit('updateshadows', { 'shadow': this.showshadow });
     },
-    // change: function(v) {
-    //     this.$emit('change', { 'material': v });
-    // },
+
     showcolors: function(){
         this.colorModal = !this.colorModal;
     }
