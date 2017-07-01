@@ -51,9 +51,8 @@ export default {
         materialSpec: materialSpecs['MeshPhysicalMaterial'],
         materialId: 0,
         material: base,
-        wire: true,
-        shadow: true,
-        repeat: {x:5,y:5}
+        wire: false,
+        shadow: false
     }
   },
   computed: {
@@ -70,6 +69,9 @@ export default {
     specularTexture: function () { return this.$store.state.specularmap.texture; },
     envTexture: function () { return this.$store.state.envmap.texture; },
 
+    xrepeat: function () { return this.$store.state.properties.repeat.x },
+    yrepeat: function () { return this.$store.state.properties.repeat.y },
+
     color: function () { return this.$store.state.properties.color },
     shininess: function () { return this.$store.state.properties.shininess },
     reflectivity: function () { return this.$store.state.properties.reflectivity },
@@ -80,6 +82,31 @@ export default {
 
   },
   watch: {
+
+    xrepeat: function(val) {
+        if (this.material.alphaMap) this.material.alphaMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.map) this.material.map.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.bumpMap) this.material.bumpMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.emissiveMap) this.material.emissiveMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.lightMap) this.material.lightMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.occlusionMap) this.material.occlusionMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.specularMap) this.material.specularMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.envMap) this.material.envMap.repeat.set(this.xrepeat, this.yrepeat);
+        this.material.needsUpdate = true;
+    },
+
+    yrepeat: function(val) {
+        if (this.material.alphaMap) this.material.alphaMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.map) this.material.map.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.bumpMap) this.material.bumpMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.emissiveMap) this.material.emissiveMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.lightMap) this.material.lightMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.occlusionMap) this.material.occlusionMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.specularMap) this.material.specularMap.repeat.set(this.xrepeat, this.yrepeat);
+        if (this.material.envMap) this.material.envMap.repeat.set(this.xrepeat, this.yrepeat);
+        this.material.needsUpdate = true;
+    },
+
     alphaTexture: function(val) {
         this.material.alphaMap = this.alphaTexture;
         this.material.needsUpdate = true;
@@ -196,17 +223,6 @@ export default {
         }
 
     },
-    // updatecolor: function(payload) {
-    //     this.material.color.setHex( parseInt(rgbHex(payload.r,payload.g,payload.b), 16) );
-    // },
-    // updateshininess: function(payload) {
-    //     this.shininess = payload.shininess;
-    //     this.material.shininess = payload.shininess;
-    // },
-    // updateintensity: function(payload) {
-    //     this.intensity = payload.intensity/100;
-    //     this.material.emissiveIntensity = payload.intensity/100;
-    // },
     updatewire: function(payload) {
         this.wire = payload.wire;
     },

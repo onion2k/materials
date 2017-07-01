@@ -8,6 +8,7 @@ import {
 export default {
   namespaced: true,
   state: {
+    n: 'color',
     texture: null,
     repeat: { x: 5, y: 5 },
     scale: 1.0
@@ -22,7 +23,6 @@ export default {
     },
     updateScale (state, payload) {
       state.scale = payload.v / 100;
-      //state.texture.bumpScale = state.scale ;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;

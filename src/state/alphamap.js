@@ -8,6 +8,7 @@ import {
 export default {
   namespaced: true,
   state: {
+    n: 'alpha',
     texture: null,
     repeat: { x: 5, y: 5 },
     scale: 1.0
@@ -22,10 +23,9 @@ export default {
     },
     updateScale (state, payload) {
       state.scale = payload.v / 100;
-      //state.texture.bumpScale = state.scale ;
     },
     updateTexture (state, payload) {
-        state.texture = payload.texture;
+      state.texture = payload.texture;
     }
   },
   actions: {
@@ -45,13 +45,14 @@ export default {
 
     },
     xRepeatSliderUpdate(context, payload) {
-        context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
+      console.log("alpha x rep change")
+      context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
     },
     yRepeatSliderUpdate(context, payload) {
-        context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
+      context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
     },
     sliderUpdate(context, payload) {
-        context.commit('updateScale', payload );
+      context.commit('updateScale', payload );
     }
   }
 }

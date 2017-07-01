@@ -16,7 +16,8 @@ export default {
     roughness: 0.1,
     metalness: 0.1,
     clearcoat: 0.1,
-    clearcoatRoughness: 0
+    clearcoatRoughness: 0,
+    repeat: { x: 5, y: 5 }
   },
   mutations: {
     updateColor (state, payload) {
@@ -27,7 +28,9 @@ export default {
     updateRoughness (state, payload) { state.roughness = payload.roughness; },
     updateMetalness (state, payload) { state.metalness = payload.metalness; },
     updateClearcoat (state, payload) { state.clearcoat = payload.clearcoat; },
-    updateClearcoatRoughness (state, payload) { state.clearcoatRoughness = payload.clearcoatRoughness; }
+    updateClearcoatRoughness (state, payload) { state.clearcoatRoughness = payload.clearcoatRoughness; },
+    updatexrepeat (state, payload) { state.repeat.x = payload.x; },
+    updateyrepeat (state, payload) { state.repeat.y = payload.y; }
   },
   actions: {
 

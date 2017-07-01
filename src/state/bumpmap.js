@@ -8,8 +8,9 @@ import {
 export default {
   namespaced: true,
   state: {
+    n: 'bump',
     texture: null,
-    repeat: { x: 5, y: 5 },
+    repeat: { x: null, y: null },
     scale: 1.0
   },
   mutations: {
@@ -24,17 +25,20 @@ export default {
       state.scale = payload.v / 100;
     },
     updateTexture (state, payload) {
-        state.texture = payload.texture;
+      state.texture = payload.texture;
     }
   },
   actions: {
     mapUpdate(context, payload) {
 
-        var i = document.createElement( 'img' );
+        let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
+        let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
+
+        let i = document.createElement( 'img' );
         i.src = payload.image;
-        var t = new Texture(i);
+        let t = new Texture(i);
         t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( context.state.repeat.x, context.state.repeat.y );
+        t.repeat.set( xRep, yRep );
         t.generateMipmaps = false;
         t.minFilter = LinearFilter;
         t.magFilter = LinearFilter;

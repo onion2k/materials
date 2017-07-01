@@ -68,7 +68,7 @@ export default {
                 //this.imageData = e.target.result;
                 this.image = input.files[0].name;
                 //this.$emit('imageLoaded', { image: e.target.result });
-                this.$store.dispatch(this.data.namespace+'/mapUpdate', { map: 'bump', filename: input.files[0].name, image: e.target.result });
+                this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: input.files[0].name, image: e.target.result });
             }
             // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0]);
@@ -80,14 +80,14 @@ export default {
     close: function(){
         this.modal = false;
     },
-    sliderUpdate: function(){
-        this.$store.dispatch(this.data.namespace+'/sliderUpdate', { 'v': this.sliderValue });
+    sliderUpdate: function(sliderValue){
+        this.$store.dispatch(this.data.namespace+'/sliderUpdate', { 'v': sliderValue });
     },
-    xRepeatSliderUpdate: function(){
-        this.$store.dispatch(this.data.namespace+'/xRepeatSliderUpdate', { 'v': this.xRepeatSliderValue });
+    xRepeatSliderUpdate: function(xRepeatSliderValue){
+        this.$store.dispatch(this.data.namespace+'/xRepeatSliderUpdate', { 'v': xRepeatSliderValue });
     },
-    yRepeatSliderUpdate: function(){
-        this.$store.dispatch(this.data.namespace+'/yRepeatSliderUpdate', { 'v': this.yRepeatSliderValue });
+    yRepeatSliderUpdate: function(yRepeatSliderValue){
+        this.$store.dispatch(this.data.namespace+'/yRepeatSliderUpdate', { 'v': yRepeatSliderValue });
     }    
   },
   components: {

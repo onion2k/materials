@@ -38,9 +38,9 @@ export default {
   props: ['material', 'wire', 'shadow'],
   data: function() {
 
-    let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
+    //let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
     //let boxgeo = new BoxGeometry(60, 60, 60);
-    //let boxgeo = new SphereGeometry(40, 60, 60);
+    let boxgeo = new SphereGeometry(40, 60, 60);
 
     let mesh = new Mesh(boxgeo, this.material);
         mesh.castShadow = true;
@@ -68,11 +68,6 @@ export default {
     material : function(value) {
         this.box.material = value;
         this.box.material.needsUpdate = true;
-    }
-  },
-  computed: {
-    emissiveIntensity () {
-        return this.$store.state.emissive.intensity;
     }
   },
   mounted: function(){

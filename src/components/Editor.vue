@@ -12,9 +12,15 @@
                 </div>
             </div>
             <div class="list-group-item justify-content-between">
-                <span class="align-bottom">Sidedness</span>
+                <button class="btn btn-secondary dropdown-toggle btn-fullwidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sidedness:
+                </button>
+                <div class="dropdown-menu col-xs-12">
+                    <button class="dropdown-item" type="button" v-on:click="sidednessSelector('front')">Front</button>
+                    <button class="dropdown-item" type="button" v-on:click="sidednessSelector('back')">Back</button>
+                    <button class="dropdown-item" type="button" v-on:click="sidednessSelector('double')">Double</button>
+                </div>
             </div>
-
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
                 <span class="align-bottom">Color</span>
                 <div id="colors" v-on:click.self="showcolors">
@@ -23,39 +29,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
-                <span class="align-bottom">Shininess</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">X Repeat</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="xrepeat" @input="updatexrepeat"></vue-slider>
             </div>
-
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughness!==true }">
-                <span class="align-bottom">Roughness</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="roughness" @input="updateroughness"></vue-slider>
+            <div class="list-group-item justify-content-between">
+                <span class="align-bottom">Y Repeat</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="yrepeat" @input="updateyrepeat"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughnessMap!==true }">
-                <span class="align-bottom">Roughness Map</span>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalness!==true }">
-                <span class="align-bottom">Metalness</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="metalness" @input="updatemetalness"></vue-slider>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
-                <span class="align-bottom">Metalness Map</span>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoat!==true }">
-                <span class="align-bottom">Clearcoat</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoatRoughness!==true }">
-                <span class="align-bottom">Clearcoard Roughness</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.reflectivity!==true }">
-                <span class="align-bottom">Reflectivity</span>
-            </div>
-            
-
 
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
                 <span class="align-bottom">Alpha Map</span>
@@ -91,6 +72,32 @@
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.envMap!==true }">
                 <span class="align-bottom">Environment Map</span>
                 <mapLoader v-bind:data="envMapData"></mapLoader>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
+                <span class="align-bottom">Shininess</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughness!==true }">
+                <span class="align-bottom">Roughness</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="roughness" @input="updateroughness"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughnessMap!==true }">
+                <span class="align-bottom">Roughness Map</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalness!==true }">
+                <span class="align-bottom">Metalness</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="metalness" @input="updatemetalness"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
+                <span class="align-bottom">Metalness Map</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoat!==true }">
+                <span class="align-bottom">Clearcoat</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoatRoughness!==true }">
+                <span class="align-bottom">Clearcoard Roughness</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.envMap!==true }">
                 <span class="align-bottom">Combine Op.</span>
@@ -150,14 +157,6 @@ export default {
         colorModal: false,
         colorStyle: { 'background-color': '#fff' },
 
-        // color: this._color,
-        // shininess: this._shininess,
-        // reflectivity: this._reflectivity,
-        // roughness: this._roughness,
-        // metalness: this._metalness,
-        // clearcoat: this._clearcoat,
-        // clearcoatRoughness: this._clearcoatRoughness,
-
         alphaMapData: {
             title: 'Alpha Map',
             description: 'Map an image\'s blue channel to the object\s transparency.',
@@ -204,6 +203,8 @@ export default {
     }
   },
   computed: {
+      xrepeat: function(){ return this.$store.state.properties.repeat.x; },
+      yrepeat: function(){ return this.$store.state.properties.repeat.y; },
       color: function(){ return this.$store.state.properties.color; },
       shininess: function(){ return this.$store.state.properties.shininess; },
       reflectivity: function(){ return this.$store.state.properties.reflectivity; },
@@ -216,6 +217,15 @@ export default {
 
     materialSelector: function(material){
         this.$emit('updatematerial', { 'material': material });
+    },
+    sidednessSelector: function(sidedness){
+
+    },
+    updatexrepeat: function(val) {
+        this.$store.commit('properties/updatexrepeat', { 'x': val });
+    },
+    updateyrepeat: function(val) {
+        this.$store.commit('properties/updateyrepeat', { 'y': val });
     },
 
     updatecolor: function(color) {
