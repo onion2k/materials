@@ -274,7 +274,7 @@ export default {
 <style scoped>
 
 .editor {
-    height: 580px;
+    height: 800px;
     overflow: scroll;
 }
 
