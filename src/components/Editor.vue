@@ -4,6 +4,16 @@
             <div class="list-group-item list-group-item-action">
                 <div class="btn-group col-xs-12">
                     <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Geometry Type:
+                    </button>
+                    <div class="dropdown-menu col-xs-12">
+
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item list-group-item-action">
+                <div class="btn-group col-xs-12">
+                    <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Material Type: {{ materialTypeSelected }}
                     </button>
                     <div class="dropdown-menu col-xs-12">
