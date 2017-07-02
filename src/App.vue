@@ -31,7 +31,10 @@ import {
     Texture,
     RepeatWrapping,
     LinearFilter,
-    ImageUtils
+    ImageUtils,
+    DoubleSide,
+    BackSide,
+    FrontSide
 } from '../node_modules/three/build/three.module';
 
 import { mapState, mapActions } from 'vuex'
@@ -78,8 +81,8 @@ export default {
     roughness: function () { return this.$store.state.properties.roughness },
     metalness: function () { return this.$store.state.properties.metalness },
     clearcoat: function () { return this.$store.state.properties.clearcoat },
-    clearcoatRoughness: function () { return this.$store.state.properties.clearcoatRoughness }
-
+    clearcoatRoughness: function () { return this.$store.state.properties.clearcoatRoughness },
+    sidedness: function() { return this.$store.state.properties.sidedness }
   },
   watch: {
 
@@ -180,7 +183,22 @@ export default {
     clearcoatRoughness: function(val) {
         this.material.clearCoatRoughness = val/100;
         this.material.needsUpdate = true;
-    }
+    },
+    sidedness: function(val) {
+        switch (val) {
+            case 'double':
+                this.material.side = DoubleSide;
+                break;
+            case 'back':
+                this.material.side = BackSide;
+                break;
+            case 'front':
+            default:
+                this.material.side = FrontSide;
+                break;
+        }
+        this.material.needsUpdate = true;
+    },
   },  
   methods: {
     updatematerial: function(payload){

@@ -17,7 +17,8 @@ export default {
     metalness: 0.1,
     clearcoat: 0.1,
     clearcoatRoughness: 0,
-    repeat: { x: 5, y: 5 }
+    repeat: { x: 5, y: 5 },
+    sidedness: 'front'
   },
   mutations: {
     updateColor (state, payload) {
@@ -30,7 +31,8 @@ export default {
     updateClearcoat (state, payload) { state.clearcoat = payload.clearcoat; },
     updateClearcoatRoughness (state, payload) { state.clearcoatRoughness = payload.clearcoatRoughness; },
     updatexrepeat (state, payload) { state.repeat.x = payload.x; },
-    updateyrepeat (state, payload) { state.repeat.y = payload.y; }
+    updateyrepeat (state, payload) { state.repeat.y = payload.y; },
+    updatesidedness (state, payload) { state.sidedness = payload.sidedness; }
   },
   actions: {
 

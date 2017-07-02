@@ -79,7 +79,7 @@ export default {
         antialias: true,
         alpha: false
     });
-    renderer.setClearColor(0x000000, 0);
+    renderer.setClearColor(0xffffff, 0);
     renderer.shadowMap.enabled = true;
 
     let aspect = 0.75;

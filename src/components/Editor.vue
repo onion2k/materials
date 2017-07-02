@@ -219,7 +219,7 @@ export default {
         this.$emit('updatematerial', { 'material': material });
     },
     sidednessSelector: function(sidedness){
-
+        this.$store.commit('properties/updatesidedness', { 'sidedness': sidedness });
     },
     updatexrepeat: function(val) {
         this.$store.commit('properties/updatexrepeat', { 'x': val });
