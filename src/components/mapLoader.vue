@@ -7,24 +7,28 @@
                 <p class="card-text">{{ this.data.description }}</p>
             </div>
             <div class="file-upload-form card-block">
-                <input type="file" @change="previewImage" accept="image/*">
+                <input type="file" @change.self="previewImage" accept="image/*">
                 {{ image || 'Click to select an image' }}
+                <button v-if="image" @click.self="removeImage">Remove</button>
             </div>
             <ul class="list-group list-group-flush">
-
-                <div class="list-group-item justify-content-between">
+                <div class="list-group-item justify-content-between disabled">
                     <span>x Repeat</span>
                     <vue-slider ref="slider" v-bind="sliderSettings" v-model="xRepeatSliderValue" @input="xRepeatSliderUpdate"></vue-slider>
                 </div>
-
-                <div class="list-group-item justify-content-between">
+                <div class="list-group-item justify-content-between disabled">
                     <span>y Repeat</span>
                     <vue-slider ref="slider" v-bind="sliderSettings" v-model="yRepeatSliderValue" @input="yRepeatSliderUpdate"></vue-slider>
                 </div>
-
+                <div class="list-group-item justify-content-between text-left explainer">
+                    <span>THREE.js doesn't support repeat or offset data  for individual maps yet, so these are disabled. Use the global values instead, or repeat the map in the image.</span>
+                </div>
                 <div class="list-group-item justify-content-between" v-if="sliderTitle">
                     <span>{{ sliderTitle }}</span>
                     <vue-slider ref="slider" v-bind="sliderSettings" v-model="sliderValue" @input="sliderUpdate"></vue-slider>
+                </div>
+                <div class="list-group-item justify-content-between text-left explainer" v-if="sliderTitle">
+                    <span>Affect the amount of bumpiness a map changes the model by.</span>
                 </div>
             </ul>
             <div class="card-block">
@@ -74,6 +78,10 @@ export default {
             reader.readAsDataURL(input.files[0]);
         }
     },
+    removeImage: function(){
+        this.image = null;
+        this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: '', image: null });
+    },
     show: function(){
         this.modal = true;
     },
@@ -120,6 +128,25 @@ export default {
         opacity: 0;
         width: 100%;
         z-index: 2;
+    }
+    button {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 1;
+        width: 100%;
+        z-index: 3;
+    }
+    .disabled {
+        pointer-events: none;
+        border-color: #e2e2e2;
+        color: #ccc;
+        background-color: #f8f8f8;
+    }
+    .explainer {
+        font-size: 0.8rem;
     }
     .preview { 
         text-align: right;

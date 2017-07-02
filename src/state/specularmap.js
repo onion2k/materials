@@ -18,15 +18,14 @@ export default {
       state.repeat = payload;
       if (state.texture !== null) {
         state.texture.repeat.set( state.repeat.x, state.repeat.y );
-        state.texture.needsUpdate = true;
       }
+      state.texture.needsUpdate = true;
     },
     updateColor: function(state, payload) {
       state.color = payload.rgba;
     },
     updateScale (state, payload) {
       state.scale = payload.v / 100;
-      //state.texture.bumpScale = state.scale ;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -34,17 +33,21 @@ export default {
   },
   actions: {
     mapUpdate(context, payload) {
-
-        var i = document.createElement( 'img' );
-        i.src = payload.image;
-        var t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( context.state.repeat.x, context.state.repeat.y );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.needsUpdate = true;
-
+        if (payload.image!==null) {
+          let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
+          let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
+          var i = document.createElement( 'img' );
+          i.src = payload.image;
+          var t = new Texture(i);
+          t.wrapS = t.wrapT = RepeatWrapping;  
+          t.repeat.set( xRep, yRep );
+          t.generateMipmaps = false;
+          t.minFilter = LinearFilter;
+          t.magFilter = LinearFilter;
+          t.needsUpdate = true;
+        } else {
+          let t = null;
+        }
         context.commit('updateTexture', { texture: t });
 
     },

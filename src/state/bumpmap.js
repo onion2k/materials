@@ -18,8 +18,8 @@ export default {
       state.repeat = payload;
       if (state.texture !== null) {
         state.texture.repeat.set( state.repeat.x, state.repeat.y );
-        state.texture.needsUpdate = true;
       }
+      state.texture.needsUpdate = true;
     },
     updateScale (state, payload) {
       state.scale = payload.v / 100;
@@ -30,20 +30,20 @@ export default {
   },
   actions: {
     mapUpdate(context, payload) {
-
-        let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
-        let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
-
-        let i = document.createElement( 'img' );
-        i.src = payload.image;
-        let t = new Texture(i);
-        t.wrapS = t.wrapT = RepeatWrapping;
-        t.repeat.set( xRep, yRep );
-        t.generateMipmaps = false;
-        t.minFilter = LinearFilter;
-        t.magFilter = LinearFilter;
-        t.bumpScale = context.state.scale;
-        t.needsUpdate = true;
+        if (payload.image!==null) {
+          let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
+          let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
+          let i = document.createElement( 'img' );
+          i.src = payload.image;
+          let t = new Texture(i);
+          t.wrapS = t.wrapT = RepeatWrapping;
+          t.repeat.set( xRep, yRep );
+          t.generateMipmaps = false;
+          t.minFilter = LinearFilter;
+          t.magFilter = LinearFilter;
+          t.bumpScale = context.state.scale;
+          t.needsUpdate = true;
+        }
 
         context.commit('updateTexture', { texture: t });
 
