@@ -50,7 +50,7 @@ export default {
     let wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
     let wireframe = new LineSegments( wiregeo, wiremat );
 
-    let light = new SpotLight(0xffffff, 1);;
+    let light = new SpotLight(0xffffff, 2);
 
     return {
         wireframe: wireframe,
