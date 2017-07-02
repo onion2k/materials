@@ -9,7 +9,7 @@ export default {
   namespaced: true,
   state: {
     texture: null,
-    repeat: { x: 5, y: 5 },
+    repeat: { x: null, y: null },
     intensity: 1.0
   },
   mutations: {

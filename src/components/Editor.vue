@@ -1,9 +1,9 @@
 <template>
     <div class="editor col-sm-12 col-md-6 hidden-xs-down bg-faded sidebar">
         <div class="list-group">
-            <div class="list-group-item list-group-item-action justify-content-between">
+            <div class="list-group-item list-group-item-action">
                 <div class="btn-group col-xs-12">
-                    <button class="btn btn-secondary dropdown-toggle btn-fullwidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Material Type: {{ materialTypeSelected }}
                     </button>
                     <div class="dropdown-menu col-xs-12">
@@ -11,8 +11,8 @@
                     </div>
                 </div>
             </div>
-            <div class="list-group-item justify-content-between">
-                <button class="btn btn-secondary dropdown-toggle btn-fullwidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="list-group-item">
+                <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sidedness:
                 </button>
                 <div class="dropdown-menu col-xs-12">
@@ -272,6 +272,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.editor {
+    height: 580px;
+    overflow: scroll;
+}
+
 ul {
     list-style: none;
     padding: 0;

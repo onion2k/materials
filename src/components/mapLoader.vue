@@ -6,10 +6,18 @@
                 <h4 class="card-title">{{ this.data.title }}</h4>
                 <p class="card-text">{{ this.data.description }}</p>
             </div>
+            <div class="card-block" style="position: relative;">
+                <button class="btn btn-secondary dropdown-toggle btn-fullwidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Predefined Images:
+                </button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" type="button" v-for="(url, imageTitle) in images" v-on:click="loadPredefinedImage(url, imageTitle)">{{ imageTitle }}</button>
+                </div>
+            </div>
             <div class="file-upload-form card-block">
                 <input type="file" @change.self="previewImage" accept="image/*">
                 {{ image || 'Click to select an image' }}
-                <button v-if="image" @click.self="removeImage">Remove</button>
+                <button class="remove" v-if="image" @click.self="removeImage">Remove</button>
             </div>
             <ul class="list-group list-group-flush">
                 <div class="list-group-item justify-content-between disabled">
@@ -42,12 +50,45 @@
 
 import vueSlider from 'vue-slider-component';
 
+import Check from '../images/check.jpg';
+import Diamond from '../images/diamond.jpg';
+import Dots from '../images/dots.jpg';
+import Flagstones from '../images/flagstones.jpg';
+import Marble from '../images/marble.jpg';
+import Metal from '../images/metal.jpg';
+import Mud from '../images/mud.jpg';
+import Plates from '../images/plates.jpg';
+import Shingle from '../images/shingle.jpg';
+import Snake from '../images/snake.jpg';
+import Stone from '../images/stone.jpg';
+import Stone2 from '../images/stone2.jpg';
+import Stripes from '../images/stripes.png';
+import Wood from '../images/wood.jpg';
+
+let images = {
+    'Check': Check,
+    'Diamond': Diamond,
+    'Dots': Dots,
+    'Flagstones': Flagstones,
+    'Marble': Marble,
+    'Metal': Metal,
+    'Mud': Mud,
+    'Plates': Plates,
+    'Shingle': Shingle,
+    'Snake': Snake,
+    'Stone': Stone,
+    'Stone2': Stone2,
+    'Stripes': Stripes,
+    'Wood': Wood
+};
+
 export default {
   name: 'mapLoader',
   props: ['imageLoaded', 'data'],
   data: function(){
     return {
         image: '',
+        images: images,
         background: '',
         modal: false,
         sliderTitle: this.data.sliderTitle,
@@ -58,6 +99,10 @@ export default {
     }
   },
   methods: {
+    loadPredefinedImage: function(url, imageTitle) {
+        this.image = imageTitle;
+        this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: imageTitle, image: url });
+    },
     previewImage: function(event) {
         // Reference to the DOM input element
         var input = event.target;
@@ -129,7 +174,9 @@ export default {
         width: 100%;
         z-index: 2;
     }
-    button {
+    .btn-group, .btn-fullwidth { width: 100%; }
+    .dropdown-menu { width: 100%; }
+    button.remove {
         position: absolute;
         top: 0;
         bottom: 0;

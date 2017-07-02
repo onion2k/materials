@@ -30,6 +30,7 @@ export default {
   },
   actions: {
     mapUpdate(context, payload) {
+
         if (payload.image!==null) {
           let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
           let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
@@ -43,6 +44,8 @@ export default {
           t.magFilter = LinearFilter;
           t.bumpScale = context.state.scale;
           t.needsUpdate = true;
+        } else {
+          let t = null;
         }
 
         context.commit('updateTexture', { texture: t });
