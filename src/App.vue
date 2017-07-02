@@ -127,13 +127,11 @@ export default {
         this.material.needsUpdate = true;
     },
     emissiveTexture: function(val) {
-        this.material.emissiveMap = this.emissiveTexture;
-        this.material.emissive.setRGB( 255,0,0 );
+        //this.material.emissiveMap = this.emissiveTexture;
         this.material.needsUpdate = true;
     },
     emissiveIntensity: function(val) {
-        this.material.emissive.setRGB( 255,0,0 );
-        this.material.emissiveIntensity = this.emissiveIntensity;
+        this.material.emissiveIntensity = this.emissiveIntensity / 100;
         this.material.needsUpdate = true;
     },
     lightTexture: function(val) {
@@ -214,7 +212,8 @@ export default {
             break;
 
             case "MeshLambertMaterial":
-                this.material = new MeshLambertMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material = new MeshLambertMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material.emissive.setRGB( 255,0,0 );
                 this.material.needsUpdate = true;
             break;
 

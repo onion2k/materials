@@ -1,9 +1,5 @@
-import {
-    Texture,
-    RepeatWrapping,
-    LinearFilter,
-    ImageUtils
-} from '../../node_modules/three/build/three.module';
+
+import texture from '../lib/texture';
 
 export default {
   namespaced: true,
@@ -33,15 +29,7 @@ export default {
         if (payload.image!==null) {
           let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
           let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
-          var i = document.createElement( 'img' );
-          i.src = payload.image;
-          var t = new Texture(i);
-          t.wrapS = t.wrapT = RepeatWrapping;
-          t.repeat.set( context.state.repeat.x, context.state.repeat.y );
-          t.generateMipmaps = false;
-          t.minFilter = LinearFilter;
-          t.magFilter = LinearFilter;
-          t.needsUpdate = true;
+          var t = texture.texture(payload.image, xRep, yRep);
         } else {
           let t = null;
         }

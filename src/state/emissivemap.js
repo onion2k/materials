@@ -1,9 +1,5 @@
-import {
-    Texture,
-    RepeatWrapping,
-    LinearFilter,
-    ImageUtils
-} from '../../node_modules/three/build/three.module';
+
+import texture from '../lib/texture';
 
 export default {
   namespaced: true,
@@ -25,7 +21,7 @@ export default {
       state.color = payload.rgba;
     },
     updateIntensity (state, payload) {
-      state.intensity = payload.v / 100;
+      state.intensity = payload.v;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -36,21 +32,11 @@ export default {
         if (payload.image!==null) {
           let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
           let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
-
-          var i = document.createElement( 'img' );
-          i.src = payload.image;
-          var t = new Texture(i);
-          t.wrapS = t.wrapT = RepeatWrapping;
-            t.repeat.set( xRep, yRep );
-          t.generateMipmaps = false;
-          t.minFilter = LinearFilter;
-          t.magFilter = LinearFilter;
-          t.needsUpdate = true;
+          var t = texture.texture(payload.image, xRep, yRep);
         } else {
           let t = null;
         }
         context.commit('updateTexture', { texture: t });
-
     },
     xRepeatSliderUpdate(context, payload) {
         context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
