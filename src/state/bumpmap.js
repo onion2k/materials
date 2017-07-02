@@ -32,11 +32,14 @@ export default {
     mapUpdate(context, payload) {
 
         if (payload.image!==null) {
+
           let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
           let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
-          let i = document.createElement( 'img' );
-          i.src = payload.image;
-          let t = new Texture(i);
+
+          var i = document.createElement( 'img' );
+              i.src = payload.image;
+          var t = new Texture(i);
+
           t.wrapS = t.wrapT = RepeatWrapping;
           t.repeat.set( xRep, yRep );
           t.generateMipmaps = false;
@@ -44,9 +47,12 @@ export default {
           t.magFilter = LinearFilter;
           t.bumpScale = context.state.scale;
           t.needsUpdate = true;
+
         } else {
           let t = null;
         }
+
+        console.log(t)
 
         context.commit('updateTexture', { texture: t });
 
