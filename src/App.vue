@@ -115,7 +115,6 @@ export default {
         this.material.needsUpdate = true;
     },
     bumpTexture: function(val) {
-        this.material.bumpMap = this.bumpTexture;
         this.material.needsUpdate = true;
     },
     bumpScale: function(val) {
@@ -208,36 +207,44 @@ export default {
 
             case "MeshBasicMaterial":
                 this.material = new MeshBasicMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
-                this.material.needsUpdate = true;
             break;
 
             case "MeshLambertMaterial":
                 this.material = new MeshLambertMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
-                this.material.emissive.setRGB( 255,0,0 );
-                this.material.needsUpdate = true;
             break;
 
             case "MeshPhongMaterial":
                 this.material = new MeshPhongMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
-                this.material.needsUpdate = true;
             break;
 
             case "MeshPhysicalMaterial":
-                this.material = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.0, metalness: 1.0, shading: SmoothShading, transparent:true, clearCoat: 0.0, clearCoatRoughness: 0.0 });
-                this.material.needsUpdate = true;
+                this.material = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.0, metalness: 0.0, shading: SmoothShading, transparent:true, clearCoat: 0.0, clearCoatRoughness: 0.0 });
             break;
 
             case "MeshToonMaterial":
                 this.material = new MeshToonMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
-                this.material.needsUpdate = true;
             break;
 
             case "MeshStandardMaterial":
                 this.material = new MeshStandardMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
-                this.material.needsUpdate = true;
             break;
 
         }
+
+        this.material.alphaMap = this.alphaTexture;
+        this.material.bumpMap = this.bumpTexture;
+        this.material.bumpScale = this.bumpScale;
+        this.material.map = this.colorTexture;
+        this.material.emissiveMap = this.emissiveTexture;
+        this.material.emissiveIntensity = this.emissiveIntensity / 100;
+        this.material.aoMap = this.occlusionTexture;
+        this.material.occlusionIntensity = this.occlusionIntensity;
+        this.material.normalMap = this.normalTexture;
+        this.material.lightMap = this.lightTexture;
+        this.material.specularMap = this.specularTexture;
+        this.material.envMap = this.envTexture;
+
+        this.material.needsUpdate = true;
 
     },
     updatewire: function(payload) {
