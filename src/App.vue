@@ -71,6 +71,7 @@ export default {
     occlusionIntensity: function () { return this.$store.state.occlusionmap.intensity; },
     specularTexture: function () { return this.$store.state.specularmap.texture; },
     envTexture: function () { return this.$store.state.envmap.texture; },
+    roughnessTexture: function () { return this.$store.state.roughnessmap.texture; },
 
     xrepeat: function () { return this.$store.state.properties.repeat.x },
     yrepeat: function () { return this.$store.state.properties.repeat.y },
@@ -151,6 +152,10 @@ export default {
     },
     envTexture: function(val) {
         this.material.envMap = this.envTexture;
+        this.material.needsUpdate = true;
+    },
+    roughnessTexture: function(val) {
+        this.material.roughnessMap = this.roughnessTexture;
         this.material.needsUpdate = true;
     },
     color: function(val) {

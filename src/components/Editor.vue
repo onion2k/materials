@@ -93,6 +93,7 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughnessMap!==true }">
                 <span class="align-bottom">Roughness Map</span>
+                <mapLoader v-bind:data="roughnessMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalness!==true }">
                 <span class="align-bottom">Metalness</span>
@@ -209,6 +210,11 @@ export default {
             title: 'Environment Map',
             description: '',
             namespace: 'envmap'
+        },
+        roughnessMapData: {
+            title: 'Roughness Map',
+            description: '',
+            namespace: 'roughnessmap'
         }
     }
   },

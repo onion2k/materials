@@ -52,6 +52,7 @@ import vueSlider from 'vue-slider-component';
 
 import Check from '../images/check.jpg';
 import Diamond from '../images/diamond.jpg';
+import Diagonal from '../images/diagonal.jpg';
 import Dots from '../images/dots.jpg';
 import Flagstones from '../images/flagstones.jpg';
 import Marble from '../images/marble.jpg';
@@ -68,6 +69,7 @@ import Wood from '../images/wood.jpg';
 let images = {
     'Check': Check,
     'Diamond': Diamond,
+    'Diagonal': Diagonal,
     'Dots': Dots,
     'Flagstones': Flagstones,
     'Marble': Marble,

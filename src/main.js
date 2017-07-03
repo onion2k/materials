@@ -13,6 +13,7 @@ import lightmap from './state/lightmap';
 import occlusionmap from './state/occlusionmap';
 import specularmap from './state/specularmap';
 import envmap from './state/envmap';
+import roughnessmap from './state/roughnessmap';
 
 let store = new Vuex.Store({
   modules: {
@@ -24,7 +25,9 @@ let store = new Vuex.Store({
     lightmap: lightmap,
     occlusionmap: occlusionmap,
     specularmap: specularmap,
-    envmap: envmap
+    envmap: envmap,
+    roughnessmap: roughnessmap
+
   }
 });
 
