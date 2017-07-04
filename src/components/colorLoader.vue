@@ -21,11 +21,10 @@ import { Sketch } from 'vue-color';
 
 export default {
   name: 'colorLoader',
-  props: ['incolor', 'data'],
+  props: ['color', 'data'],
   data: function(){
     return {
-        modal: false,
-        color: this.incolor
+        modal: false
     }
   },
   methods: {

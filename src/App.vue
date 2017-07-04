@@ -128,7 +128,7 @@ export default {
         this.material.needsUpdate = true;
     },
     emissiveTexture: function(val) {
-        //this.material.emissiveMap = this.emissiveTexture;
+        this.material.emissiveMap = this.emissiveTexture;
         this.material.needsUpdate = true;
     },
     emissiveIntensity: function(val) {
@@ -164,7 +164,7 @@ export default {
         this.material.needsUpdate = true;
     },
     color: function(val) {
-        this.material.color.setHex(val);
+        this.material.color.setHex(parseInt(rgbHex(val.r,val.g,val.b), 16));
         this.material.needsUpdate = true;
     },
     shininess: function(val) {

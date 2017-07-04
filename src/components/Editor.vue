@@ -32,8 +32,8 @@
                 </div>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
-                <span class="align-bottom">Color {{ color }}</span>
-                <colorLoader :incolor="color"></colorLoader>
+                <span class="align-bottom">Color</span>
+                <colorLoader :color="color"></colorLoader>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">X Repeat</span>
