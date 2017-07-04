@@ -72,6 +72,7 @@ export default {
     specularTexture: function () { return this.$store.state.specularmap.texture; },
     envTexture: function () { return this.$store.state.envmap.texture; },
     roughnessTexture: function () { return this.$store.state.roughnessmap.texture; },
+    metalnessTexture: function () { return this.$store.state.metalnessmap.texture; },
 
     xrepeat: function () { return this.$store.state.properties.repeat.x },
     yrepeat: function () { return this.$store.state.properties.repeat.y },
@@ -158,6 +159,10 @@ export default {
         this.material.roughnessMap = this.roughnessTexture;
         this.material.needsUpdate = true;
     },
+    metalnessTexture: function(val) {
+        this.material.metalnessMap = this.metalnessTexture;
+        this.material.needsUpdate = true;
+    },
     color: function(val) {
         this.material.color.setHex(val);
         this.material.needsUpdate = true;
@@ -236,18 +241,20 @@ export default {
 
         }
 
-        this.material.alphaMap = this.alphaTexture;
-        this.material.bumpMap = this.bumpTexture;
-        this.material.bumpScale = this.bumpScale;
-        this.material.map = this.colorTexture;
-        this.material.emissiveMap = this.emissiveTexture;
-        this.material.emissiveIntensity = this.emissiveIntensity / 100;
-        this.material.aoMap = this.occlusionTexture;
-        this.material.occlusionIntensity = this.occlusionIntensity;
-        this.material.normalMap = this.normalTexture;
-        this.material.lightMap = this.lightTexture;
-        this.material.specularMap = this.specularTexture;
-        this.material.envMap = this.envTexture;
+        if (this.material.hasOwnProperty('alphaMap')) { this.material.alphaMap = this.alphaTexture; }
+        if (this.material.hasOwnProperty('bumpMap')) { this.material.bumpMap = this.bumpTexture; }
+        if (this.material.hasOwnProperty('bumpScale')) { this.material.bumpScale = this.bumpScale; }
+        if (this.material.hasOwnProperty('map')) { this.material.map = this.colorTexture; }
+        if (this.material.hasOwnProperty('emissiveMap')) { this.material.emissiveMap = this.emissiveTexture; }
+        if (this.material.hasOwnProperty('emissiveIntensity')) { this.material.emissiveIntensity = this.emissiveIntensity / 100; }
+        if (this.material.hasOwnProperty('aoMap')) { this.material.aoMap = this.occlusionTexture; }
+        if (this.material.hasOwnProperty('occlusionIntensity')) { this.material.occlusionIntensity = this.occlusionIntensity; }
+        if (this.material.hasOwnProperty('normalMap')) { this.material.normalMap = this.normalTexture; }
+        if (this.material.hasOwnProperty('lightMap')) { this.material.lightMap = this.lightTexture; }
+        if (this.material.hasOwnProperty('specularMap')) { this.material.specularMap = this.specularTexture; }
+        if (this.material.hasOwnProperty('envMap')) { this.material.envMap = this.envTexture; }
+        if (this.material.hasOwnProperty('roughnessMap')) { this.material.roughnessMap = this.roughnessTexture; }
+        if (this.material.hasOwnProperty('metalnessMap')) { this.material.metalnessMap = this.metalnessTexture; }
 
         this.material.needsUpdate = true;
 

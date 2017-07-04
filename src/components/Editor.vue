@@ -101,6 +101,7 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
                 <span class="align-bottom">Metalness Map</span>
+                <mapLoader v-bind:data="metalnessMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoat!==true }">
                 <span class="align-bottom">Clearcoat</span>
@@ -215,6 +216,11 @@ export default {
             title: 'Roughness Map',
             description: '',
             namespace: 'roughnessmap'
+        },
+        metalnessMapData: {
+            title: 'Metal Map',
+            description: '',
+            namespace: 'metalnessmap'
         }
     }
   },
