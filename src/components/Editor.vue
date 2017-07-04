@@ -32,12 +32,8 @@
                 </div>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
-                <span class="align-bottom">Color</span>
-                <div id="colors" v-on:click.self="showcolors">
-                    <div v-if="colorModal" id="colorsmodal">
-                        <color-picker :value="color" @input="updatecolor"></color-picker>
-                    </div>
-                </div>
+                <span class="align-bottom">Color {{ color }}</span>
+                <colorLoader :incolor="color"></colorLoader>
             </div>
             <div class="list-group-item justify-content-between">
                 <span class="align-bottom">X Repeat</span>
@@ -148,7 +144,7 @@
 
 <script>
 
-import { Sketch } from 'vue-color';
+import colorLoader from './colorLoader.vue';
 import mapLoader from './mapLoader.vue';
 import vueSlider from 'vue-slider-component';
 
@@ -284,7 +280,7 @@ export default {
     }
   },
   components: {
-    'color-picker': Sketch,
+    colorLoader,
     vueSlider,
     mapLoader
   }
