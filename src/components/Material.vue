@@ -12,7 +12,10 @@ import {
     WebGLRenderer, 
     BoxGeometry,
     SphereGeometry,
+    ConeGeometry,
     TorusKnotGeometry,
+    TorusGeometry,
+    IcosahedronGeometry,
     PlaneGeometry,
     Mesh,
     MeshLambertMaterial,
@@ -35,12 +38,10 @@ import {
 
 export default {
   name: 'Material',
-  props: ['material', 'wire', 'shadow'],
+  props: ['shape', 'material', 'wire', 'shadow'],
   data: function() {
 
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
-    //let boxgeo = new BoxGeometry(60, 60, 60);
-    //let boxgeo = new SphereGeometry(40, 60, 60);
 
     let mesh = new Mesh(boxgeo, this.material);
         mesh.castShadow = true;
@@ -57,8 +58,35 @@ export default {
         box: mesh,
         light: light
     }
+
   },
   watch : {
+    shape : function(value) {
+        let geo;
+        switch (value) {
+            case "sphere":
+                geo = new SphereGeometry(40, 60, 60);
+                break;
+            case "box":
+                geo = new BoxGeometry(60, 60, 60);
+                break;
+            case "torusknot":
+                geo = new TorusKnotGeometry(30, 10, 100, 16);
+                break;
+            case "cone":
+                geo = new ConeGeometry(30, 60, 32);
+                break;
+            case "torus":
+                geo = new TorusGeometry(40, 10, 16, 100);
+                break;
+            case "icosahedron":
+                geo = new IcosahedronGeometry(50);
+                break;
+        }
+
+        this.box.geometry = geo;
+
+    },
     wire : function(value) {
         this.wireframe.visible = value;
     },

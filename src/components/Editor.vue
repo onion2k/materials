@@ -7,7 +7,12 @@
                         Geometry Type:
                     </button>
                     <div class="dropdown-menu col-xs-12">
-
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('sphere')">Sphere</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('box')">Box</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('torusknot')">Torus Knot</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('cone')">Cone</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('torus')">Torus</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('icosahedron')">Icosahedron</button>
                     </div>
                 </div>
             </div>
@@ -232,7 +237,9 @@ export default {
       clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; }
   },
   methods: {
-
+    geoSelector: function(shape){
+        this.$emit('updategeometry', { 'shape': shape });
+    },
     materialSelector: function(material){
         this.$emit('updatematerial', { 'material': material });
     },
