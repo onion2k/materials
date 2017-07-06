@@ -10,6 +10,7 @@ import rgbHex from 'rgb-hex';
 export default {
   namespaced: true,
   state: {
+    geometry: 'box',
     color: { r: 0, g: 255, b: 0, a: 0.5 },
     shininess: 0,
     reflectivity: 0,
