@@ -7,7 +7,7 @@ import {
 
 export default {
 
-    texture (image, x, y) {
+    texture: function (image, x, y) {
 
         var i = document.createElement( 'img' );
         i.src = image;
