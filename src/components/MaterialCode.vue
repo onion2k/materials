@@ -1,30 +1,34 @@
 <template>
-    <div class="text-left javascript" ref="code">
+    <div>
+        <div class="text-left hidden" ref="code">
 
-        let geometry = new THREE.BoxGeometry(5, 5, 5);
+            let geometry = new THREE.BoxGeometry(5, 5, 5);
 
-        let material = new THREE.MeshBasicMaterial({ color: {{ color }}{{ emissiveIntensity ? ', emissiveIntensity: '+emissiveIntensity : '' }} });
+            let material = new THREE.MeshBasicMaterial({ color: {{ color }}{{ emissiveIntensity ? ', emissiveIntensity: '+emissiveIntensity : '' }} });
 
-            material.map = new THREE.Texture();
+                material.map = new THREE.Texture();
 
-            material.bumpMap = new THREE.Texture();
+                material.bumpMap = new THREE.Texture();
 
-            material.alphaMap = new THREE.Texture();
+                material.alphaMap = new THREE.Texture();
 
-            material.occlusionMap = new THREE.Texture();
+                material.occlusionMap = new THREE.Texture();
 
-            // material.emissiveMap = new THREE.Texture();
+                // material.emissiveMap = new THREE.Texture();
 
-            material.lightMap = new THREE.Texture();
+                material.lightMap = new THREE.Texture();
 
-            material.normalMap = new THREE.Texture();
+                material.normalMap = new THREE.Texture();
 
-            material.specularMap = new THREE.Texture();
+                material.specularMap = new THREE.Texture();
 
-            material.envMap = new THREE.Texture();
+                material.envMap = new THREE.Texture();
 
-        let mesh = new THREE.Mesh(geometry, material);
+            let mesh = new THREE.Mesh(geometry, material);
 
+        </div>
+        <div class="text-left javascript" ref="highlight">
+        </div>
     </div>
 </template>
 
@@ -43,8 +47,6 @@ export default {
   },
   mounted: function(){
 
-    hljs.highlightBlock(this.$refs["code"]);
-
   },
   computed: {
     geometry: function(){
@@ -58,6 +60,14 @@ export default {
         return this.$store.state.emissivemap.intensity / 100;
     }
   },
+  updated: function(){
+
+      console.log(this.$refs["code"].innerHTML)
+
+    this.$refs["highlight"].innerHTML = this.$refs["code"].innerHTML;
+    hljs.highlightBlock(this.$refs["highlight"]);
+
+  },
   methods: {
 
   },
@@ -69,6 +79,10 @@ export default {
 </script>
 
 <style>
+    div.hidden {
+        display: none;
+    }
+
     div.javascript {
         padding: 0;
         font-family: Courier;
