@@ -4,15 +4,15 @@
             <div class="list-group-item list-group-item-action">
                 <div class="btn-group col-xs-12">
                     <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Geometry Type:
+                        Geometry Type: {{ geometry }}
                     </button>
                     <div class="dropdown-menu col-xs-12">
-                        <button class="dropdown-item" type="button" v-on:click="geoSelector('sphere')">Sphere</button>
-                        <button class="dropdown-item" type="button" v-on:click="geoSelector('box')">Box</button>
-                        <button class="dropdown-item" type="button" v-on:click="geoSelector('torusknot')">Torus Knot</button>
-                        <button class="dropdown-item" type="button" v-on:click="geoSelector('cone')">Cone</button>
-                        <button class="dropdown-item" type="button" v-on:click="geoSelector('torus')">Torus</button>
-                        <button class="dropdown-item" type="button" v-on:click="geoSelector('icosahedron')">Icosahedron</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('SphereGeometry')">Sphere</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('BoxGeometry')">Box</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('TorusKnotGeometry')">Torus Knot</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('ConeGeometry')">Cone</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('TorusGeometry')">Torus</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('IcosahedronGeometry')">Icosahedron</button>
                     </div>
                 </div>
             </div>
@@ -48,14 +48,13 @@
                 <span class="align-bottom">Y Repeat</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="yrepeat" @input="updateyrepeat"></vue-slider>
             </div>
-
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
-                <span class="align-bottom">Alpha Map</span>
-                <mapLoader v-bind:data="alphaMapData"></mapLoader>
-            </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.map!==true }">
                 <span class="align-bottom">Color Map</span>
                 <mapLoader v-bind:data="colorMapData"></mapLoader>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
+                <span class="align-bottom">Alpha Map</span>
+                <mapLoader v-bind:data="alphaMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.bumpMap!==true }">
                 <span class="align-bottom">Bump Map</span>
@@ -226,6 +225,7 @@ export default {
     }
   },
   computed: {
+      geometry:function(){ return this.$store.state.properties.geometry; }, 
       xrepeat: function(){ return this.$store.state.properties.repeat.x; },
       yrepeat: function(){ return this.$store.state.properties.repeat.y; },
       color: function(){ return this.$store.state.properties.color; },
@@ -237,8 +237,8 @@ export default {
       clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; }
   },
   methods: {
-    geoSelector: function(shape){
-        this.$emit('updategeometry', { 'shape': shape });
+    geoSelector: function(geometry){
+        this.$store.commit('properties/updategeometry', { 'geometry': geometry });
     },
     materialSelector: function(material){
         this.$emit('updatematerial', { 'material': material });

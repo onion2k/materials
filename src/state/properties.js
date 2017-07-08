@@ -10,7 +10,7 @@ import rgbHex from 'rgb-hex';
 export default {
   namespaced: true,
   state: {
-    geometry: 'box',
+    geometry: 'SphereGeometry',
     color: { r: 0, g: 255, b: 0, a: 0.5 },
     shininess: 0,
     reflectivity: 0,
@@ -31,7 +31,8 @@ export default {
     updateClearcoatRoughness (state, payload) { state.clearcoatRoughness = payload.clearcoatRoughness; },
     updatexrepeat (state, payload) { state.repeat.x = payload.x; },
     updateyrepeat (state, payload) { state.repeat.y = payload.y; },
-    updatesidedness (state, payload) { state.sidedness = payload.sidedness; }
+    updatesidedness (state, payload) { state.sidedness = payload.sidedness; },
+    updategeometry (state, payload) { state.geometry = payload.geometry; }
   },
   actions: {
 

@@ -2,7 +2,7 @@
     <div>
         <div class="text-left hidden" ref="code">
 
-            let geometry = new THREE.BoxGeometry(5, 5, 5);
+            let geometry = new THREE.{{ geometry }}();
 
             let material = new THREE.MeshBasicMaterial({ color: {{ color }}{{ emissiveIntensity ? ', emissiveIntensity: '+emissiveIntensity : '' }} });
 
@@ -47,10 +47,13 @@ export default {
   },
   mounted: function(){
 
+    this.$refs["highlight"].innerHTML = this.$refs["code"].innerHTML;
+    hljs.highlightBlock(this.$refs["highlight"]);
+
   },
   computed: {
     geometry: function(){
-
+        return this.$store.state.properties.geometry;
     },
     color: function(){
         let color = this.$store.state.properties.color;
@@ -61,8 +64,6 @@ export default {
     }
   },
   updated: function(){
-
-      console.log(this.$refs["code"].innerHTML)
 
     this.$refs["highlight"].innerHTML = this.$refs["code"].innerHTML;
     hljs.highlightBlock(this.$refs["highlight"]);
@@ -89,69 +90,65 @@ export default {
         font-size: 12px;
         white-space: pre;
     }
+/* Base16 Atelier Lakeside Light - Theme */
+/* by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/lakeside) */
+/* Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16) */
 
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-
-/* Tomorrow Comment */
+/* Atelier-Lakeside Comment */
 .hljs-comment,
 .hljs-quote {
-  color: #8e908c;
+  color: #5a7b8c;
 }
 
-/* Tomorrow Red */
+/* Atelier-Lakeside Red */
 .hljs-variable,
 .hljs-template-variable,
+.hljs-attribute,
 .hljs-tag,
 .hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
 .hljs-regexp,
-.hljs-deletion {
-  color: #c82829;
+.hljs-link,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #d22d72;
 }
 
-/* Tomorrow Orange */
+/* Atelier-Lakeside Orange */
 .hljs-number,
+.hljs-meta,
 .hljs-built_in,
 .hljs-builtin-name,
 .hljs-literal,
 .hljs-type,
-.hljs-params,
-.hljs-meta,
-.hljs-link {
-  color: #f5871f;
+.hljs-params {
+  color: #935c25;
 }
 
-/* Tomorrow Yellow */
-.hljs-attribute {
-  color: #eab700;
-}
-
-/* Tomorrow Green */
+/* Atelier-Lakeside Green */
 .hljs-string,
 .hljs-symbol,
-.hljs-bullet,
-.hljs-addition {
-  color: #718c00;
+.hljs-bullet {
+  color: #568c3b;
 }
 
-/* Tomorrow Blue */
+/* Atelier-Lakeside Blue */
 .hljs-title,
 .hljs-section {
-  color: #4271ae;
+  color: #257fad;
 }
 
-/* Tomorrow Purple */
+/* Atelier-Lakeside Purple */
 .hljs-keyword,
 .hljs-selector-tag {
-  color: #8959a8;
+  color: #6b6bb8;
 }
 
 .hljs {
   display: block;
   overflow-x: auto;
-  background: white;
-  color: #4d4d4c;
+  background: #ebf8ff;
+  color: #516d7b;
   padding: 0.5em;
 }
 
@@ -162,5 +159,4 @@ export default {
 .hljs-strong {
   font-weight: bold;
 }
-
 </style>

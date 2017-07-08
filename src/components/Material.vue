@@ -40,7 +40,7 @@ import MaterialCode from './MaterialCode.vue';
 
 export default {
   name: 'Material',
-  props: ['shape', 'material', 'wire', 'shadow'],
+  props: ['material', 'wire', 'shadow'],
   data: function() {
 
     let boxgeo = new TorusKnotGeometry(30, 10, 100, 16);
@@ -62,26 +62,29 @@ export default {
     }
 
   },
+  computed: {
+      geometry: function() { return this.$store.state.properties.geometry; }
+  },
   watch : {
-    shape : function(value) {
+    geometry : function(value) {
         let geo;
         switch (value) {
-            case "sphere":
+            case "SphereGeometry":
                 geo = new SphereGeometry(40, 60, 60);
                 break;
-            case "box":
+            case "BoxGeometry":
                 geo = new BoxGeometry(60, 60, 60);
                 break;
-            case "torusknot":
+            case "TorusKnotGeometry":
                 geo = new TorusKnotGeometry(30, 10, 100, 16);
                 break;
-            case "cone":
+            case "ConeGeometry":
                 geo = new ConeGeometry(30, 60, 32);
                 break;
-            case "torus":
+            case "TorusGeometry":
                 geo = new TorusGeometry(40, 10, 16, 100);
                 break;
-            case "icosahedron":
+            case "IcosahedronGeometry":
                 geo = new IcosahedronGeometry(50);
                 break;
         }
