@@ -19,6 +19,9 @@
                 {{ image || 'Click to select an image' }}
                 <button class="remove" v-if="image" @click.self="removeImage">Remove</button>
             </div>
+            <div class="draw card-block">
+                <canvas ref="draw" v-on:mouseup.self="loadDrawImage" v-on:mousedown.self="startDrawImage" v-on:mousemove.self="moveDrawImage"></canvas>
+            </div>
             <ul class="list-group list-group-flush">
                 <div class="list-group-item justify-content-between disabled">
                     <span>x Repeat</span>
@@ -73,6 +76,23 @@ export default {
         this.image = imageTitle;
         this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: imageTitle, image: url });
     },
+    startDrawImage: function(e){
+        this.drawing = true;
+    },
+    moveDrawImage: function(e){
+        if (this.drawing === true) {
+            let c = this.$refs["draw"];
+            let ctx = c.getContext('2d');
+                ctx.fillRect(e.layerX, e.layerY, 2, 2);
+        }
+    },
+    loadDrawImage: function(){
+        let c = this.$refs["draw"];
+        let ctx = c.getContext('2d');
+        let i = c.toDataURL();
+        this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: 'Draw', image: i });
+        this.drawing = false;
+    },
     previewImage: function(event) {
         // Reference to the DOM input element
         var input = event.target;
@@ -111,7 +131,7 @@ export default {
     },
     yRepeatSliderUpdate: function(yRepeatSliderValue){
         this.$store.dispatch(this.data.namespace+'/yRepeatSliderUpdate', { 'v': yRepeatSliderValue });
-    }    
+    }
   },
   components: {
     vueSlider
@@ -161,6 +181,13 @@ export default {
         border-color: #e2e2e2;
         color: #ccc;
         background-color: #f8f8f8;
+    }
+    canvas {
+        padding: 0;
+        margin: 0;
+        border: 1px solid #ddd;
+        width: 100%;
+        height: 200px;
     }
     .explainer {
         font-size: 0.8rem;
