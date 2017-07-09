@@ -1,7 +1,6 @@
 <template>
     <div id="app" class="container-fluid">
       <div class="row">
-        <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
         <Editor 
             :spec="this.materialSpec" 
             :geometry="geometry" 
@@ -9,9 +8,11 @@
             :materialId="this.materialId" 
             :wire="this.wire"
             :shadow="this.shadow"
+            v-on:updatematerial="updatematerial" 
             v-on:updatewire="updatewire"
             v-on:updateshadows="updateshadows">
         </Editor>
+        <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
       </div>
     </div>
 </template>

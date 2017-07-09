@@ -2,7 +2,7 @@
     <div>
         <div class="text-left hidden" ref="code">
 
-            let geometry = new THREE.{{ geometry }}();
+            let geometry = new THREE.{{ geometry }}({{ geometryOptions }});
 
             let material = new THREE.MeshBasicMaterial({ color: {{ color }}{{ emissiveIntensity ? ', emissiveIntensity: '+emissiveIntensity : '' }} });
 
@@ -42,7 +42,8 @@ export default {
   props: [],
   data: function(){
     return {
-
+        colormap: true,
+        geometryOptions: '40, 60, 60'
     }
   },
   mounted: function(){
@@ -68,6 +69,30 @@ export default {
     this.$refs["highlight"].innerHTML = this.$refs["code"].innerHTML;
     hljs.highlightBlock(this.$refs["highlight"]);
 
+  },
+  watch: {
+      geometry: function(val){
+          switch (val) {
+            case "SphereGeometry":
+                this.geometryOptions = '40, 60, 60';
+                break;
+            case "BoxGeometry":
+                this.geometryOptions = '60, 60, 60';
+                break;
+            case "TorusKnotGeometry":
+                this.geometryOptions = '30, 10, 100, 16';
+                break;
+            case "ConeGeometry":
+                this.geometryOptions = '30, 60, 32';
+                break;
+            case "TorusGeometry":
+                this.geometryOptions = '40, 10, 16, 100';
+                break;
+            case "IcosahedronGeometry":
+                this.geometryOptions = '50';
+                break;
+          };
+      }
   },
   methods: {
 
