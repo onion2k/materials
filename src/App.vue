@@ -9,7 +9,6 @@
             :materialId="this.materialId" 
             :wire="this.wire"
             :shadow="this.shadow"
-            v-on:updatematerial="updatematerial" 
             v-on:updatewire="updatewire"
             v-on:updateshadows="updateshadows">
         </Editor>
@@ -119,6 +118,7 @@ export default {
         this.material.needsUpdate = true;
     },
     bumpTexture: function(val) {
+        this.material.bumpMap = this.bumpTexture;
         this.material.needsUpdate = true;
     },
     bumpScale: function(val) {
