@@ -142,12 +142,12 @@ export default {
         this.material.lightMap = this.lightTexture;
         this.material.needsUpdate = true;
     },
-    occlusionTexture: function(val) {
-        this.material.occlusionMap = this.occlusionTexture;
+    aoTexture: function(val) {
+        this.material.aoMap = this.aoTexture;
         this.material.needsUpdate = true;
     },
-    occlusionIntensity: function(val) {
-        this.material.occlusionIntensity = this.occlusionIntensity;
+    aoIntensity: function(val) {
+        //this.material.occlusionIntensity = this.occlusionIntensity;
         this.material.needsUpdate = true;
     },
     specularTexture: function(val) {
@@ -250,8 +250,8 @@ export default {
         if (this.material.hasOwnProperty('map')) { this.material.map = this.colorTexture; }
         if (this.material.hasOwnProperty('emissiveMap')) { this.material.emissiveMap = this.emissiveTexture; }
         if (this.material.hasOwnProperty('emissiveIntensity')) { this.material.emissiveIntensity = this.emissiveIntensity / 100; }
-        if (this.material.hasOwnProperty('aoMap')) { this.material.aoMap = this.occlusionTexture; }
-        if (this.material.hasOwnProperty('occlusionIntensity')) { this.material.occlusionIntensity = this.occlusionIntensity; }
+        if (this.material.hasOwnProperty('aoMap')) { this.material.aoMap = this.aoTexture; }
+        if (this.material.hasOwnProperty('aoIntensity')) { this.material.aoIntensity = this.aoIntensity; }
         if (this.material.hasOwnProperty('normalMap')) { this.material.normalMap = this.normalTexture; }
         if (this.material.hasOwnProperty('lightMap')) { this.material.lightMap = this.lightTexture; }
         if (this.material.hasOwnProperty('specularMap')) { this.material.specularMap = this.specularTexture; }

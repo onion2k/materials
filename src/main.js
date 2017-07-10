@@ -10,7 +10,7 @@ import bumpmap from './state/bumpmap';
 import colormap from './state/colormap';
 import emissivemap from './state/emissivemap';
 import lightmap from './state/lightmap';
-import occlusionmap from './state/occlusionmap';
+import aomap from './state/aomap';
 import specularmap from './state/specularmap';
 import envmap from './state/envmap';
 import roughnessmap from './state/roughnessmap';
@@ -24,7 +24,7 @@ let store = new Vuex.Store({
     colormap: colormap,
     emissivemap: emissivemap,
     lightmap: lightmap,
-    occlusionmap: occlusionmap,
+    aomap: aomap,
     specularmap: specularmap,
     envmap: envmap,
     roughnessmap: roughnessmap,

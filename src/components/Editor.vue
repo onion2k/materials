@@ -66,7 +66,7 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.aoMap!==true }">
                 <span class="align-bottom">AO Map</span>
-                <mapLoader v-bind:data="occlusionMapData"></mapLoader>
+                <mapLoader v-bind:data="aoMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.normalMap!==true }">
                 <span class="align-bottom">Normal Map</span>
@@ -191,10 +191,10 @@ export default {
             namespace: 'emissivemap',
             sliderTitle: 'Intensity'
         },
-        occlusionMapData: {
+        aoMapData: {
             title: 'Ambient occlusion Map',
             description: 'Map an image\'s color data as the object\s abmient occlusion.',
-            namespace: 'occlusionmap'
+            namespace: 'aomap'
         },
         lightMapData: {
             title: 'Light Map',

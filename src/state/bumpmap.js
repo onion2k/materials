@@ -5,14 +5,14 @@ export default {
   namespaced: true,
   state: {
     n: 'bump',
-    texture: null,
+    texture: undefined,
     repeat: { x: null, y: null },
     scale: 1.0
   },
   mutations: {
     updateRepeat (state, payload) {
       state.repeat = payload;
-      if (state.texture !== null) {
+      if (state.texture !== undefined) {
         state.texture.repeat.set( state.repeat.x, state.repeat.y );
       }
       state.texture.needsUpdate = true;
@@ -33,7 +33,7 @@ export default {
           var t = texture.texture(payload.image, xRep, yRep);
           t.bumpScale = context.state.scale;
         } else {
-          let t = null;
+          let t = undefined;
         }
 
         context.commit('updateTexture', { texture: t });

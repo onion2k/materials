@@ -6,23 +6,17 @@
 
             let material = new THREE.MeshBasicMaterial({ color: {{ color }}{{ emissiveIntensity ? ', emissiveIntensity: '+emissiveIntensity : '' }} });
 
-                {{ codeColorMap }}
+                {{ colorMap }}
+                {{ bumpMap }}
+                {{ alphaMap }}
+                {{ aoMap }}
+                {{ emissiveMap }}
+                {{ lightMap }}
 
-                material.bumpMap = new THREE.Texture();
-
-                material.alphaMap = new THREE.Texture();
-
-                material.occlusionMap = new THREE.Texture();
-
-                // material.emissiveMap = new THREE.Texture();
-
-                material.lightMap = new THREE.Texture();
-
-                material.normalMap = new THREE.Texture();
-
-                material.specularMap = new THREE.Texture();
-
-                material.envMap = new THREE.Texture();
+                {{ specularMap }}
+                {{ envMap }}
+                {{ roughnessMap }}
+                {{ metalnessMap }}
 
             let mesh = new THREE.Mesh(geometry, material);
 
@@ -60,11 +54,81 @@ export default {
         let color = this.$store.state.properties.color;
         return '0x'+parseInt(rgbHex(color.r,color.g,color.b), 16);
     },
-    codeColorMap: function(){
+    colorMap: function(){
         if (this.$store.state.colormap.texture === undefined) {
             return '// material.map = new THREE.Texture();';
         } else {
-            return 'material.map = new THREE.Texture({ '+this.$store.state.colormap.texture+' });';
+            return 'material.map = new THREE.Texture({  });';
+        }
+    },
+    bumpMap: function(){
+        if (this.$store.state.bumpmap.texture === undefined) {
+            return '// material.bumpMap = new THREE.Texture();';
+        } else {
+            return 'material.bumpMap = new THREE.Texture({  });';
+        }
+    },
+    alphaMap: function(){
+        if (this.$store.state.alphamap.texture === undefined) {
+            return '// material.alphaMap = new THREE.Texture();';
+        } else {
+            return 'material.alphaMap = new THREE.Texture({  });';
+        }
+    },
+    aoMap: function(){
+        if (this.$store.state.aomap.texture === undefined) {
+            return '// material.aoMap = new THREE.Texture();';
+        } else {
+            return 'material.aoMap = new THREE.Texture({  });';
+        }
+    },
+    emissiveMap: function(){
+        if (this.$store.state.emissivemap.texture === undefined) {
+            return '// material.emissiveMap = new THREE.Texture();';
+        } else {
+            return 'material.emissiveMap = new THREE.Texture({  });';
+        }
+    },
+    lightMap: function(){
+        if (this.$store.state.lightmap.texture === undefined) {
+            return '// material.lightMap = new THREE.Texture();';
+        } else {
+            return 'material.lightMap = new THREE.Texture({  });';
+        }
+    },
+    // normalMap: function(){
+    //     if (this.$store.state.normalmap.texture === undefined) {
+    //         return '// material.normalMap = new THREE.Texture();';
+    //     } else {
+    //         return 'material.normalMap = new THREE.Texture({  });';
+    //     }
+    // },
+    specularMap: function(){
+        if (this.$store.state.specularmap.texture === undefined) {
+            return '// material.specularMap = new THREE.Texture();';
+        } else {
+            return 'material.specularMap = new THREE.Texture({  });';
+        }
+    },
+    envMap: function(){
+        if (this.$store.state.envmap.texture === undefined) {
+            return '// material.envMap = new THREE.Texture();';
+        } else {
+            return 'material.envMap = new THREE.Texture({  });';
+        }
+    },
+    roughnessMap: function(){
+        if (this.$store.state.roughnessmap.texture === undefined) {
+            return '// material.roughnessMap = new THREE.Texture();';
+        } else {
+            return 'material.roughnessMap = new THREE.Texture({  });';
+        }
+    },
+    metalnessMap: function(){
+        if (this.$store.state.metalnessmap.texture === undefined) {
+            return '// material.metalnessMap = new THREE.Texture();';
+        } else {
+            return 'material.metalnessMap = new THREE.Texture({  });';
         }
     },
     emissiveIntensity: function(){
@@ -129,7 +193,7 @@ export default {
 /* Atelier-Lakeside Comment */
 .hljs-comment,
 .hljs-quote {
-  color: #5a7b8c;
+  color: #aabbcc;
 }
 
 /* Atelier-Lakeside Red */
