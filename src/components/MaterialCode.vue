@@ -6,7 +6,7 @@
 
             let material = new THREE.MeshBasicMaterial({ color: {{ color }}{{ emissiveIntensity ? ', emissiveIntensity: '+emissiveIntensity : '' }} });
 
-                material.map = new THREE.Texture();
+                {{ codeColorMap }}
 
                 material.bumpMap = new THREE.Texture();
 
@@ -59,6 +59,13 @@ export default {
     color: function(){
         let color = this.$store.state.properties.color;
         return '0x'+parseInt(rgbHex(color.r,color.g,color.b), 16);
+    },
+    codeColorMap: function(){
+        if (this.$store.state.colormap.texture === undefined) {
+            return '// material.map = new THREE.Texture();';
+        } else {
+            return 'material.map = new THREE.Texture({ '+this.$store.state.colormap.texture+' });';
+        }
     },
     emissiveIntensity: function(){
         return this.$store.state.emissivemap.intensity / 100;

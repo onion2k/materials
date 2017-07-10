@@ -55,7 +55,7 @@ export default {
         materialSpec: materialSpecs['MeshPhysicalMaterial'],
         materialId: 0,
         material: base,
-        geometry: 'MeshSphereGeometry',
+        geometry: 'SphereGeometry',
         wire: false,
         shadow: false
     }
