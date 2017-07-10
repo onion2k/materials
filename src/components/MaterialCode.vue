@@ -4,13 +4,14 @@
 let rendererWidth = 800;
 let aspect = 0.75;
 
-let scene = new THREE.Scene();
 let renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: false
 });
 renderer.setSize(rendererWidth, rendererWidth*aspect);
 document.body.appendChild(renderer.domElement);
+
+let scene = new THREE.Scene();
 
 let camera = new THREE.PerspectiveCamera(65, rendererWidth/(rendererWidth*aspect), 1, 10000);
     camera.position.set(0, 75, 75);

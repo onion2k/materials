@@ -242,6 +242,7 @@ export default {
         width: 256px;
         height: 256px;
         border: 1px solid #888;
+        cursor: pointer;
     }
     .explainer {
         font-size: 0.8rem;
