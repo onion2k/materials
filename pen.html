@@ -1,0 +1,31 @@
+
+    <form action="https://codepen.io/pen/define" method="POST" target="_blank">
+      <input id="data-input" type="hidden" name="data" value="">
+      <input type="image" src="https://s.cdpn.io/3/cp-arrow-right.svg" width="40" height="40" value="Create Pen" class="codepen-mover-button"> Try it on CodePen
+    </form>
+  
+<script>
+      var data = {
+        title              : "New pen",
+        description        : "",
+        html               : "<p>Hello</p>",
+        html_pre_processor : "",
+        css                : "",
+        css_pre_processor  : "",
+        css_starter        : "",
+        css_prefix         : "",
+        js                 : "",
+        js_pre_processor   : "",
+        js_modernizr       : "",
+        js_library         : "",
+        html_classes       : "",
+        css_external       : "",
+        js_external        : ""
+    };
+    var dataString = JSON.stringify(data);
+
+    // Get Input and Append
+    var data_input = document.getElementById('data-input');
+    data_input.value = dataString;
+
+</script>

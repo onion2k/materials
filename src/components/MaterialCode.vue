@@ -32,8 +32,8 @@ scene.add(mesh);
 
 renderer.render(scene, camera);
         </div>
-        <div class="text-left javascript" ref="highlight">
-        </div>
+        <div class="text-left javascript" ref="highlight"></div>
+        <div v-on:click="codepen">Post to Codepen</div>
     </div>
 </template>
 
@@ -177,7 +177,30 @@ export default {
       }
   },
   methods: {
+    codepen: function(){
 
+        // let pen = {
+        //     title                 : "New Material!",
+        //     description           : "A material design with MaterialCode",
+        //     parent                : 16330082,
+        //     tags                  : ["MaterialCode", "three.js"],
+        //     editors               : "000", 
+        //     layout                : "left", 
+        //     js                    : this.$refs["code"].innerHTML,
+        //     js_external           : "https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"
+        // }
+
+        // var payload = JSON.stringify(pen).replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+
+        // var data = new FormData();
+        // data.append( "data", payload );
+
+        // fetch("https://codepen.io/pen/define", {
+        //     method: "POST",
+        //     body: data
+        // }).then(function(res){ console.log(res); }).catch(function(e){ console.log(e); });
+
+    }
   },
   components: {
 
