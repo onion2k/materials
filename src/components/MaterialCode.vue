@@ -3,22 +3,11 @@
         <div class="text-left hidden" ref="code">
 
             let geometry = new THREE.{{ geometry }}({{ geometryOptions }});
-
-            let material = new THREE.MeshBasicMaterial({ color: {{ color }}{{ emissiveIntensity ? ', emissiveIntensity: '+emissiveIntensity : '' }} });
-
-                {{ colorMap }}
-                {{ bumpMap }}
-                {{ alphaMap }}
-                {{ aoMap }}
-                {{ emissiveMap }}
-                {{ lightMap }}
-
-                {{ specularMap }}
-                {{ envMap }}
-                {{ roughnessMap }}
-                {{ metalnessMap }}
-
+            let material = new THREE.MeshBasicMaterial({
+                {{ color }}{{ emissiveIntensity }}{{ colorMap }}{{ bumpMap }}{{ alphaMap }}{{ aoMap }}{{ emissiveMap }}{{ lightMap }}{{ specularMap }}{{ envMap }}{{ roughnessMap }}{{ metalnessMap }}            });
             let mesh = new THREE.Mesh(geometry, material);
+
+//   color      :  new THREE.Color("rgb(155,196,30)"),
 
         </div>
         <div class="text-left javascript" ref="highlight">
@@ -52,48 +41,48 @@ export default {
     },
     color: function(){
         let color = this.$store.state.properties.color;
-        return '0x'+parseInt(rgbHex(color.r,color.g,color.b), 16);
+        return 'color: 0x'+parseInt(rgbHex(color.r,color.g,color.b), 16)+',\n';
     },
     colorMap: function(){
         if (this.$store.state.colormap.texture === undefined) {
-            return '// material.map = new THREE.Texture();';
+            return '                // map: new THREE.Texture(),\n';
         } else {
-            return 'material.map = new THREE.Texture({  });';
+            return '                map: new THREE.Texture({  }),\n';
         }
     },
     bumpMap: function(){
         if (this.$store.state.bumpmap.texture === undefined) {
-            return '// material.bumpMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.bumpMap = new THREE.Texture({  });';
+            return '                bumpMap: new THREE.Texture({  }),\n';
         }
     },
     alphaMap: function(){
         if (this.$store.state.alphamap.texture === undefined) {
-            return '// material.alphaMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.alphaMap = new THREE.Texture({  });';
+            return '                alphaMap: new THREE.Texture({  }),\n';
         }
     },
     aoMap: function(){
         if (this.$store.state.aomap.texture === undefined) {
-            return '// material.aoMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.aoMap = new THREE.Texture({  });';
+            return '                aoMap: new THREE.Texture({  }),\n';
         }
     },
     emissiveMap: function(){
         if (this.$store.state.emissivemap.texture === undefined) {
-            return '// material.emissiveMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.emissiveMap = new THREE.Texture({  });';
+            return '                emissiveMap: new THREE.Texture({  }),\n';
         }
     },
     lightMap: function(){
         if (this.$store.state.lightmap.texture === undefined) {
-            return '// material.lightMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.lightMap = new THREE.Texture({  });';
+            return '                lightMap: new THREE.Texture({  }),\n';
         }
     },
     // normalMap: function(){
@@ -105,34 +94,34 @@ export default {
     // },
     specularMap: function(){
         if (this.$store.state.specularmap.texture === undefined) {
-            return '// material.specularMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.specularMap = new THREE.Texture({  });';
+            return '                specularMap: new THREE.Texture({  }),\n';
         }
     },
     envMap: function(){
         if (this.$store.state.envmap.texture === undefined) {
-            return '// material.envMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.envMap = new THREE.Texture({  });';
+            return '                envMap: new THREE.Texture({  }),\n';
         }
     },
     roughnessMap: function(){
         if (this.$store.state.roughnessmap.texture === undefined) {
-            return '// material.roughnessMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.roughnessMap = new THREE.Texture({  });';
+            return '                roughnessMap: new THREE.Texture({  }),\n';
         }
     },
     metalnessMap: function(){
         if (this.$store.state.metalnessmap.texture === undefined) {
-            return '// material.metalnessMap = new THREE.Texture();';
+            return '';
         } else {
-            return 'material.metalnessMap = new THREE.Texture({  });';
+            return '                metalnessMap: new THREE.Texture({  }),\n';
         }
     },
     emissiveIntensity: function(){
-        return this.$store.state.emissivemap.intensity / 100;
+        return '                emissiveIntensity: '+this.$store.state.emissivemap.intensity / 100+',\n';
     }
   },
   updated: function(){
