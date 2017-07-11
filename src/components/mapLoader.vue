@@ -77,12 +77,20 @@ export default {
         this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: imageTitle, image: url });
     },
     startDrawImage: function(e){
+        let c = this.$refs["draw"];
+        let ctx = c.getContext('2d');
+
+        let col = this.$store.state.properties.color;
+        ctx.fillStyle = "rgb("+col.r+","+col.g+","+col.b+")";
+        ctx.fillRect(0,0,256,256);
+
         this.drawing = true;
     },
     moveDrawImage: function(e){
         if (this.drawing === true) {
             let c = this.$refs["draw"];
             let ctx = c.getContext('2d');
+                ctx.fillStyle = "rgb(0,0,0)";
                 ctx.beginPath();
             var coords = getRelativeCoordinates(e, c);
                 ctx.arc(coords.x-3, coords.y-3,6,0,2*Math.PI);
