@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-left hidden" ref="code">
+        <div ref="code" class="hidden">
 let rendererWidth = 800;
 let aspect = 0.75;
 
@@ -31,9 +31,14 @@ let mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
 renderer.render(scene, camera);
-        </div>
+</div>
         <div class="text-left javascript" ref="highlight"></div>
-        <div v-on:click="codepen">Post to Codepen</div>
+
+    <form action="https://codepen.io/pen/define" method="POST" target="_blank">
+        <input name="data" type="hidden" v-bind:value="codepen">
+        <input type="submit" value="Create Pen">
+    </form>
+  
     </div>
 </template>
 
@@ -47,6 +52,7 @@ export default {
   props: [],
   data: function(){
     return {
+        codepen: '',
         colormap: true,
         geometryOptions: '40, 60, 60'
     }
@@ -63,7 +69,7 @@ export default {
     },
     color: function(){
         let color = this.$store.state.properties.color;
-        return 'color: 0x'+parseInt(rgbHex(color.r,color.g,color.b), 16)+',\n';
+        return 'color: '+parseInt(rgbHex(color.r,color.g,color.b), 16)+',\n';
     },
     colorMap: function(){
         if (this.$store.state.colormap.texture === undefined) {
@@ -151,6 +157,21 @@ export default {
     this.$refs["highlight"].innerHTML = this.$refs["code"].innerHTML;
     hljs.highlightBlock(this.$refs["highlight"]);
 
+    let pen = {
+        title                 : "New Material!",
+        description           : "A material design with MaterialCode",
+        parent                : 16330082,
+        tags                  : ["MaterialCode", "three.js"],
+        editors               : "001", 
+        layout                : "left", 
+        js                    : this.$refs["code"].innerHTML,
+        js_external           : "https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"
+    }
+
+    var payload = JSON.stringify(pen).replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+
+    this.codepen = payload;
+
   },
   watch: {
       geometry: function(val){
@@ -177,30 +198,7 @@ export default {
       }
   },
   methods: {
-    codepen: function(){
 
-        // let pen = {
-        //     title                 : "New Material!",
-        //     description           : "A material design with MaterialCode",
-        //     parent                : 16330082,
-        //     tags                  : ["MaterialCode", "three.js"],
-        //     editors               : "000", 
-        //     layout                : "left", 
-        //     js                    : this.$refs["code"].innerHTML,
-        //     js_external           : "https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"
-        // }
-
-        // var payload = JSON.stringify(pen).replace(/"/g, "&quot;").replace(/'/g, "&apos;");
-
-        // var data = new FormData();
-        // data.append( "data", payload );
-
-        // fetch("https://codepen.io/pen/define", {
-        //     method: "POST",
-        //     body: data
-        // }).then(function(res){ console.log(res); }).catch(function(e){ console.log(e); });
-
-    }
   },
   components: {
 
