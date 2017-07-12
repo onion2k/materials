@@ -8,7 +8,6 @@
             :materialId="this.materialId" 
             :wire="this.wire"
             :shadow="this.shadow"
-            v-on:updatematerial="updatematerial" 
             v-on:updatewire="updatewire"
             v-on:updateshadows="updateshadows">
         </Editor>
@@ -51,16 +50,18 @@ export default {
   name: 'app',
   data () {
     return {
-        materialTypeSelected: 'MeshPhysicalMaterial',
         materialSpec: materialSpecs['MeshPhysicalMaterial'],
         materialId: 0,
         material: base,
-        geometry: 'SphereGeometry',
         wire: false,
         shadow: false
     }
   },
   computed: {
+
+    materialTypeSelected:  function () { return this.$store.state.properties.material; },
+    geometry:  function () { return this.$store.state.properties.geometry; },
+    sidedness:  function () { return this.$store.state.properties.sidedness; },
 
     alphaTexture: function () { return this.$store.state.alphamap.texture; },
     bumpTexture: function () { return this.$store.state.bumpmap.texture; },
@@ -210,13 +211,13 @@ export default {
         this.material.needsUpdate = true;
     },
   },  
-  methods: {
-    updatematerial: function(payload){
+  watch: {
+    materialTypeSelected: function(payload){
 
-        this.materialTypeSelected = payload.material;
-        this.materialSpec = materialSpecs[payload.material];
+        this.materialTypeSelected = payload;
+        this.materialSpec = materialSpecs[payload];
 
-        switch (payload.material) {
+        switch (payload) {
 
             case "MeshBasicMaterial":
                 this.material = new MeshBasicMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
@@ -261,7 +262,9 @@ export default {
 
         this.material.needsUpdate = true;
 
-    },
+    }
+  },
+  methods: {
     updatewire: function(payload) {
         this.wire = payload.wire;
     },

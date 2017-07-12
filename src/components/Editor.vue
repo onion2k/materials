@@ -241,7 +241,7 @@ export default {
         this.$store.commit('properties/updategeometry', { 'geometry': geometry });
     },
     materialSelector: function(material){
-        this.$emit('updatematerial', { 'material': material });
+        this.$store.commit('properties/updatematerial', { 'material': material });
     },
     sidednessSelector: function(sidedness){
         this.$store.commit('properties/updatesidedness', { 'sidedness': sidedness });
@@ -252,7 +252,6 @@ export default {
     updateyrepeat: function(val) {
         this.$store.commit('properties/updateyrepeat', { 'y': val });
     },
-
     updatecolor: function(color) {
         this.$store.commit('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
     },

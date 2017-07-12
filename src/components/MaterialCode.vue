@@ -24,7 +24,7 @@ let light = new THREE.SpotLight(0xffffff, 1.0);
     scene.add(light);
 
 let geometry = new THREE.{{ geometry }}({{ geometryOptions }});
-let material = new THREE.MeshBasicMaterial({
+let material = new THREE.{{ material }}({
     {{ color }}{{ emissiveIntensity }}{{ colorMap }}{{ bumpMap }}{{ alphaMap }}{{ aoMap }}{{ emissiveMap }}{{ lightMap }}{{ specularMap }}{{ envMap }}{{ roughnessMap }}{{ metalnessMap }}});
 let mesh = new THREE.Mesh(geometry, material);
 
@@ -66,6 +66,9 @@ export default {
   computed: {
     geometry: function(){
         return this.$store.state.properties.geometry;
+    },
+    material: function(){
+        return this.$store.state.properties.material;
     },
     color: function(){
         let color = this.$store.state.properties.color;
@@ -177,23 +180,23 @@ export default {
       geometry: function(val){
           switch (val) {
             case "SphereGeometry":
-    this.geometryOptions = '40, 60, 60';
-    break;
+                this.geometryOptions = '40, 60, 60';
+                break;
             case "BoxGeometry":
-    this.geometryOptions = '60, 60, 60';
-    break;
+                this.geometryOptions = '60, 60, 60';
+                break;
             case "TorusKnotGeometry":
-    this.geometryOptions = '30, 10, 100, 16';
-    break;
+                this.geometryOptions = '30, 10, 100, 16';
+                break;
             case "ConeGeometry":
-    this.geometryOptions = '30, 60, 32';
-    break;
+                this.geometryOptions = '30, 60, 32';
+                break;
             case "TorusGeometry":
-    this.geometryOptions = '40, 10, 16, 100';
-    break;
+                this.geometryOptions = '40, 10, 16, 100';
+                break;
             case "IcosahedronGeometry":
-    this.geometryOptions = '50';
-    break;
+                this.geometryOptions = '50';
+                break;
           };
       }
   },
