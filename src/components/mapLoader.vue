@@ -100,7 +100,7 @@ export default {
     loadDrawImage: function(){
         let c = this.$refs["draw"];
         let ctx = c.getContext('2d');
-        let i = c.toDataURL();
+        let i = c.toDataURL('image/jpeg', 0.9);
         this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: 'Draw', image: i });
         this.drawing = false;
     },

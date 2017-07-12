@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     n: 'color',
+    image: undefined,
     texture: undefined,
     repeat: { x: null, y: null },
     scale: 1.0
@@ -20,6 +21,9 @@ export default {
     updateScale (state, payload) {
       state.scale = payload.v / 100;
     },
+    updateImage (state, payload) {
+        state.image = payload.image;
+    },
     updateTexture (state, payload) {
         state.texture = payload.texture;
     }
@@ -34,6 +38,7 @@ export default {
           let t = undefined;
         }
 
+        context.commit('updateImage', { image: payload.image });
         context.commit('updateTexture', { texture: t });
 
     },

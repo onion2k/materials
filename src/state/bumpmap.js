@@ -27,6 +27,8 @@ export default {
   actions: {
     mapUpdate(context, payload) {
 
+      console.log(payload);
+
         if (payload.image!==null) {
           let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
           let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;

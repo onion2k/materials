@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div ref="code" class="hidden">let rendererWidth = 800;
+        <div ref="code" class="hidden">{{ prefix }}let rendererWidth = 800;
 let aspect = 0.75;
 
 let renderer = new THREE.WebGLRenderer({
@@ -29,7 +29,20 @@ let mesh = new THREE.Mesh(geometry, material);
 
 scene.add(mesh);
 
-renderer.render(scene, camera);
+function animate() {
+
+    requestAnimationFrame(animate);
+    mesh.rotation.y += 0.01;
+    render();
+
+}
+
+function render() {
+    renderer.render(scene, camera);
+}
+
+animate();
+
 </div>
     <div class="text-left javascript" ref="highlight"></div>
 
@@ -51,6 +64,7 @@ export default {
   props: [],
   data: function(){
     return {
+        prefix: '',
         codepen: '',
         colormap: true,
         geometryOptions: '40, 60, 60'
@@ -77,7 +91,17 @@ export default {
         if (this.$store.state.colormap.texture === undefined) {
             return '    // map: new THREE.Texture(),\n';
         } else {
-            return '    map: new THREE.Texture({  }),\n';
+            this.prefix = '\
+var colorMapSrcImage = document.createElement( \'img\' );\n\
+    colorMapSrcImage.src = \''+this.$store.state.colormap.image+'\';\n\n\
+var colorMapTexture = new THREE.Texture( colorMapSrcImage );\n\
+    colorMapTexture.wrapS = colorMapTexture.wrapT = THREE.RepeatWrapping;\n\
+    colorMapTexture.repeat.set( 2, 2 );\n\
+    colorMapTexture.generateMipmaps = false;\n\
+    colorMapTexture.minFilter = THREE.LinearFilter;\n\
+    colorMapTexture.magFilter = THREE.LinearFilter;\n\
+    colorMapTexture.needsUpdate = true;\n\n';
+            return '    map: colorMapTexture,\n';
         }
     },
     bumpMap: function(){
@@ -151,7 +175,11 @@ export default {
         }
     },
     emissiveIntensity: function(){
-        return '    emissiveIntensity: '+this.$store.state.emissivemap.intensity / 100+',\n';
+        if (this.$store.state.emissivemap.intensity == 0) {
+            return '';
+        } else {
+            return '    emissiveIntensity: '+this.$store.state.emissivemap.intensity / 100+',\n';
+        }
     }
   },
   updated: function(){
