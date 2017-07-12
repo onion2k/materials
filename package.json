@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 8888",
-    "build": "webpack --p"
+    "build": "NODE_ENV=production webpack --p  --progress",
+    "buildmap": "NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "highlight.js": "^9.12.0",
