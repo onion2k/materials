@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     n: 'alpha',
+    image: undefined,
     texture: undefined,
     repeat: { x: null, y: null },
     scale: 1.0
@@ -20,8 +21,11 @@ export default {
     updateScale (state, payload) {
       state.scale = payload.v / 100;
     },
+    updateImage (state, payload) {
+        state.image = payload.image;
+    },
     updateTexture (state, payload) {
-      state.texture = payload.texture;
+        state.texture = payload.texture;
     }
   },
   actions: {
@@ -33,16 +37,17 @@ export default {
         } else {
           let t = undefined;
         }
+        context.commit('updateImage', { image: payload.image });
         context.commit('updateTexture', { texture: t });
     },
     xRepeatSliderUpdate(context, payload) {
-      context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
+        context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
     },
     yRepeatSliderUpdate(context, payload) {
-      context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
+        context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
     },
     sliderUpdate(context, payload) {
-      context.commit('updateScale', payload );
+        context.commit('updateScale', payload );
     }
   }
 }

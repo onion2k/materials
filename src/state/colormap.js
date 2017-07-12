@@ -37,10 +37,8 @@ export default {
         } else {
           let t = undefined;
         }
-
         context.commit('updateImage', { image: payload.image });
         context.commit('updateTexture', { texture: t });
-
     },
     xRepeatSliderUpdate(context, payload) {
         context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });

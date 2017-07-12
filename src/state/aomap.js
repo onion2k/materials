@@ -4,9 +4,11 @@ import texture from '../lib/texture';
 export default {
   namespaced: true,
   state: {
+    n: 'ao',
+    image: undefined,
     texture: undefined,
     repeat: { x: null, y: null },
-    intensity: 1.0
+    scale: 1.0
   },
   mutations: {
     updateRepeat (state, payload) {
@@ -16,8 +18,11 @@ export default {
       }
       state.texture.needsUpdate = true;
     },
-    updateIntensity (state, payload) {
-      state.intensity = payload.v / 100;
+    updateScale (state, payload) {
+      state.scale = payload.v / 100;
+    },
+    updateImage (state, payload) {
+        state.image = payload.image;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -32,8 +37,8 @@ export default {
         } else {
           let t = undefined;
         }
+        context.commit('updateImage', { image: payload.image });
         context.commit('updateTexture', { texture: t });
-
     },
     xRepeatSliderUpdate(context, payload) {
         context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
@@ -42,7 +47,7 @@ export default {
         context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
     },
     sliderUpdate(context, payload) {
-        context.commit('updateIntensity', payload );
+        context.commit('updateScale', payload );
     }
   }
 }

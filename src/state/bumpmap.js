@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     n: 'bump',
+    image: undefined,
     texture: undefined,
     repeat: { x: null, y: null },
     scale: 1.0
@@ -20,15 +21,15 @@ export default {
     updateScale (state, payload) {
       state.scale = payload.v / 100;
     },
+    updateImage (state, payload) {
+        state.image = payload.image;
+    },
     updateTexture (state, payload) {
-      state.texture = payload.texture;
+        state.texture = payload.texture;
     }
   },
   actions: {
     mapUpdate(context, payload) {
-
-      console.log(payload);
-
         if (payload.image!==null) {
           let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
           let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
@@ -37,9 +38,8 @@ export default {
         } else {
           let t = undefined;
         }
-
+        context.commit('updateImage', { image: payload.image });
         context.commit('updateTexture', { texture: t });
-
     },
     xRepeatSliderUpdate(context, payload) {
         context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });

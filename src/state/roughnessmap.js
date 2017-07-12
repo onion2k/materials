@@ -4,7 +4,8 @@ import texture from '../lib/texture';
 export default {
   namespaced: true,
   state: {
-    color: null,
+    n: 'roughness',
+    image: undefined,
     texture: undefined,
     repeat: { x: null, y: null },
     scale: 1.0
@@ -17,11 +18,11 @@ export default {
       }
       state.texture.needsUpdate = true;
     },
-    updateColor: function(state, payload) {
-      state.color = payload.rgba;
-    },
     updateScale (state, payload) {
       state.scale = payload.v / 100;
+    },
+    updateImage (state, payload) {
+        state.image = payload.image;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -36,6 +37,7 @@ export default {
         } else {
           let t = undefined;
         }
+        context.commit('updateImage', { image: payload.image });
         context.commit('updateTexture', { texture: t });
     },
     xRepeatSliderUpdate(context, payload) {
@@ -46,9 +48,6 @@ export default {
     },
     sliderUpdate(context, payload) {
         context.commit('updateScale', payload );
-    },
-    colorUpdate(context, payload) {
-        context.commit('updateColor', payload );
     }
   }
 }

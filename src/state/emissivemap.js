@@ -4,10 +4,12 @@ import texture from '../lib/texture';
 export default {
   namespaced: true,
   state: {
+    n: 'emissive',
     color: undefined,
+    image: undefined,
     texture: undefined,
     repeat: { x: null, y: null },
-    intensity: 1.0
+    intensity: 0
   },
   mutations: {
     updateRepeat (state, payload) {
@@ -17,11 +19,14 @@ export default {
       }
       state.texture.needsUpdate = true;
     },
-    updateColor: function(state, payload) {
-      state.color = payload.rgba;
+    updateColor (state, payload) {
+      state.color = payload.color;
     },
     updateIntensity (state, payload) {
-      state.intensity = payload.v;
+      state.intensity = payload.v / 100;
+    },
+    updateImage (state, payload) {
+        state.image = payload.image;
     },
     updateTexture (state, payload) {
         state.texture = payload.texture;
@@ -36,6 +41,7 @@ export default {
         } else {
           let t = undefined;
         }
+        context.commit('updateImage', { image: payload.image });
         context.commit('updateTexture', { texture: t });
     },
     xRepeatSliderUpdate(context, payload) {
@@ -46,9 +52,6 @@ export default {
     },
     sliderUpdate(context, payload) {
         context.commit('updateIntensity', payload );
-    },
-    colorUpdate(context, payload) {
-        context.commit('updateColor', payload );
     }
   }
 }
