@@ -210,8 +210,6 @@ export default {
         }
         this.material.needsUpdate = true;
     },
-  },  
-  watch: {
     materialTypeSelected: function(payload){
 
         this.materialTypeSelected = payload;

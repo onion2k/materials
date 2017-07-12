@@ -1,7 +1,6 @@
 <template>
     <div>
-        <div ref="code" class="hidden">
-let rendererWidth = 800;
+        <div ref="code" class="hidden">let rendererWidth = 800;
 let aspect = 0.75;
 
 let renderer = new THREE.WebGLRenderer({
@@ -32,7 +31,7 @@ scene.add(mesh);
 
 renderer.render(scene, camera);
 </div>
-        <div class="text-left javascript" ref="highlight"></div>
+    <div class="text-left javascript" ref="highlight"></div>
 
     <form action="https://codepen.io/pen/define" method="POST" target="_blank">
         <input name="data" type="hidden" v-bind:value="codepen">
@@ -216,7 +215,7 @@ export default {
     }
 
     div.javascript {
-        padding: 0;
+        padding: 15px;
         font-family: Courier;
         font-size: 12px;
         white-space: pre;
