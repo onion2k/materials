@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div ref="code" class="hidden">{{ prefix }}let rendererWidth = 800;
+        <div ref="code" class="hidden">{{ preloader }}let rendererWidth = 800;
 let aspect = 0.75;
 
 let renderer = new THREE.WebGLRenderer({
@@ -64,9 +64,8 @@ export default {
   props: [],
   data: function(){
     return {
-        prefix: '',
+        preloader: '',
         codepen: '',
-        colormap: true,
         geometryOptions: '40, 60, 60'
     }
   },
@@ -89,26 +88,18 @@ export default {
     },
     colorMap: function(){
         if (this.$store.state.colormap.texture === undefined) {
-            return '    // map: new THREE.Texture(),\n';
+            return '';
         } else {
-            this.prefix = '\
-var colorMapSrcImage = document.createElement( \'img\' );\n\
-    colorMapSrcImage.src = \''+this.$store.state.colormap.image+'\';\n\n\
-var colorMapTexture = new THREE.Texture( colorMapSrcImage );\n\
-    colorMapTexture.wrapS = colorMapTexture.wrapT = THREE.RepeatWrapping;\n\
-    colorMapTexture.repeat.set( 2, 2 );\n\
-    colorMapTexture.generateMipmaps = false;\n\
-    colorMapTexture.minFilter = THREE.LinearFilter;\n\
-    colorMapTexture.magFilter = THREE.LinearFilter;\n\
-    colorMapTexture.needsUpdate = true;\n\n';
-            return '    map: colorMapTexture,\n';
+            this.preloader = metaPreloader('colormap', this.$store.state.colormap.image, 2, 2);
+            return '    map: colormapTexture,\n';
         }
     },
     bumpMap: function(){
         if (this.$store.state.bumpmap.texture === undefined) {
             return '';
         } else {
-            return '    bumpMap: new THREE.Texture({  }),\n';
+            this.preloader = metaPreloader('bumpmap', this.$store.state.bumpmap.image, 2, 2);
+            return '    bumpMap: bumpmapTexture,\n';
         }
     },
     alphaMap: function(){
@@ -233,6 +224,22 @@ var colorMapTexture = new THREE.Texture( colorMapSrcImage );\n\
   components: {
 
   }
+}
+
+function metaPreloader(prefix, image, xRep, yRep){
+
+    let str = 'var '+prefix+'SrcImage = document.createElement( \'img\' );\n\
+    '+prefix+'SrcImage.src = \''+image+'\';\n\n\
+var '+prefix+'Texture = new THREE.Texture( '+prefix+'SrcImage );\n\
+    '+prefix+'Texture.wrapS = '+prefix+'Texture.wrapT = THREE.RepeatWrapping;\n\
+    '+prefix+'Texture.repeat.set( '+xRep+', '+yRep+' );\n\
+    '+prefix+'Texture.generateMipmaps = false;\n\
+    '+prefix+'Texture.minFilter = THREE.LinearFilter;\n\
+    '+prefix+'Texture.magFilter = THREE.LinearFilter;\n\
+    '+prefix+'Texture.needsUpdate = true;\n\n';
+
+    return str;
+
 }
 
 </script>
