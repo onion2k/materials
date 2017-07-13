@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div ref="code" class="hidden">{{ preloader }}let rendererWidth = 800;
+        <div ref="code" class="hidden">{{ colorMapPreloader }}{{ bumpMapPreloader }}let rendererWidth = 800;
 let aspect = 0.75;
 
 let renderer = new THREE.WebGLRenderer({
@@ -86,19 +86,31 @@ export default {
         let color = this.$store.state.properties.color;
         return 'color: '+parseInt(rgbHex(color.r,color.g,color.b), 16)+',\n';
     },
+    colorMapPreloader: function(){
+        if (this.$store.state.colormap.texture === undefined) {
+            return '';
+        } else {
+            return metaPreloader('colormap', this.$store.state.colormap.image, 2, 2);
+        }
+    },
     colorMap: function(){
         if (this.$store.state.colormap.texture === undefined) {
             return '';
         } else {
-            this.preloader = metaPreloader('colormap', this.$store.state.colormap.image, 2, 2);
             return '    map: colormapTexture,\n';
+        }
+    },
+    bumpMapPreloader: function(){
+        if (this.$store.state.bumpmap.texture === undefined) {
+            return '';
+        } else {
+            return metaPreloader('bumpmap', this.$store.state.bumpmap.image, 2, 2);
         }
     },
     bumpMap: function(){
         if (this.$store.state.bumpmap.texture === undefined) {
             return '';
         } else {
-            this.preloader = metaPreloader('bumpmap', this.$store.state.bumpmap.image, 2, 2);
             return '    bumpMap: bumpmapTexture,\n';
         }
     },
