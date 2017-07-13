@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div ref="code" class="hidden">{{ colorMapPreloader }}{{ bumpMapPreloader }}let rendererWidth = 800;
+        <div ref="code" class="hidden">{{ concat(preloader) }}
+let rendererWidth = 800;
 let aspect = 0.75;
 
 let renderer = new THREE.WebGLRenderer({
@@ -64,7 +65,6 @@ export default {
   props: [],
   data: function(){
     return {
-        preloader: '',
         codepen: '',
         geometryOptions: '40, 60, 60'
     }
@@ -86,33 +86,35 @@ export default {
         let color = this.$store.state.properties.color;
         return 'color: '+parseInt(rgbHex(color.r,color.g,color.b), 16)+',\n';
     },
+    preloader: function(){
+        return [this.colorMapPreloader, this.bumpMapPreloader, this.alphaMapPreloader];
+    },
     colorMapPreloader: function(){
-        if (this.$store.state.colormap.texture === undefined) {
-            return '';
-        } else {
-            return metaPreloader('colormap', this.$store.state.colormap.image, 2, 2);
-        }
+        return this.$store.getters['colormap/texturePreloader'];
     },
     colorMap: function(){
-        if (this.$store.state.colormap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.colormap.texture !== undefined) {
             return '    map: colormapTexture,\n';
         }
+        return '';
     },
     bumpMapPreloader: function(){
-        if (this.$store.state.bumpmap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.bumpmap.texture !== undefined) {
             return metaPreloader('bumpmap', this.$store.state.bumpmap.image, 2, 2);
         }
+        return '';
     },
     bumpMap: function(){
-        if (this.$store.state.bumpmap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.bumpmap.texture !== undefined) {
             return '    bumpMap: bumpmapTexture,\n';
         }
+        return '';
+    },
+    alphaMapPreloader: function(){
+        if (this.$store.state.alphamap.texture !== undefined) {
+            return metaPreloader('alphamap', this.$store.state.alphamap.image, 2, 2);
+        }
+        return '';
     },
     alphaMap: function(){
         if (this.$store.state.alphamap.texture === undefined) {
@@ -121,61 +123,102 @@ export default {
             return '    alphaMap: new THREE.Texture({  }),\n';
         }
     },
+    aoMapPreloader: function(){
+        if (this.$store.state.aomap.texture !== undefined) {
+            return metaPreloader('aomap', this.$store.state.aomap.image, 2, 2);
+        }
+        return '';
+    },
     aoMap: function(){
-        if (this.$store.state.aomap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.aomap.texture !== undefined) {
             return '    aoMap: new THREE.Texture({  }),\n';
         }
+        return '';
+    },
+    emissiveMapPreloader: function(){
+        if (this.$store.state.emissivemap.texture !== undefined) {
+            return metaPreloader('emissivemap', this.$store.state.emissivemap.image, 2, 2);
+        }
+        return '';
     },
     emissiveMap: function(){
-        if (this.$store.state.emissivemap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.emissivemap.texture !== undefined) {
             return '    emissiveMap: new THREE.Texture({  }),\n';
         }
+        return '';
+    },
+    lightMapPreloader: function(){
+        if (this.$store.state.lightmap.texture !== undefined) {
+            return metaPreloader('lightmap', this.$store.state.lightmap.image, 2, 2);
+        }
+        return '';
     },
     lightMap: function(){
-        if (this.$store.state.lightmap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.lightmap.texture !== undefined) {
             return '    lightMap: new THREE.Texture({  }),\n';
         }
+        return '';
     },
+    // normalMapPreloader: function(){
+    //     if (this.$store.state.normalmap.texture !== undefined) {
+    //         return metaPreloader('normalmap', this.$store.state.normalmap.image, 2, 2);
+    //     }
+    //     return '';
+    // },
     // normalMap: function(){
-    //     if (this.$store.state.normalmap.texture === undefined) {
-    //         return '// material.normalMap = new THREE.Texture();';
-    //     } else {
+    //     if (this.$store.state.normalmap.texture !== undefined) {
     //         return 'material.normalMap = new THREE.Texture({  });';
     //     }
+    //     return '';
     // },
+    specularMapPreloader: function(){
+        let m = this.$store.state.specularmap;
+        if (m.texture !== undefined) {
+            return metaPreloader('specularmap', m.image, m.repeat.x, m.repeat.y);
+        }
+        return '';
+    },
     specularMap: function(){
-        if (this.$store.state.specularmap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.specularmap.texture !== undefined) {
             return '    specularMap: new THREE.Texture({  }),\n';
         }
+        return '';
+    },
+    envMapPreloader: function(){
+        if (this.$store.state.envmap.texture !== undefined) {
+            return metaPreloader('envmap', this.$store.state.envmap.image, 2, 2);
+        }
+        return '';
     },
     envMap: function(){
-        if (this.$store.state.envmap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.envmap.texture !== undefined) {
             return '    envMap: new THREE.Texture({  }),\n';
         }
+        return '';
+    },
+    roughnessMapPreloader: function(){
+        if (this.$store.state.roughnessmap.texture !== undefined) {
+            return metaPreloader('roughnessmap', this.$store.state.roughnessmap.image, 2, 2);
+        }
+        return '';
     },
     roughnessMap: function(){
-        if (this.$store.state.roughnessmap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.roughnessmap.texture !== undefined) {
             return '    roughnessMap: new THREE.Texture({  }),\n';
         }
+        return '';
+    },
+    metalnessMapPreloader: function(){
+        if (this.$store.state.metalnessmap.texture !== undefined) {
+            return metaPreloader('metalnessmap', this.$store.state.metalnessmap.image, 2, 2);
+        }
+        return '';
     },
     metalnessMap: function(){
-        if (this.$store.state.metalnessmap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.metalnessmap.texture !== undefined) {
             return '    metalnessMap: new THREE.Texture({  }),\n';
         }
+        return '';
     },
     emissiveIntensity: function(){
         if (this.$store.state.emissivemap.intensity == 0) {
@@ -231,7 +274,7 @@ export default {
       }
   },
   methods: {
-
+    concat (arr) { return arr.join('\n'); }
   },
   components: {
 
