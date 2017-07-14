@@ -13,6 +13,7 @@
                         <button class="dropdown-item" type="button" v-on:click="geoSelector('ConeGeometry')">Cone</button>
                         <button class="dropdown-item" type="button" v-on:click="geoSelector('TorusGeometry')">Torus</button>
                         <button class="dropdown-item" type="button" v-on:click="geoSelector('IcosahedronGeometry')">Icosahedron</button>
+                        <button class="dropdown-item" type="button" v-on:click="geoSelector('obj')">Flower</button>
                     </div>
                 </div>
             </div>
