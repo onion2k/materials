@@ -147,7 +147,32 @@ export default {
     }
 
     let planeGeo = new PlaneGeometry( 500, 500 );
-    let planeMat = new MeshLambertMaterial( {color: 0xffffff} );
+    //let planeMat = new MeshLambertMaterial( {color: 0xffffff} );
+
+
+    let uniforms = {
+        resolution: { type: "v2", value: new Vector2(300,200) }
+    };
+    let fragmentShader = '\
+        uniform float time;\n\
+        uniform vec2 resolution;\n\
+        void main()	{\n\
+            float x = mod(gl_FragCoord.x, 20.) < 10. ? 1. : 0.;\n\
+            float y = mod(gl_FragCoord.y, 20.) < 10. ? 1. : 0.;\n\
+            gl_FragColor = vec4(1., 0., 0., 1.);\n\
+        }\n';
+    let vertexShader = '\
+			varying vec2 vUv;\n\
+			void main()\n\
+			{\n\
+				vUv = uv;\n\
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n\
+				gl_Position = projectionMatrix * mvPosition;\n\
+			}\n\
+        \n';
+
+    let planeMat = new ShaderMaterial({ uniforms: uniforms, fragmentShader: fragmentShader, vertexShader: vertexShader });
+
     let plane = new Mesh( planeGeo, planeMat );
         plane.rotation.x = Math.PI * 1.5;
         plane.position.y = -100;

@@ -34,7 +34,8 @@ import {
     ImageUtils,
     DoubleSide,
     BackSide,
-    FrontSide
+    FrontSide,
+    Vector2
 } from '../node_modules/three/build/three.module';
 
 import { mapState, mapActions } from 'vuex'
@@ -87,7 +88,12 @@ export default {
     metalness: function () { return this.$store.state.properties.metalness },
     clearcoat: function () { return this.$store.state.properties.clearcoat },
     clearcoatRoughness: function () { return this.$store.state.properties.clearcoatRoughness },
-    sidedness: function() { return this.$store.state.properties.sidedness }
+    sidedness: function() { return this.$store.state.properties.sidedness },
+
+    uniforms: function() { return this.$store.state.shader.uniforms },
+    fragmentShader: function() { return this.$store.state.shader.fragmentShader },
+    vertexShader: function() { return this.$store.state.shader.vertexShader }
+
   },
   watch: {
 
@@ -239,6 +245,10 @@ export default {
 
             case "MeshStandardMaterial":
                 this.material = new MeshStandardMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+            break;
+
+            case "ShaderMaterial":
+                this.material = new ShaderMaterial({ uniforms: this.uniforms, fragmentShader: this.fragmentShader, vertexShader: this.vertexShader });
             break;
 
         }
