@@ -1,3 +1,3 @@
 import mapbase from '../lib/mapbase';
 
-export default new mapbase('envmap');
+export default new mapbase('envmap', 'envMap');

@@ -218,7 +218,7 @@ export default {
         switch (payload) {
 
             case "MeshBasicMaterial":
-                this.material = new MeshBasicMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material = new MeshBasicMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true });
             break;
 
             case "MeshLambertMaterial":

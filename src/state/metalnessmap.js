@@ -1,3 +1,3 @@
 import mapbase from '../lib/mapbase';
 
-export default new mapbase('metalnessmap');
+export default new mapbase('metalnessmap', 'metalnessMap');

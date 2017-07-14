@@ -1,7 +1,7 @@
 
 import texture from './texture';
 
-export default function(ns) {
+export default function(ns, propertyName) {
 
     this.namespaced = true,
     this.state = {
@@ -52,6 +52,12 @@ export default function(ns) {
         }
     },
     this.getters = {
+        textureCode: function(state, getters, rootState){
+            if (state.texture !== undefined) {
+                return '    '+propertyName+': '+ns+'Texture,\n';
+            }
+            return '';
+        },
         texturePreloader: function(state, getters, rootState){
 
         let prefix = ns;
@@ -62,14 +68,14 @@ export default function(ns) {
         if (state.texture) {
 
             str += 'var '+prefix+'SrcImage = document.createElement( \'img\' );\n\
-        '+prefix+'SrcImage.src = \''+state.image+'\';\n\n\
-    var '+prefix+'Texture = new THREE.Texture( '+prefix+'SrcImage );\n\
-        '+prefix+'Texture.wrapS = '+prefix+'Texture.wrapT = THREE.RepeatWrapping;\n\
-        '+prefix+'Texture.repeat.set( '+xRep+', '+yRep+' );\n\
-        '+prefix+'Texture.generateMipmaps = false;\n\
-        '+prefix+'Texture.minFilter = THREE.LinearFilter;\n\
-        '+prefix+'Texture.magFilter = THREE.LinearFilter;\n\
-        '+prefix+'Texture.needsUpdate = true;\n\n';
+    '+prefix+'SrcImage.src = \''+state.image+'\';\n\n\
+var '+prefix+'Texture = new THREE.Texture( '+prefix+'SrcImage );\n\
+    '+prefix+'Texture.wrapS = '+prefix+'Texture.wrapT = THREE.RepeatWrapping;\n\
+    '+prefix+'Texture.repeat.set( '+xRep+', '+yRep+' );\n\
+    '+prefix+'Texture.generateMipmaps = false;\n\
+    '+prefix+'Texture.minFilter = THREE.LinearFilter;\n\
+    '+prefix+'Texture.magFilter = THREE.LinearFilter;\n\
+    '+prefix+'Texture.needsUpdate = true;\n';
 
         }
 

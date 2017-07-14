@@ -1,3 +1,3 @@
 import mapbase from '../lib/mapbase';
 
-export default new mapbase('roughnessmap');
+export default new mapbase('roughnessmap', 'roughnessMap');

@@ -1,3 +1,3 @@
 import mapbase from '../lib/mapbase';
 
-export default new mapbase('colormap');
+export default new mapbase('colormap', 'map');

@@ -1,7 +1,7 @@
 import mapbase from '../lib/mapbase';
 import texture from '../lib/texture';
 
-let emissivemap = new mapbase('emissivemap');
+let emissivemap = new mapbase('emissivemap', 'emissiveMap');
 
 emissivemap.state.intensity = 0;
 

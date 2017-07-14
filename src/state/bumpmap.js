@@ -1,7 +1,7 @@
 import mapbase from '../lib/mapbase';
 import texture from '../lib/texture';
 
-let bumpmap = new mapbase('bumpmap');
+let bumpmap = new mapbase('bumpmap', 'bumpMap');
 
 bumpmap.actions.mapUpdate = function(context, payload) {
   if (payload.image!==null) {

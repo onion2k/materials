@@ -87,22 +87,32 @@ export default {
         return 'color: '+parseInt(rgbHex(color.r,color.g,color.b), 16)+',\n';
     },
     preloader: function(){
-        return [this.colorMapPreloader, this.bumpMapPreloader, this.alphaMapPreloader];
+        return [
+            this.colorMapPreloader,
+            this.bumpMapPreloader,
+            this.alphaMapPreloader,
+            this.aoMapPreloader,
+            this.emissiveMapPreloader,
+            this.lightMapPreloader,
+            this.specularMapPreloader,
+            this.envMapPreloader,
+            this.roughnessMapPreloader,
+            this.metalnessMapPreloader
+        ];
     },
     colorMapPreloader: function(){
         return this.$store.getters['colormap/texturePreloader'];
     },
     colorMap: function(){
-        if (this.$store.state.colormap.texture !== undefined) {
-            return '    map: colormapTexture,\n';
-        }
-        return '';
+        return this.$store.getters['colormap/textureCode'];
+        // if (this.$store.state.colormap.texture !== undefined) {
+        //     return '    map: colormapTexture,\n';
+        // }
+        // return '';
     },
     bumpMapPreloader: function(){
-        if (this.$store.state.bumpmap.texture !== undefined) {
-            return metaPreloader('bumpmap', this.$store.state.bumpmap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['bumpmap/texturePreloader'];
+
     },
     bumpMap: function(){
         if (this.$store.state.bumpmap.texture !== undefined) {
@@ -111,51 +121,41 @@ export default {
         return '';
     },
     alphaMapPreloader: function(){
-        if (this.$store.state.alphamap.texture !== undefined) {
-            return metaPreloader('alphamap', this.$store.state.alphamap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['alphamap/texturePreloader'];
+
     },
     alphaMap: function(){
-        if (this.$store.state.alphamap.texture === undefined) {
-            return '';
-        } else {
+        if (this.$store.state.alphamap.texture !== undefined) {
             return '    alphaMap: new THREE.Texture({  }),\n';
         }
+        return '';
     },
     aoMapPreloader: function(){
-        if (this.$store.state.aomap.texture !== undefined) {
-            return metaPreloader('aomap', this.$store.state.aomap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['aomap/texturePreloader'];
+
     },
     aoMap: function(){
         if (this.$store.state.aomap.texture !== undefined) {
-            return '    aoMap: new THREE.Texture({  }),\n';
+            return '    aoMap: aomapTexture,\n';
         }
         return '';
     },
     emissiveMapPreloader: function(){
-        if (this.$store.state.emissivemap.texture !== undefined) {
-            return metaPreloader('emissivemap', this.$store.state.emissivemap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['emissivemap/texturePreloader'];
+
     },
     emissiveMap: function(){
         if (this.$store.state.emissivemap.texture !== undefined) {
-            return '    emissiveMap: new THREE.Texture({  }),\n';
+            return '    emissiveMap: emissivemapTexture,\n';
         }
         return '';
     },
     lightMapPreloader: function(){
-        if (this.$store.state.lightmap.texture !== undefined) {
-            return metaPreloader('lightmap', this.$store.state.lightmap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['lightmap/texturePreloader'];
     },
     lightMap: function(){
         if (this.$store.state.lightmap.texture !== undefined) {
-            return '    lightMap: new THREE.Texture({  }),\n';
+            return '    lightMap: lightmapTexture,\n';
         }
         return '';
     },
@@ -172,11 +172,8 @@ export default {
     //     return '';
     // },
     specularMapPreloader: function(){
-        let m = this.$store.state.specularmap;
-        if (m.texture !== undefined) {
-            return metaPreloader('specularmap', m.image, m.repeat.x, m.repeat.y);
-        }
-        return '';
+        return this.$store.getters['specularmap/texturePreloader'];
+
     },
     specularMap: function(){
         if (this.$store.state.specularmap.texture !== undefined) {
@@ -185,38 +182,31 @@ export default {
         return '';
     },
     envMapPreloader: function(){
-        if (this.$store.state.envmap.texture !== undefined) {
-            return metaPreloader('envmap', this.$store.state.envmap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['envmap/texturePreloader'];
+
     },
     envMap: function(){
         if (this.$store.state.envmap.texture !== undefined) {
-            return '    envMap: new THREE.Texture({  }),\n';
+            return '    envMap: envmapTexture,\n';
         }
         return '';
     },
     roughnessMapPreloader: function(){
-        if (this.$store.state.roughnessmap.texture !== undefined) {
-            return metaPreloader('roughnessmap', this.$store.state.roughnessmap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['roughnessmap/texturePreloader'];
     },
     roughnessMap: function(){
         if (this.$store.state.roughnessmap.texture !== undefined) {
-            return '    roughnessMap: new THREE.Texture({  }),\n';
+            return '    roughnessMap: roughnessmapTexture,\n';
         }
         return '';
     },
     metalnessMapPreloader: function(){
-        if (this.$store.state.metalnessmap.texture !== undefined) {
-            return metaPreloader('metalnessmap', this.$store.state.metalnessmap.image, 2, 2);
-        }
-        return '';
+        return this.$store.getters['metalnessmap/texturePreloader'];
+
     },
     metalnessMap: function(){
         if (this.$store.state.metalnessmap.texture !== undefined) {
-            return '    metalnessMap: new THREE.Texture({  }),\n';
+            return '    metalnessMap: metalnessmapTexture,\n';
         }
         return '';
     },
@@ -274,27 +264,11 @@ export default {
       }
   },
   methods: {
-    concat (arr) { return arr.join('\n'); }
+    concat (arr) { return arr.filter((a)=>{return a.length>0}).join('\n'); }
   },
   components: {
 
   }
-}
-
-function metaPreloader(prefix, image, xRep, yRep){
-
-    let str = 'var '+prefix+'SrcImage = document.createElement( \'img\' );\n\
-    '+prefix+'SrcImage.src = \''+image+'\';\n\n\
-var '+prefix+'Texture = new THREE.Texture( '+prefix+'SrcImage );\n\
-    '+prefix+'Texture.wrapS = '+prefix+'Texture.wrapT = THREE.RepeatWrapping;\n\
-    '+prefix+'Texture.repeat.set( '+xRep+', '+yRep+' );\n\
-    '+prefix+'Texture.generateMipmaps = false;\n\
-    '+prefix+'Texture.minFilter = THREE.LinearFilter;\n\
-    '+prefix+'Texture.magFilter = THREE.LinearFilter;\n\
-    '+prefix+'Texture.needsUpdate = true;\n\n';
-
-    return str;
-
 }
 
 </script>

@@ -36,92 +36,96 @@
                     <button class="dropdown-item" type="button" v-on:click="sidednessSelector('double')">Double</button>
                 </div>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.color!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.color!==true }">
                 <span class="align-bottom">Color</span>
                 <colorLoader :color="color"></colorLoader>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.xrep!==true }">
                 <span class="align-bottom">X Repeat</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="xrepeat" @input="updatexrepeat"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.yrep!==true }">
                 <span class="align-bottom">Y Repeat</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="yrepeat" @input="updateyrepeat"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.map!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.map!==true }">
                 <span class="align-bottom">Color Map</span>
                 <mapLoader v-bind:data="colorMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.alphaMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.alphaMap!==true }">
                 <span class="align-bottom">Alpha Map</span>
                 <mapLoader v-bind:data="alphaMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.bumpMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.bumpMap!==true }">
                 <span class="align-bottom">Bump Map</span>
                 <mapLoader v-bind:data="bumpMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.emissiveMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.emissiveMap!==true }">
                 <span class="align-bottom">Emissive Map</span>
                 <mapLoader v-bind:data="emissiveMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.aoMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.aoMap!==true }">
                 <span class="align-bottom">AO Map</span>
                 <mapLoader v-bind:data="aoMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.normalMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.normalMap!==true }">
                 <span class="align-bottom">Normal Map</span>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.lightMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.displacementMap!==true }">
+                <span class="align-bottom">Displacement Map</span>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.lightMap!==true }">
                 <span class="align-bottom">Light Map</span>
                 <mapLoader v-bind:data="lightMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.specularMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.specularMap!==true }">
                 <span class="align-bottom">Specular Map</span>
                 <mapLoader v-bind:data="specularMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.envMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.envMap!==true }">
                 <span class="align-bottom">Environment Map</span>
                 <mapLoader v-bind:data="envMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.shininess!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.shininess!==true }">
                 <span class="align-bottom">Shininess</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughness!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.roughness!==true }">
                 <span class="align-bottom">Roughness</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="roughness" @input="updateroughness"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.roughnessMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.roughnessMap!==true }">
                 <span class="align-bottom">Roughness Map</span>
                 <mapLoader v-bind:data="roughnessMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalness!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalness!==true }">
                 <span class="align-bottom">Metalness</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="metalness" @input="updatemetalness"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.metalnessMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalnessMap!==true }">
                 <span class="align-bottom">Metalness Map</span>
                 <mapLoader v-bind:data="metalnessMapData"></mapLoader>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoat!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoat!==true }">
                 <span class="align-bottom">Clearcoat</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.clearCoatRoughness!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoatRoughness!==true }">
                 <span class="align-bottom">Clearcoard Roughness</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.envMap!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.envMap!==true }">
                 <span class="align-bottom">Combine Op.</span>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.reflectivity!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.reflectivity!==true }">
                 <span class="align-bottom">Reflectivity</span>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.refractionRatio!==true }">
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.refractionRatio!==true }">
                 <span class="align-bottom">Refraction Ratio</span>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ disabled: spec.displacementMap!==true }">
-                <span class="align-bottom">Displacement Map</span>
+
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">
+                <span class="align-top">Load Shader</span>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">

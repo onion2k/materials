@@ -1,3 +1,3 @@
 import mapbase from '../lib/mapbase';
 
-export default new mapbase('lightmap');
+export default new mapbase('lightmap', 'lightMap');
