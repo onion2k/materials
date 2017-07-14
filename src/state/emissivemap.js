@@ -1,57 +1,16 @@
-
+import mapbase from '../lib/mapbase';
 import texture from '../lib/texture';
 
-export default {
-  namespaced: true,
-  state: {
-    n: 'emissive',
-    color: undefined,
-    image: undefined,
-    texture: undefined,
-    repeat: { x: null, y: null },
-    intensity: 0
-  },
-  mutations: {
-    updateRepeat (state, payload) {
-      state.repeat = payload;
-      if (state.texture !== undefined) {
-        state.texture.repeat.set( state.repeat.x, state.repeat.y );
-      }
-      state.texture.needsUpdate = true;
-    },
-    updateColor (state, payload) {
-      state.color = payload.color;
-    },
-    updateIntensity (state, payload) {
-      state.intensity = payload.v / 100;
-    },
-    updateImage (state, payload) {
-        state.image = payload.image;
-    },
-    updateTexture (state, payload) {
-        state.texture = payload.texture;
-    }
-  },
-  actions: {
-    mapUpdate(context, payload) {
-        if (payload.image!==null) {
-          let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
-          let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
-          var t = texture.texture(payload.image, xRep, yRep);
-        } else {
-          let t = undefined;
-        }
-        context.commit('updateImage', { image: payload.image });
-        context.commit('updateTexture', { texture: t });
-    },
-    xRepeatSliderUpdate(context, payload) {
-        context.commit('updateRepeat', { x: payload.v, y: context.state.repeat.y });
-    },
-    yRepeatSliderUpdate(context, payload) {
-        context.commit('updateRepeat', { x: context.state.repeat.x, y: payload.v });
-    },
-    sliderUpdate(context, payload) {
-        context.commit('updateIntensity', payload );
-    }
-  }
+let emissivemap = new mapbase('emissivemap');
+
+emissivemap.state.intensity = 0;
+
+emissivemap.mutations.updateIntensity = function(state, payload) {
+  state.intensity = payload.v / 100;
+};
+
+emissivemap.actions.sliderUpdate = function(context, payload) {
+  context.commit('updateIntensity', payload );
 }
+
+export default emissivemap;
