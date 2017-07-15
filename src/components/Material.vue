@@ -34,10 +34,11 @@ import {
     EdgesGeometry,
     LineBasicMaterial,
     LineSegments,
-    OBJLoader2
+    ObjectLoader
 } from '../../node_modules/three/build/three.module';
 
 import MaterialCode from './MaterialCode.vue';
+import Models from '../lib/models';
 
 export default {
   name: 'Material',
@@ -69,6 +70,7 @@ export default {
   watch : {
     geometry : function(value) {
         let geo;
+        let box_ = this.box;
         switch (value) {
             case "SphereGeometry":
                 geo = new SphereGeometry(40, 60, 60);
@@ -88,13 +90,16 @@ export default {
             case "IcosahedronGeometry":
                 geo = new IcosahedronGeometry(50);
                 break;
-            case "obj":
-                let loader = new OBJLoader2();
-                let loadCallback = function(object){
-                    console.log(object);
-                    geo = object;
-                }
-                loader.load( '../models/flower.obj', loadCallback );
+            case "Flower":
+                let loader = new ObjectLoader();
+                loader.load(Models.Flower, function(g){
+
+                    box_.material = g.children[0].material[0];
+                    box_.material.needsUpdate = true;
+
+                });
+                geo = new IcosahedronGeometry(50);
+                break;
         }
 
         this.box.geometry = geo;
