@@ -298,14 +298,12 @@ export default {
     updateroughness: function(roughness) {
         this.$store.commit('properties/updateRoughness', { 'roughness': roughness });
     },
-
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
     },
     updateshadow: function() {
         this.$emit('updateshadows', { 'shadow': this.showshadow });
     },
-
     showcolors: function(){
         this.colorModal = !this.colorModal;
     }

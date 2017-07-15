@@ -110,7 +110,7 @@ export default {
                     this.hook.remove(this.box);
 
                     this.hook.add(g);
-                    g.scale.set(300,300,300);
+                    g.scale.set(400,400,400);
 
                 });
                 break;
