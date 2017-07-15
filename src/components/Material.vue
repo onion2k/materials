@@ -57,7 +57,14 @@ export default {
 
     let light = new SpotLight(0xffffff, 1.2);
 
+    let scene = new Scene();
+
+    let hook = new Object3D();
+
+
     return {
+        scene: scene,
+        hook: hook,
         wireframe: wireframe,
         box: mesh,
         light: light
@@ -74,35 +81,40 @@ export default {
         switch (value) {
             case "SphereGeometry":
                 geo = new SphereGeometry(40, 60, 60);
+                this.box.geometry = geo;
                 break;
             case "BoxGeometry":
                 geo = new BoxGeometry(60, 60, 60);
+                this.box.geometry = geo;
                 break;
             case "TorusKnotGeometry":
                 geo = new TorusKnotGeometry(30, 10, 100, 16);
+                this.box.geometry = geo;
                 break;
             case "ConeGeometry":
                 geo = new ConeGeometry(30, 60, 32);
+                this.box.geometry = geo;
                 break;
             case "TorusGeometry":
                 geo = new TorusGeometry(40, 10, 16, 100);
+                this.box.geometry = geo;
                 break;
             case "IcosahedronGeometry":
                 geo = new IcosahedronGeometry(50);
+                this.box.geometry = geo;
                 break;
             case "Flower":
                 let loader = new ObjectLoader();
-                loader.load(Models.Flower, function(g){
+                loader.load(Models.Flower, (g) => {
 
-                    box_.material = g.children[0].material[0];
-                    box_.material.needsUpdate = true;
+                    this.hook.remove(this.box);
+
+                    this.hook.add(g);
+                    g.scale.set(300,300,300);
 
                 });
-                geo = new IcosahedronGeometry(50);
                 break;
         }
-
-        this.box.geometry = geo;
 
     },
     wire : function(value) {
@@ -120,7 +132,6 @@ export default {
 
     let wrapper = this.$refs["wrapper"];
 
-    let scene = new Scene();
     let renderer = new WebGLRenderer({
         antialias: true,
         alpha: false
@@ -134,18 +145,17 @@ export default {
     let camera = new PerspectiveCamera(65, wrapper.offsetWidth/(wrapper.offsetWidth*aspect), 1, 10000);
         camera.position.set(0, 75, 75);
         camera.lookAt(new Vector3(0,0,0));
-        scene.add(camera);
+        this.scene.add(camera);
 
     this.box.add(this.wireframe);
         this.wireframe.visible = this.wire;
 
-    let hook = new Object3D();
-        hook.add(this.box);
-        scene.add(hook);
+    this.hook.add(this.box);
+        this.scene.add(this.hook);
 
     this.light.position.set(100, 200, 75);
         this.light.lookAt(new Vector3(0,0,0));
-        scene.add(this.light);
+        this.scene.add(this.light);
 
     if (this.shadow) {
 
@@ -167,20 +177,20 @@ export default {
         plane.position.y = -100;
         plane.castShadow = false;
         plane.receiveShadow = true;
-        scene.add( plane );
+        this.scene.add( plane );
 
     wrapper.appendChild(renderer.domElement);
 
-    function animate() {
+    let animate = () => {
 
         requestAnimationFrame(animate);
-        hook.rotation.y += 0.01;
+        this.hook.rotation.y += 0.01;
         render();
 
     }
 
-    function render() {
-        renderer.render(scene, camera);
+    let render = () => {
+        renderer.render(this.scene, camera);
     }
 
     animate();
