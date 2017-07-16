@@ -18,6 +18,9 @@
                 </div>
             </div>
             <div class="list-group-item list-group-item-action">
+                <materialList></materialList>
+            </div>
+            <div class="list-group-item list-group-item-action">
                 <div class="btn-group col-xs-12">
                     <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Material Type: {{ materialTypeSelected }}
@@ -27,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="list-group-item">
+            <div class="list-group-item list-group-item-action">
                 <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sidedness:
                 </button>
@@ -173,6 +176,7 @@
 
 <script>
 
+import MaterialList from './MaterialList.vue';
 import colorLoader from './colorLoader.vue';
 import mapLoader from './mapLoader.vue';
 import vueSlider from 'vue-slider-component';
@@ -309,6 +313,7 @@ export default {
     }
   },
   components: {
+    MaterialList,
     colorLoader,
     vueSlider,
     mapLoader
