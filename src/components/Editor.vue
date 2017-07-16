@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="list-group-item list-group-item-action">
+            <div class="list-group-item">
                 <materialList></materialList>
             </div>
             <div class="list-group-item list-group-item-action">

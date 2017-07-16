@@ -5,6 +5,7 @@ import App from './App.vue'
 
 Vue.use(Vuex);
 
+import object from './state/object';
 import properties from './state/properties';
 import alphamap from './state/alphamap';
 import bumpmap from './state/bumpmap';
@@ -20,6 +21,7 @@ import shader from './state/shader';
 
 let store = new Vuex.Store({
   modules: {
+    object: object,
     properties: properties,
     alphamap: alphamap,
     bumpmap: bumpmap,
