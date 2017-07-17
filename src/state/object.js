@@ -3,7 +3,7 @@ export default {
   namespaced: true,
   state: {
       materialSelected: 'iaduhsdhidh',
-    materials: [{ 'name':'iaduhsdhidh', 'type':'P' },{ 'name':'ewiucwinln', 'type':'S' }]
+    materials: [{ 'name':'iaduhsdhidh', 'type':'T' },{ 'name':'ewiucwinln', 'type':'S' }]
   },
   mutations: {
     createMaterial (state, payload) { state.materials.push(payload); },

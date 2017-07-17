@@ -25,9 +25,11 @@ export default {
   },
   methods: {
       activeMaterial: function(material){
-        return {
-          active: material.name==this.materialSelected
+        var c = [material.type];
+        if (material.name==this.materialSelected) {
+            c.push('active');
         }
+        return c;
       },
       selectMaterial: function(i){
           this.$store.commit('object/selectMaterial', { 'name': i });
@@ -59,13 +61,28 @@ export default {
         font-size: 70px;
         line-height: 95px;
         height: 100px;
-        border: 1px solid #888;
-        color: #DDD;
+        border: 1px solid #fff;
+        color: #fff;
         cursor: pointer;
         opacity: 1;
     }
     li.active {
-        border-color: #0F0;
+        border-color: #000;
+    }
+    li.P {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+        background-color: #f00;
+    }
+    li.S {
+        background: linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+        background-color: #ff0;
+    }
+    li.B {
+        background-color: #888;
+    }
+    li.T {
+        background: linear-gradient(135deg, rgba(255,255,255,0.7) 47%,rgba(255,255,255,0.3) 53%); 
+        background-color: #00f;
     }
     .materials-enter-active, .materials-leave-active {
         transition: all 1s;
