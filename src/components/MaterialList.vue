@@ -69,20 +69,29 @@ export default {
     li.active {
         border-color: #000;
     }
-    li.P {
+    li.P { /* Phong */
         background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
         background-color: #f00;
     }
-    li.S {
+    li.S { /* Standard */
         background: linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
         background-color: #ff0;
     }
-    li.B {
+    li.B { /* Basic */
         background-color: #888;
     }
-    li.T {
+    li.T { /* Toon */
         background: linear-gradient(135deg, rgba(255,255,255,0.7) 47%,rgba(255,255,255,0.3) 53%); 
         background-color: #00f;
+    },
+    li.L { /* Lambert */
+
+    },
+    li.Ph { /* Physical */
+
+    },
+    li.Sh { /* Shader */
+
     }
     .materials-enter-active, .materials-leave-active {
         transition: all 1s;
