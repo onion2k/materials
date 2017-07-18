@@ -25,7 +25,7 @@ export default {
   },
   methods: {
       activeMaterial: function(material){
-        var c = [material.type];
+        var c = [material.name];
         if (material.name==this.materialSelected) {
             c.push('active');
         }
@@ -47,11 +47,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     ul.materials {
+        background-color: #fff;
         width: 100%;
         display: inline-grid;
         grid-template-columns: .25fr .25fr .25fr .25fr;
         grid-gap: 10px;
-        justify-items: center;
         align-items: center;
     }
     li {
@@ -69,29 +69,33 @@ export default {
     li.active {
         border-color: #000;
     }
-    li.P { /* Phong */
+    li.Phong { /* Phong */
         background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
         background-color: #f00;
     }
-    li.S { /* Standard */
+    li.Standard { /* Standard */
         background: linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
         background-color: #ff0;
     }
-    li.B { /* Basic */
+    li.Basic { /* Basic */
+        background: none;
         background-color: #888;
     }
-    li.T { /* Toon */
-        background: linear-gradient(135deg, rgba(255,255,255,0.7) 47%,rgba(255,255,255,0.3) 53%); 
+    li.Toon { /* Toon */
+        background: linear-gradient(135deg, rgba(255,255,255,0.7) 49%,rgba(255,255,255,0.3) 51%); 
         background-color: #00f;
     },
-    li.L { /* Lambert */
-
+    li.Lambert { /* Lambert */
+        background: linear-gradient(to right, rgba(255,255,255,0.7) 20%,rgba(255,255,255,0.3) 80%); 
+        background-color: #00f;
     },
-    li.Ph { /* Physical */
-
+    li.Physical { /* Physical */
+        background: none;
+        background-color: #0ff;
     },
-    li.Sh { /* Shader */
-
+    li.Shader { /* Shader */
+        background: none;
+        background-color: #00f;
     }
     .materials-enter-active, .materials-leave-active {
         transition: all 1s;

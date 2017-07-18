@@ -2,8 +2,16 @@
 export default {
   namespaced: true,
   state: {
-      materialSelected: 'iaduhsdhidh',
-    materials: [{ 'name':'iaduhsdhidh', 'type':'T' },{ 'name':'ewiucwinln', 'type':'S' }]
+    materialSelected: 'Standard',
+    materials: [
+        { 'name':'Toon', 'type':'T' },
+        { 'name':'Standard', 'type':'S' },
+        { 'name':'Lambert', 'type':'L' },
+        { 'name':'Basic', 'type':'B' },
+        { 'name':'Phong', 'type':'P' },
+        { 'name':'Shader', 'type':'Sh' },
+        { 'name':'Physical', 'type':'Ph' }
+    ]
   },
   mutations: {
     createMaterial (state, payload) { state.materials.push(payload); },
