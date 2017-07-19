@@ -1,6 +1,6 @@
 <template>
     <transition-group name="materials" class="materials" tag="ul">
-        <li v-for="(material, index) in materials" v-on:click.self="selectMaterial(material.name)" :key="material.name" v-bind:class="activeMaterial(material)">{{ material.type }}</li>
+        <li v-for="(material, index) in materials" v-on:click.self="selectMaterial(material.name)" :key="material.name" v-bind:class="activeMaterial(material)">{{ materialName(material.type) }}</li>
         <li v-on:click.self="createMaterial()" key="add">+</li>
     </transition-group>
 </template>
@@ -25,7 +25,7 @@ export default {
   },
   methods: {
       activeMaterial: function(material){
-        var c = [material.name];
+        var c = [material.type];
         if (material.name==this.materialSelected) {
             c.push('active');
         }
@@ -36,6 +36,9 @@ export default {
       },
       createMaterial: function(){
           this.$store.commit('object/createMaterial', { 'name':'asdiojasdoj', 'type': 'B' });
+      },
+      materialName: function(n) {
+          return n.substring(4,5);
       }
   },
   components: {
@@ -61,6 +64,7 @@ export default {
         font-size: 70px;
         line-height: 95px;
         height: 100px;
+        background-color: #bbb;
         border: 1px solid #fff;
         color: #fff;
         cursor: pointer;
@@ -69,31 +73,31 @@ export default {
     li.active {
         border-color: #000;
     }
-    li.Phong { /* Phong */
+    li.MeshPhongMaterial { /* Phong */
         background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
         background-color: #f00;
     }
-    li.Standard { /* Standard */
+    li.MeshStandardMaterial { /* Standard */
         background: linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
         background-color: #ff0;
     }
-    li.Basic { /* Basic */
+    li.MeshBasicMaterial { /* Basic */
         background: none;
         background-color: #888;
     }
-    li.Toon { /* Toon */
+    li.MeshToonMaterial { /* Toon */
         background: linear-gradient(135deg, rgba(255,255,255,0.7) 49%,rgba(255,255,255,0.3) 51%); 
         background-color: #00f;
     },
-    li.Lambert { /* Lambert */
+    li.MeshLambertMaterial { /* Lambert */
         background: linear-gradient(to right, rgba(255,255,255,0.7) 20%,rgba(255,255,255,0.3) 80%); 
         background-color: #00f;
     },
-    li.Physical { /* Physical */
-        background: none;
+    li.MeshPhysicalMaterial { /* Physical */
+        background: linear-gradient(to top, rgba(255,255,255,1.0) 0%,rgba(255,255,255,0) 100%); 
         background-color: #0ff;
     },
-    li.Shader { /* Shader */
+    li.ShaderMaterial { /* Shader */
         background: none;
         background-color: #00f;
     }

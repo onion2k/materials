@@ -4,13 +4,13 @@ export default {
   state: {
     materialSelected: 'Standard',
     materials: [
-        { 'name':'Toon', 'type':'T' },
-        { 'name':'Standard', 'type':'S' },
-        { 'name':'Lambert', 'type':'L' },
-        { 'name':'Basic', 'type':'B' },
-        { 'name':'Phong', 'type':'P' },
-        { 'name':'Shader', 'type':'Sh' },
-        { 'name':'Physical', 'type':'Ph' }
+        { 'name':'Toon', 'type':'MeshToonMaterial' },
+        { 'name':'Standard', 'type':'MeshStandardMaterial' },
+        { 'name':'Lambert', 'type':'MeshLambertMaterial' },
+        { 'name':'Basic', 'type':'MeshBasicMaterial' },
+        { 'name':'Phong', 'type':'MeshPhongMaterial' },
+        { 'name':'Shader', 'type':'ShaderMaterial' },
+        { 'name':'Physical', 'type':'MeshPhysicalMaterial' }
     ]
   },
   mutations: {
