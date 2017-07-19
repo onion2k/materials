@@ -218,8 +218,6 @@ export default {
     },
     materialTypeSelected: function(payload){
 
-        console.log(payload)
-
         this.materialTypeSelected = payload;
         this.materialSpec = materialSpecs[payload];
 
