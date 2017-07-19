@@ -78,6 +78,7 @@ export default {
     geometry : function(value) {
         let geo;
         let box_ = this.box;
+        let loader = new ObjectLoader();
         switch (value) {
             case "SphereGeometry":
                 geo = new SphereGeometry(40, 60, 60);
@@ -104,14 +105,25 @@ export default {
                 this.box.geometry = geo;
                 break;
             case "Flower":
-                let loader = new ObjectLoader();
                 loader.load(Models.Flower, (g) => {
-
                     this.hook.remove(this.box);
-
                     this.hook.add(g);
                     g.scale.set(400,400,400);
-
+                });
+                break;
+            case "Windmill":
+                loader.load(Models.Windmill, (g) => {
+                    this.hook.remove(this.box);
+                    this.hook.add(g);
+                    g.scale.set(0.5,0.5,0.5);
+                });
+                break;
+            case "Spaceship":
+                loader.load(Models.Spaceship, (g) => {
+                    this.hook.remove(this.box);
+                    this.hook.add(g);
+                    g.scale.set(100,100,100);
+                    //g.position.x = 50;
                 });
                 break;
         }
