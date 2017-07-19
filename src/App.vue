@@ -218,6 +218,8 @@ export default {
     },
     materialTypeSelected: function(payload){
 
+        console.log(payload)
+
         this.materialTypeSelected = payload;
         this.materialSpec = materialSpecs[payload];
 
@@ -244,7 +246,7 @@ export default {
             break;
 
             case "MeshStandardMaterial":
-                this.material = new MeshStandardMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+                this.material = new MeshStandardMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
             break;
 
             case "ShaderMaterial":

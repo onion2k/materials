@@ -1,6 +1,6 @@
 <template>
     <transition-group name="materials" class="materials" tag="ul">
-        <li v-for="(material, index) in materials" v-on:click.self="selectMaterial(material.name)" :key="material.name" v-bind:class="activeMaterial(material)">{{ materialName(material.type) }}</li>
+        <li v-for="(material, index) in materials" v-on:click.self="selectMaterial(material.type)" :key="material.name" v-bind:class="activeMaterial(material)">{{ materialName(material.type) }}</li>
         <li v-on:click.self="createMaterial()" key="add">+</li>
     </transition-group>
 </template>
@@ -32,13 +32,20 @@ export default {
         return c;
       },
       selectMaterial: function(i){
-          this.$store.commit('object/selectMaterial', { 'name': i });
+          this.$store.dispatch('object/selectMaterial', { 'name': i });
       },
       createMaterial: function(){
           this.$store.commit('object/createMaterial', { 'name':'asdiojasdoj', 'type': 'B' });
       },
       materialName: function(n) {
-          return n.substring(4,5);
+          switch (n) {
+              case "ShaderMaterial":
+                return "Sh";
+                break;
+            default:
+                return n.substring(4,5);
+                break;
+          }
       }
   },
   components: {

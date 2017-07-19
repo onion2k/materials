@@ -21,6 +21,9 @@ export default {
     removeMaterial (state, payload) { state.materials.splice(payload.index, 1); }
   },
   actions: {
-
+    selectMaterial (context, payload) {
+        context.commit('selectMaterial', { 'name': payload.name });
+        context.commit('properties/updatematerial', { 'material': payload.name }, {root:true});
+    }
   }
 }

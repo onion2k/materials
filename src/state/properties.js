@@ -1,11 +1,3 @@
-import {
-    Texture,
-    RepeatWrapping,
-    LinearFilter,
-    ImageUtils
-} from '../../node_modules/three/build/three.module';
-
-import rgbHex from 'rgb-hex';
 
 export default {
   namespaced: true,
