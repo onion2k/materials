@@ -76,9 +76,11 @@ export default {
   },
   watch : {
     geometry : function(value) {
+
         let geo;
         let box_ = this.box;
         let loader = new ObjectLoader();
+
         switch (value) {
             case "SphereGeometry":
                 geo = new SphereGeometry(40, 60, 60);

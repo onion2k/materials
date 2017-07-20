@@ -60,6 +60,8 @@ export default {
   },
   computed: {
 
+    objmaterial:  function () { return this.$store.getters['object/material']; },
+
     materialTypeSelected:  function () { return this.$store.state.properties.material; },
     geometry:  function () { return this.$store.state.properties.geometry; },
     sidedness:  function () { return this.$store.state.properties.sidedness; },
@@ -216,9 +218,64 @@ export default {
         }
         this.material.needsUpdate = true;
     },
+    objmaterial: function(){
+
+        this.materialTypeSelected = this.objmaterial.type;
+        this.materialSpec = materialSpecs[this.objmaterial.type];
+
+        switch (this.objmaterial.type) {
+
+            case "MeshBasicMaterial":
+                this.material = new MeshBasicMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true });
+            break;
+
+            case "MeshLambertMaterial":
+                this.material = new MeshLambertMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+            break;
+
+            case "MeshPhongMaterial":
+                this.material = new MeshPhongMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+            break;
+
+            case "MeshPhysicalMaterial":
+                this.material = new MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.0, metalness: 0.0, shading: SmoothShading, transparent:true, clearCoat: 0.0, clearCoatRoughness: 0.0 });
+            break;
+
+            case "MeshToonMaterial":
+                this.material = new MeshToonMaterial({ color: 0xffffff, shininess: 0, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+            break;
+
+            case "MeshStandardMaterial":
+                this.material = new MeshStandardMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+            break;
+
+            case "ShaderMaterial":
+                this.material = new ShaderMaterial({ uniforms: this.uniforms, fragmentShader: this.fragmentShader, vertexShader: this.vertexShader });
+            break;
+
+        }
+
+        if (this.material.hasOwnProperty('alphaMap')) { this.material.alphaMap = this.alphaTexture; }
+        if (this.material.hasOwnProperty('bumpMap')) { this.material.bumpMap = this.bumpTexture; }
+        if (this.material.hasOwnProperty('bumpScale')) { this.material.bumpScale = this.bumpScale; }
+        if (this.material.hasOwnProperty('map')) { this.material.map = this.colorTexture; }
+        if (this.material.hasOwnProperty('emissiveMap')) { this.material.emissiveMap = this.emissiveTexture; }
+        if (this.material.hasOwnProperty('emissiveIntensity')) { this.material.emissiveIntensity = this.emissiveIntensity / 100; }
+        if (this.material.hasOwnProperty('aoMap')) { this.material.aoMap = this.aoTexture; }
+        if (this.material.hasOwnProperty('aoIntensity')) { this.material.aoIntensity = this.aoIntensity; }
+        if (this.material.hasOwnProperty('normalMap')) { this.material.normalMap = this.normalTexture; }
+        if (this.material.hasOwnProperty('lightMap')) { this.material.lightMap = this.lightTexture; }
+        if (this.material.hasOwnProperty('specularMap')) { this.material.specularMap = this.specularTexture; }
+        if (this.material.hasOwnProperty('envMap')) { this.material.envMap = this.envTexture; }
+        if (this.material.hasOwnProperty('roughnessMap')) { this.material.roughnessMap = this.roughnessTexture; }
+        if (this.material.hasOwnProperty('metalnessMap')) { this.material.metalnessMap = this.metalnessTexture; }
+
+        this.material.needsUpdate = true;
+
+    },
+
     materialTypeSelected: function(payload){
 
-        this.materialTypeSelected = payload;
         this.materialSpec = materialSpecs[payload];
 
         switch (payload) {
