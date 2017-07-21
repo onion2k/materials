@@ -5,7 +5,6 @@
             :spec="this.materialSpec" 
             :geometry="geometry" 
             :materialTypeSelected="this.materialTypeSelected"
-            :materialId="this.materialId" 
             :wire="this.wire"
             :shadow="this.shadow"
             v-on:updatewire="updatewire"
@@ -52,7 +51,6 @@ export default {
   data () {
     return {
         materialSpec: materialSpecs['MeshPhysicalMaterial'],
-        materialId: 0,
         material: base,
         wire: false,
         shadow: false

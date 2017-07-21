@@ -184,7 +184,7 @@ import vueSlider from 'vue-slider-component';
 
 export default {
   name: 'Editor',
-  props: ['materialId', 'materials', 'wire', 'shadow', 'spec', 'materialTypeSelected'],
+  props: ['materials', 'wire', 'shadow', 'spec', 'materialTypeSelected'],
   data: function(){
     return {
         id: this.materialId,
