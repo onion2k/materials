@@ -110,6 +110,7 @@ export default {
                     this.hook.remove(this.box);
                     this.hook.add(g);
                     g.scale.set(400,400,400);
+                    this.$store.dispatch('object/loadMaterials', { materials: g.children[0].material });
                 });
                 break;
             case "Windmill":

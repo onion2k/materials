@@ -201,7 +201,6 @@ export default {
         slider: { width: '60%', tooltip: 'hover' },
 
         colorModal: false,
-        colorStyle: { 'background-color': '#fff' },
 
         alphaMapData: {
             title: 'Alpha Map',

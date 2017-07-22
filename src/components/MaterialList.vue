@@ -1,6 +1,6 @@
 <template>
     <transition-group name="materials" class="materials" tag="ul">
-        <li v-for="material in materials" v-on:click.self="selectMaterial(material.name)" :key="material.name" v-bind:class="activeMaterial(material)">{{ materialName(material.type) }}</li>
+        <li v-for="material in materials" v-on:click.self="selectMaterial(material.name)" :key="material.name" v-bind:class="activeMaterial(material)" v-bind:style="styleMaterial(material)">{{ materialName(material.type) }}</li>
         <li v-on:click.self="createMaterial()" key="add">+</li>
     </transition-group>
 </template>
@@ -30,6 +30,9 @@ export default {
             c.push('active');
         }
         return c;
+      },
+      styleMaterial: function(material){
+          return 'background-color: rgb('+(material.color.r * 255)+','+(material.color.g * 255)+','+(material.color.b * 255)+');';
       },
       selectMaterial: function(i){
           this.$store.dispatch('object/selectMaterial', { 'name': i });
