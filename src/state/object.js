@@ -5,7 +5,7 @@ export default {
     material: 'mm',
     materialSelected: 'MeshPhysicalMaterial',
     materials: [
-        { 'name':'MeshStandardMaterial', 'type':'MeshStandardMaterial' }
+        { 'name':'M-1-1', 'type':'MeshStandardMaterial' }
     ]
   },
   mutations: {
@@ -20,7 +20,7 @@ export default {
   actions: {
     selectMaterial (context, payload) {
         context.commit('selectMaterial', { 'name': payload.name });
-        context.commit('properties/updatematerial', { 'material': payload.name }, {root:true});
+        context.commit('properties/updatematerial', { 'material': payload.type }, {root:true});
     }
   },
   getters: {

@@ -218,8 +218,10 @@ export default {
     },
     objmaterial: function(){
 
-        this.materialTypeSelected = this.objmaterial.type;
+        console.log(this.objmaterial.type)
+
         this.materialSpec = materialSpecs[this.objmaterial.type];
+        this.materialTypeSelected = this.objmaterial.type;
 
         switch (this.objmaterial.type) {
 
