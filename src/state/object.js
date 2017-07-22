@@ -4,14 +4,14 @@ export default {
   state: {
     material: 'mm',
     materialSelected: 'MeshPhysicalMaterial',
-    materials: {
-        'MeshToonMaterial': { 'name':'MeshToonMaterial', 'type':'MeshToonMaterial' },
-        'MeshStandardMaterial': { 'name':'MeshStandardMaterial', 'type':'MeshStandardMaterial' },
-        'MeshLambertMaterial': { 'name':'MeshLambertMaterial', 'type':'MeshLambertMaterial' }
-    }
+    materials: [
+        { 'name':'MeshStandardMaterial', 'type':'MeshStandardMaterial' }
+    ]
   },
   mutations: {
-    createMaterial (state, payload) { state.materials.push(payload); },
+    createMaterial (state, payload) {
+      state.materials.push(payload);
+    },
     selectMaterial (state, payload) {
         state.materialSelected = payload.name;
     },
@@ -24,8 +24,11 @@ export default {
     }
   },
   getters: {
+      materials: function(state, getters, rootState){
+        return state.materials;
+      },
       material: function(state, getters, rootState){
-        return state.materials[state.materialSelected];
+        return state.materials.find((m)=>{ return m.name === state.materialSelected });
       }
   }
 }

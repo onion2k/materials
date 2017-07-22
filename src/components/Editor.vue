@@ -1,5 +1,6 @@
 <template>
     <div class="editor col-sm-12 col-md-6 hidden-xs-down bg-faded sidebar">
+        Editing {{ materialTypeSelected }}
         <div class="list-group">
             <div class="list-group-item list-group-item-action">
                 <div class="btn-group col-xs-12">

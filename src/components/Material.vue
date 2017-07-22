@@ -61,7 +61,6 @@ export default {
 
     let hook = new Object3D();
 
-
     return {
         scene: scene,
         hook: hook,

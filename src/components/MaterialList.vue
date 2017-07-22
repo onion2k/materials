@@ -20,7 +20,7 @@ export default {
         return this.$store.state.object.materialSelected;
     },
     materials: function(){
-        return this.$store.state.object.materials;
+        return this.$store.getters['object/materials'];
     }
   },
   methods: {

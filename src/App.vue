@@ -10,7 +10,7 @@
             v-on:updatewire="updatewire"
             v-on:updateshadows="updateshadows">
         </Editor>
-        <Material :materialId="this.materialId" :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
+        <Material :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
       </div>
     </div>
 </template>
