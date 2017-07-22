@@ -182,13 +182,16 @@ import MaterialList from './MaterialList.vue';
 import colorLoader from './colorLoader.vue';
 import mapLoader from './mapLoader.vue';
 import vueSlider from 'vue-slider-component';
+import materialSpecs from '../material_defs';
 
 export default {
   name: 'Editor',
-  props: ['materials', 'wire', 'shadow', 'spec', 'materialTypeSelected'],
+  props: ['materials', 'wire', 'shadow', 'materialTypeSelected'],
   data: function(){
     return {
         id: this.materialId,
+
+        editorSpec: {},
 
         materialTypes: ['MeshBasicMaterial','MeshLambertMaterial','MeshPhongMaterial','MeshStandardMaterial','MeshPhysicalMaterial','MeshToonMaterial','ShaderMaterial'],
 
@@ -256,7 +259,8 @@ export default {
     }
   },
   computed: {
-      geometry:function(){ return this.$store.state.properties.geometry; }, 
+      spec: function() { return materialSpecs[this.materialTypeSelected]; },
+      geometry:function(){ return this.$store.state.properties.geometry; },
       xrepeat: function(){ return this.$store.state.properties.repeat.x; },
       yrepeat: function(){ return this.$store.state.properties.repeat.y; },
       color: function(){ return this.$store.state.properties.color; },

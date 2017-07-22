@@ -2,7 +2,6 @@
     <div id="app" class="container-fluid">
       <div class="row">
         <Editor 
-            :spec="this.materialSpec" 
             :geometry="geometry" 
             :materialTypeSelected="this.materialTypeSelected"
             :wire="this.wire"
@@ -44,13 +43,10 @@ import rgbHex from 'rgb-hex';
 
 let base = new MeshPhysicalMaterial({ name:'Standard', color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
 
-import materialSpecs from './material_defs';
-
 export default {
   name: 'app',
   data () {
     return {
-        materialSpec: materialSpecs['MeshPhysicalMaterial'],
         material: base,
         wire: false,
         shadow: false
@@ -218,9 +214,6 @@ export default {
     },
     objmaterial: function(){
 
-        console.log(this.objmaterial.type)
-
-        this.materialSpec = materialSpecs[this.objmaterial.type];
         this.materialTypeSelected = this.objmaterial.type;
 
         switch (this.objmaterial.type) {
@@ -275,8 +268,6 @@ export default {
     },
 
     materialTypeSelected: function(payload){
-
-        this.materialSpec = materialSpecs[payload];
 
         switch (payload) {
 

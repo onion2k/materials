@@ -2,8 +2,7 @@
 export default {
   namespaced: true,
   state: {
-    material: 'mm',
-    materialSelected: 'MeshPhysicalMaterial',
+    materialSelected: 'M-1-1',
     materials: [
         { 'name':'M-1-1', 'type':'MeshStandardMaterial' }
     ]
@@ -19,8 +18,9 @@ export default {
   },
   actions: {
     selectMaterial (context, payload) {
-        context.commit('selectMaterial', { 'name': payload.name });
-        context.commit('properties/updatematerial', { 'material': payload.type }, {root:true});
+        let material = context.state.materials.find((m)=>{ return m.name === payload.name });
+        context.commit('selectMaterial', { 'name': material.name });
+        context.commit('properties/updatematerial', { 'material': material.type }, {root:true});
     }
   },
   getters: {

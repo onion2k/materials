@@ -26,7 +26,7 @@ export default {
     updateyrepeat (state, payload) { state.repeat.y = payload.y; },
     updatesidedness (state, payload) { state.sidedness = payload.sidedness; },
     updategeometry (state, payload) { state.geometry = payload.geometry; },
-    updatematerial (state, payload) { state.material = payload.material; }
+    updatematerial (state, payload) { console.log(payload); state.material = payload.material; }
   },
   actions: {
 
