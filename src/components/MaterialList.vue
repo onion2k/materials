@@ -39,7 +39,7 @@ export default {
       },
       createMaterial: function(){
           let name = 'M-'+Math.round(Math.random()*10000)+'-'+Math.round(Math.random()*10000);
-          this.$store.commit('object/createMaterial', { 'name':name, 'type': 'MeshBasicMaterial' });
+          this.$store.commit('object/createMaterial', { 'name':name, 'type': 'MeshBasicMaterial', 'color': {r:255, g:0, b:0 } });
       },
       materialName: function(n) {
           switch (n) {
