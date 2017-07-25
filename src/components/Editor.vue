@@ -54,6 +54,16 @@
                 <span class="align-bottom">Y Repeat</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="yrepeat" @input="updateyrepeat"></vue-slider>
             </div>
+
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.xoff!==true }">
+                <span class="align-bottom">X Offset</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="xoffset" @input="updatexoffset"></vue-slider>
+            </div>
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.yoff!==true }">
+                <span class="align-bottom">Y Offset</span>
+                <vue-slider ref="slider" v-bind="slider" v-model="yoffset" @input="updateyoffset"></vue-slider>
+            </div>
+
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.map!==true }">
                 <span class="align-bottom">Color Map</span>
                 <mapLoader v-bind:data="colorMapData"></mapLoader>
@@ -262,6 +272,8 @@ export default {
       geometry:function(){ return this.$store.state.properties.geometry; },
       xrepeat: function(){ return this.$store.state.properties.repeat.x; },
       yrepeat: function(){ return this.$store.state.properties.repeat.y; },
+      xoffset: function(){ return this.$store.state.properties.offset.x; },
+      yoffset: function(){ return this.$store.state.properties.offset.y; },
       color: function(){ return this.$store.state.properties.color; },
       shininess: function(){ return this.$store.state.properties.shininess; },
       reflectivity: function(){ return this.$store.state.properties.reflectivity; },
@@ -285,6 +297,12 @@ export default {
     },
     updateyrepeat: function(val) {
         this.$store.commit('properties/updateyrepeat', { 'y': val });
+    },
+    updatexoffset: function(val) {
+        this.$store.commit('properties/updatexoffset', { 'x': val });
+    },
+    updateyoffset: function(val) {
+        this.$store.commit('properties/updateyoffset', { 'y': val });
     },
     updatecolor: function(color) {
         this.$store.commit('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });

@@ -19,7 +19,9 @@ export default {
         'skinning': true,
         'specularMap': true,
         'xrep': true,
-        'yrep': true
+        'yrep': true,
+        'xoff': true,
+        'yoff': true
 
     },
 
@@ -44,7 +46,9 @@ export default {
         'skinning': true,
         'specularMap': true,
         'xrep': true,
-        'yrep': true
+        'yrep': true,
+        'xoff': true,
+        'yoff': true
     },
 
     'MeshPhongMaterial': {
@@ -77,7 +81,9 @@ export default {
         'specular': true,
         'specularMap': true,
         'xrep': true,
-        'yrep': true
+        'yrep': true,
+        'xoff': true,
+        'yoff': true
     },
 
     'MeshStandardMaterial': {
@@ -110,7 +116,9 @@ export default {
         'roughnessMap': true,
         'skinning': true,
         'xrep': true,
-        'yrep': true
+        'yrep': true,
+        'xoff': true,
+        'yoff': true
 
     },
 
@@ -147,8 +155,9 @@ export default {
         'clearCoatRoughness': true,
         'reflectivity': true,
         'xrep': true,
-        'yrep': true
-
+        'yrep': true,
+        'xoff': true,
+        'yoff': true
     },
 
     'MeshToonMaterial': {
@@ -182,7 +191,9 @@ export default {
         'specularMap': true,
         'gradientMap': true,
         'xrep': true,
-        'yrep': true
+        'yrep': true,
+        'xoff': true,
+        'yoff': true
     },
 
     'ShaderMaterial': {

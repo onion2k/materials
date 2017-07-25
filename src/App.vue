@@ -76,6 +76,8 @@ export default {
 
     xrepeat: function () { return this.$store.state.properties.repeat.x },
     yrepeat: function () { return this.$store.state.properties.repeat.y },
+    xoffset: function () { return this.$store.state.properties.offset.x },
+    yoffset: function () { return this.$store.state.properties.offset.y },
 
     color: function () { return this.$store.state.properties.color },
     shininess: function () { return this.$store.state.properties.shininess },
@@ -114,6 +116,30 @@ export default {
         if (this.material.occlusionMap) this.material.occlusionMap.repeat.set(this.xrepeat, this.yrepeat);
         if (this.material.specularMap) this.material.specularMap.repeat.set(this.xrepeat, this.yrepeat);
         if (this.material.envMap) this.material.envMap.repeat.set(this.xrepeat, this.yrepeat);
+        this.material.needsUpdate = true;
+    },
+
+    xoffset: function(val) {
+        if (this.material.alphaMap) this.material.alphaMap.offset.setX(this.xoffset/100);
+        if (this.material.map) this.material.map.offset.setX(this.xoffset/100);
+        if (this.material.bumpMap) this.material.bumpMap.offset.setX(this.xoffset/100);
+        if (this.material.emissiveMap) this.material.emissiveMap.offset.setX(this.xoffset/100);
+        if (this.material.lightMap) this.material.lightMap.offset.setX(this.xoffset/100);
+        if (this.material.occlusionMap) this.material.occlusionMap.offset.setX(this.xoffset/100);
+        if (this.material.specularMap) this.material.specularMap.offset.setX(this.xoffset/100);
+        if (this.material.envMap) this.material.envMap.offset.setX(this.xoffset/100);
+        this.material.needsUpdate = true;
+    },
+
+    yoffset: function(val) {
+        if (this.material.alphaMap) this.material.alphaMap.offset.setY(this.yoffset/100);
+        if (this.material.map) this.material.map.offset.setY(this.yoffset/100);
+        if (this.material.bumpMap) this.material.bumpMap.offset.setY(this.yoffset/100);
+        if (this.material.emissiveMap) this.material.emissiveMap.offset.setY(this.yoffset/100);
+        if (this.material.lightMap) this.material.lightMap.offset.setY(this.yoffset/100);
+        if (this.material.occlusionMap) this.material.occlusionMap.offset.setY(this.yoffset/100);
+        if (this.material.specularMap) this.material.specularMap.offset.setY(this.yoffset/100);
+        if (this.material.envMap) this.material.envMap.offset.setY(this.yoffset/100);
         this.material.needsUpdate = true;
     },
 

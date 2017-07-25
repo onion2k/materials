@@ -12,6 +12,7 @@ export default {
     clearcoat: 0.1,
     clearcoatRoughness: 0,
     repeat: { x: 5, y: 5 },
+    offset: { x: 5, y: 5 },
     sidedness: 'front'
   },
   mutations: {
@@ -24,6 +25,8 @@ export default {
     updateClearcoatRoughness (state, payload) { state.clearcoatRoughness = payload.clearcoatRoughness; },
     updatexrepeat (state, payload) { state.repeat.x = payload.x; },
     updateyrepeat (state, payload) { state.repeat.y = payload.y; },
+    updatexoffset (state, payload) { state.offset.x = payload.x; },
+    updateyoffset (state, payload) { state.offset.y = payload.y; },
     updatesidedness (state, payload) { state.sidedness = payload.sidedness; },
     updategeometry (state, payload) { state.geometry = payload.geometry; },
     updatematerial (state, payload) { state.material = payload.material; }

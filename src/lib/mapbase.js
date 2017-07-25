@@ -9,18 +9,26 @@ export default function(ns, propertyName) {
         image: undefined,
         texture: undefined,
         repeat: { x: null, y: null },
+        offset: { x: null, y: null },
         scale: 1.0
     },
     this.mutations = {
         updateRepeat (state, payload) {
-        state.repeat = payload;
-        if (state.texture !== undefined) {
-            state.texture.repeat.set( state.repeat.x, state.repeat.y );
-        }
-        state.texture.needsUpdate = true;
+            state.repeat = payload;
+            if (state.texture !== undefined) {
+                state.texture.repeat.set( state.repeat.x, state.repeat.y );
+            }
+            state.texture.needsUpdate = true;
+        },
+        updateOffset (state, payload) {
+            state.offset = payload;
+            if (state.texture !== undefined) {
+                state.texture.offset.set( state.offset.x, state.offset.y );
+            }
+            state.texture.needsUpdate = true;
         },
         updateScale (state, payload) {
-        state.scale = payload.v / 100;
+            state.scale = payload.v / 100;
         },
         updateImage (state, payload) {
             state.image = payload.image;
@@ -34,6 +42,8 @@ export default function(ns, propertyName) {
             if (payload.image!==null) {
             let xRep = context.state.repeat.x || context.rootState.properties.repeat.x;
             let yRep = context.state.repeat.y || context.rootState.properties.repeat.y;
+            let xOff = context.state.offset.x || context.rootState.properties.offset.x;
+            let yOff = context.state.offset.y || context.rootState.properties.offset.y;
             var t = texture.texture(payload.image, xRep, yRep);
             } else {
             let t = undefined;
