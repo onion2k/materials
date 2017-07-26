@@ -405,6 +405,11 @@ textarea {
     width: 60%;
     min-height: 200px;
     border: 1px dashed #bbb;
+    font-family: courier;
+    font-size: 12px;
+    padding: 0;
+    white-space: pre;
+    tab-size: 2; 
 }
 
 </style>
