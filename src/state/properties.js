@@ -7,6 +7,7 @@ export default {
     color: { r: 0, g: 255, b: 0, a: 0.5 },
     shininess: 0,
     reflectivity: 0,
+    combine: 'multiply',
     roughness: 0.1,
     metalness: 0.1,
     clearcoat: 0.1,
@@ -27,6 +28,7 @@ export default {
     updateyrepeat (state, payload) { state.repeat.y = payload.y; },
     updatexoffset (state, payload) { state.offset.x = payload.x; },
     updateyoffset (state, payload) { state.offset.y = payload.y; },
+    updatecombine (state, payload) { state.combine = payload.combine; },
     updatesidedness (state, payload) { state.sidedness = payload.sidedness; },
     updategeometry (state, payload) { state.geometry = payload.geometry; },
     updatematerial (state, payload) { state.material = payload.material; }

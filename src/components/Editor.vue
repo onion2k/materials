@@ -130,8 +130,16 @@
                 <span class="align-bottom">Clearcoard Roughness</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.envMap!==true }">
-                <span class="align-bottom">Combine Op.</span>
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.combine!==true }">
+                <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Combine Op:
+                </button>
+                <div class="dropdown-menu col-xs-12">
+                    <button class="dropdown-item" type="button" v-on:click="combineSelector('multiply')">Multiply</button>
+                    <button class="dropdown-item" type="button" v-on:click="combineSelector('mix')">Mix</button>
+                    <button class="dropdown-item" type="button" v-on:click="combineSelector('add')">Add</button>
+                </div>
+
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.reflectivity!==true }">
                 <span class="align-bottom">Reflectivity</span>
@@ -291,6 +299,9 @@ export default {
     },
     sidednessSelector: function(sidedness){
         this.$store.commit('properties/updatesidedness', { 'sidedness': sidedness });
+    },
+    combineSelector: function(combine){
+        this.$store.commit('properties/updatecombine', { 'combine': combine });
     },
     updatexrepeat: function(val) {
         this.$store.commit('properties/updatexrepeat', { 'x': val });
