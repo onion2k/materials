@@ -86,9 +86,11 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.normalMap!==true }">
                 <span class="align-bottom">Normal Map</span>
+                <mapLoader v-bind:data="normalMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.displacementMap!==true }">
                 <span class="align-bottom">Displacement Map</span>
+                <mapLoader v-bind:data="displacementMapData"></mapLoader>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.lightMap!==true }">
                 <span class="align-bottom">Light Map</span>
@@ -272,6 +274,16 @@ export default {
             title: 'Metal Map',
             description: '',
             namespace: 'metalnessmap'
+        },
+        normalMapData: {
+            title: 'Normal Map',
+            description: '',
+            namespace: 'normalmap'
+        },
+        displacementMapData: {
+            title: 'Displacement Map',
+            description: '',
+            namespace: 'displacementmap'
         }
     }
   },

@@ -97,7 +97,9 @@ export default {
             this.specularMapPreloader,
             this.envMapPreloader,
             this.roughnessMapPreloader,
-            this.metalnessMapPreloader
+            this.metalnessMapPreloader,
+            this.displacementMapPreloader,
+            this.normalMapPreloader
         ];
     },
     colorMapPreloader: function(){
@@ -207,6 +209,25 @@ export default {
     metalnessMap: function(){
         if (this.$store.state.metalnessmap.texture !== undefined) {
             return '    metalnessMap: metalnessmapTexture,\n';
+        }
+        return '';
+    },
+    normalMapPreloader: function(){
+        return this.$store.getters['normalmap/texturePreloader'];
+    },
+    normalMap: function(){
+        if (this.$store.state.normalmap.texture !== undefined) {
+            return '    normalMap: normalmapTexture,\n';
+        }
+        return '';
+    },
+    displacementMapPreloader: function(){
+        return this.$store.getters['displacementmap/texturePreloader'];
+
+    },
+    metalnessMap: function(){
+        if (this.$store.state.displacementmap.texture !== undefined) {
+            return '    displacementMap: displacementmapTexture,\n';
         }
         return '';
     },

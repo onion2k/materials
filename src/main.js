@@ -16,6 +16,8 @@ import specularmap from './state/specularmap';
 import envmap from './state/envmap';
 import roughnessmap from './state/roughnessmap';
 import metalnessmap from './state/metalnessmap';
+import normalmap from './state/normalmap';
+import displacementmap from './state/displacementmap';
 import shader from './state/shader';
 
 let store = new Vuex.Store({
@@ -32,6 +34,8 @@ let store = new Vuex.Store({
     envmap: envmap,
     roughnessmap: roughnessmap,
     metalnessmap: metalnessmap,
+    normalmap: normalmap,
+    displacementmap: displacementmap,
     shader: shader
   }
 });

@@ -74,6 +74,9 @@ export default {
     roughnessTexture: function () { return this.$store.state.roughnessmap.texture; },
     metalnessTexture: function () { return this.$store.state.metalnessmap.texture; },
 
+    normalTexture: function () { return this.$store.state.normalmap.texture; },
+    displacementTexture: function () { return this.$store.state.displacementmap.texture; },
+
     xrepeat: function () { return this.$store.state.properties.repeat.x },
     yrepeat: function () { return this.$store.state.properties.repeat.y },
     xoffset: function () { return this.$store.state.properties.offset.x },
@@ -195,6 +198,14 @@ export default {
         this.material.metalnessMap = this.metalnessTexture;
         this.material.needsUpdate = true;
     },
+    normalTexture: function(val) {
+        this.material.normalMap = this.normalTexture;
+        this.material.needsUpdate = true;
+    },
+    displacementTexture: function(val) {
+        this.material.displacementMap = this.displacementTexture;
+        this.material.needsUpdate = true;
+    },
     color: function(val) {
         this.material.color.setHex(parseInt(rgbHex(val.r,val.g,val.b), 16));
         this.material.needsUpdate = true;
@@ -289,6 +300,9 @@ export default {
         if (this.material.hasOwnProperty('roughnessMap')) { this.material.roughnessMap = this.roughnessTexture; }
         if (this.material.hasOwnProperty('metalnessMap')) { this.material.metalnessMap = this.metalnessTexture; }
 
+        if (this.material.hasOwnProperty('normalMap')) { this.material.normalMap = this.normalTexture; }
+        if (this.material.hasOwnProperty('displacementMap')) { this.material.displacementMap = this.displacementTexture; }
+
         this.material.needsUpdate = true;
 
     },
@@ -341,6 +355,8 @@ export default {
         if (this.material.hasOwnProperty('envMap')) { this.material.envMap = this.envTexture; }
         if (this.material.hasOwnProperty('roughnessMap')) { this.material.roughnessMap = this.roughnessTexture; }
         if (this.material.hasOwnProperty('metalnessMap')) { this.material.metalnessMap = this.metalnessTexture; }
+        if (this.material.hasOwnProperty('normalMap')) { this.material.normalMap = this.normalTexture; }
+        if (this.material.hasOwnProperty('displacementMap')) { this.material.displacementMap = this.displacementTexture; }
 
         this.material.needsUpdate = true;
 
