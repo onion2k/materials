@@ -4,7 +4,7 @@ export default {
   state: {
     material: 'MeshPhysicalMaterial',
     geometry: 'SphereGeometry',
-    color: { r: 0, g: 255, b: 0, a: 0.5 },
+    color: { r: 255, g: 255, b: 255, a: 0 },
     shininess: 0,
     reflectivity: 0,
     combine: 'multiply',
