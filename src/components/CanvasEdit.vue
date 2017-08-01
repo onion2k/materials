@@ -35,6 +35,7 @@ export default {
         ctx.fillRect(0,0,256,256);
       },
     startDrawImage: function(e){
+        e.target.style.cursor = 'pointer';
         this.drawing = true;
     },
     moveDrawImage: function(e){
@@ -48,7 +49,8 @@ export default {
                 ctx.fill();
         }
     },
-    loadDrawImage: function(){
+    loadDrawImage: function(e){
+        e.target.style.cursor = 'default';
         let c = this.$refs["draw"];
         let ctx = c.getContext('2d');
         let i = c.toDataURL('image/jpeg', 0.9);
