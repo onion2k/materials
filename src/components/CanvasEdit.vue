@@ -1,5 +1,10 @@
 <template>
-    <canvas ref="draw" v-on:mouseup.self="loadDrawImage" v-on:mousedown.self="startDrawImage" v-on:mousemove.self="moveDrawImage" width="256" height="256" style="width: 256px; height: 256px;"></canvas>
+    <div>
+        <canvas ref="draw" v-on:mouseup.self="loadDrawImage" v-on:mousedown.self="startDrawImage" v-on:mousemove.self="moveDrawImage" width="256" height="256"></canvas>
+        <ul class="colors">
+            <li v-for="color in colors" v-bind:style="backgroundstyle(color)" v-on:click="fg(color)"></li>
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -10,7 +15,25 @@ export default {
   data: function(){
     return {
         background: { r: 255, g: 255, b: 255},
-        foreground: { r: 0, g: 0, b: 0}
+        foreground: { r: 0, g: 0, b: 0},
+        colors: [
+            { r:23, g:30, b:31 },
+            { r:157, g:224, b:110 },
+            { r:83, g:61, b:182 },
+            { r:65, g:128, b:49 },
+            { r:216, g:61, b:140 },
+            { r:77, g:214, b:221 },
+            { r:233, g:132, b:57 },
+            { r:46, g:147, b:220 },
+            { r:132, g:59, b:21 },
+            { r:32, g:41, b:99 },
+            { r:221, g:186, b:148 },
+            { r:86, g:15, b:34 },
+            { r:219, g:224, b:231 },
+            { r:21, g:54, b:12 },
+            { r:233, g:166, b:222 },
+            { r:91, g:110, b:114 }
+        ]
     }
   },
   computed: {
@@ -20,12 +43,16 @@ export default {
     this.reset();
   },
   methods: {
+      backgroundstyle: function(c){
+          return "background-color: rgb("+c.r+","+c.g+","+c.b+")";
+      },
+      fg: function(c){
+          this.foreground = c;
+      },
       reset: function(){
 
         let c = this.$refs["draw"];
         let ctx = c.getContext('2d');
-
-        console.log(this.background)
 
         ctx.fillStyle = "rgb("+this.background.r+","+this.background.g+","+this.background.b+")";
         ctx.fillRect(0,0,256,256);
@@ -115,62 +142,27 @@ function getRelativeCoordinates(event, reference) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    ul.materials {
-        background-color: #fff;
-        width: 100%;
-        display: inline-grid;
-        grid-template-columns: .25fr .25fr .25fr .25fr;
-        grid-gap: 10px;
+    canvas {
+        border: 1px solid #ddd;
+        width: 256px;
+        height: 256px;
+    }
+    ul.colors {
+        display: grid;
+        padding: 0;
+        margin: 0;
+        grid-template-columns: repeat(8, .125fr);
         align-items: center;
+        list-style: none;
     }
     li {
         padding: 0;
         margin: 0;
         width: 100%;
-        font-size: 70px;
-        line-height: 95px;
-        height: 100px;
-        background-color: #bbb;
+        min-height: 35px;
         border: 1px solid #fff;
         color: #fff;
         cursor: pointer;
         opacity: 1;
-    }
-    li.active {
-        border-color: #000;
-    }
-    li.MeshPhongMaterial { /* Phong */
-        background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
-        background-color: #f00;
-    }
-    li.MeshStandardMaterial { /* Standard */
-        background: linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
-        background-color: #ff0;
-    }
-    li.MeshBasicMaterial { /* Basic */
-        background: none;
-        background-color: #888;
-    }
-    li.MeshToonMaterial { /* Toon */
-        background: linear-gradient(135deg, rgba(255,255,255,0.7) 49%,rgba(255,255,255,0.3) 51%); 
-        background-color: #00f;
-    },
-    li.MeshLambertMaterial { /* Lambert */
-        background: linear-gradient(to right, rgba(255,255,255,0.7) 20%,rgba(255,255,255,0.3) 80%); 
-        background-color: #00f;
-    },
-    li.MeshPhysicalMaterial { /* Physical */
-        background: linear-gradient(to top, rgba(255,255,255,1.0) 0%,rgba(255,255,255,0) 100%); 
-        background-color: #0ff;
-    },
-    li.ShaderMaterial { /* Shader */
-        background: none;
-        background-color: #00f;
-    }
-    .materials-enter-active, .materials-leave-active {
-        transition: all 1s;
-    }
-    .materials-enter, .materials-leave-to /* .list-leave-active for <2.1.8 */ {
-        opacity: 0;
     }
 </style>
