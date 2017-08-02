@@ -2,20 +2,26 @@
     <div>
         <canvas ref="draw" v-on:mouseup.self="loadDrawImage" v-on:mousedown.self="startDrawImage" v-on:mousemove.self="moveDrawImage" width="256" height="256"></canvas>
         <color-picker :value="foreground" @input="fg"></color-picker>
+        <vue-slider ref="slider" v-bind="sizeSettings" v-model="sizeValue"></vue-slider>
     </div>
 </template>
 
 <script>
 
+import vueSlider from 'vue-slider-component';
 import { Compact } from 'vue-color';
+
+var pcoords;
 
 export default {
   name: 'CanvasEdit',
   props: ['data'],
-  data: function(){
+  data: function(){    
     return {
         background: { r: 255, g: 255, b: 255},
-        foreground: { r: 0, g: 0, b: 0}
+        foreground: { r: 0, g: 0, b: 0},
+        sizeValue: 5,
+        sizeSettings: { width: '256px', tooltip: 'hover', min: 1, max: 20 },
     }
   },
   mounted: function(e){
@@ -28,37 +34,47 @@ export default {
       fg: function(c){
           this.foreground = c.rgba;
       },
+    //   size: function(s) {
+    //     this.lineWidth = s;
+    //   },
       reset: function(){
-        let c = this.$refs["draw"];
-        let ctx = c.getContext('2d');
+        var ctx = this.$refs["draw"].getContext('2d');
+        // let c = this.$refs["draw"];
+        // let ctx = c.getContext('2d');
         ctx.fillStyle = "rgb("+this.background.r+","+this.background.g+","+this.background.b+")";
         ctx.fillRect(0,0,256,256);
       },
     startDrawImage: function(e){
         e.target.style.cursor = 'pointer';
+        var c = this.$refs["draw"];
+        pcoords = getRelativeCoordinates(e, c);
         this.drawing = true;
     },
     moveDrawImage: function(e){
         if (this.drawing === true) {
-            let c = this.$refs["draw"];
-            let ctx = c.getContext('2d');
-                ctx.fillStyle = "rgb("+this.foreground.r+","+this.foreground.g+","+this.foreground.b+")";
-                ctx.beginPath();
+            var c = this.$refs["draw"];
+            var ctx = c.getContext('2d');
             var coords = getRelativeCoordinates(e, c);
-                ctx.arc(coords.x-3, coords.y-3,6,0,2*Math.PI);
-                ctx.fill();
+                ctx.lineWidth = this.sizeValue;
+                ctx.strokeStyle = "rgb("+this.foreground.r+","+this.foreground.g+","+this.foreground.b+")";
+                ctx.beginPath();
+                ctx.moveTo(pcoords.x, pcoords.y);
+                ctx.lineTo(coords.x, coords.y);
+                ctx.stroke();
+                pcoords = coords;
         }
     },
     loadDrawImage: function(e){
         e.target.style.cursor = 'default';
         let c = this.$refs["draw"];
-        let ctx = c.getContext('2d');
+        //let ctx = c.getContext('2d');
         let i = c.toDataURL('image/jpeg', 0.9);
         this.$store.dispatch(this.data.namespace+'/mapUpdate', { filename: 'Draw', image: i });
         this.drawing = false;
     }
   },
   components: {
+    vueSlider,
     'color-picker': Compact
   }
 }
@@ -126,7 +142,11 @@ function getRelativeCoordinates(event, reference) {
         width: 256px;
         height: 256px;
     }
+    div.vue-slider-wrap {
+        margin: 10px auto 0 auto;        
+    }
     div.vue-color__compact {
-        margin: 0 auto;
+        width: 245px;
+        margin: 10px auto 0 auto;
     }
 </style>
