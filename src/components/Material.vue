@@ -204,6 +204,7 @@ export default {
     }
 
     let render = () => {
+        //this.material.uniforms.time.value = this.material.uniforms.time.value+0.01;
         renderer.render(this.scene, camera);
     }
 

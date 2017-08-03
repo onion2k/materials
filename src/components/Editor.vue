@@ -156,32 +156,17 @@
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.uniforms!==true }">
                 <span class="align-top">Uniforms</span>
-                <textarea name="uniforms">
-                </textarea>
+                <textarea name="uniforms">{{ uniforms }}</textarea>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">
                 <span class="align-top">Fragment Shader</span>
-                <textarea name="fShader">
-	uniform float time;
-	uniform vec2 resolution;
-	void main()	{
-		float x = mod(time + gl_FragCoord.x, 20.) < 10. ? 1. : 0.;
-		float y = mod(time + gl_FragCoord.y, 20.) < 10. ? 1. : 0.;
-		gl_FragColor = vec4(vec3(min(x, y)), 1.);
-	}
-                </textarea>
+                <textarea name="fShader">{{ fragmentShader }}</textarea>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.vertexShader!==true }">
                 <span class="align-top">Vertex Shader</span>
-                <textarea name="vShader">
-	uniform float time;
-	uniform vec2 resolution;
-	void main()	{
-		gl_Position = vec4( position, 1.0 );
-	}
-                </textarea>
+                <textarea name="vShader">{{ vertexShader }}</textarea>
             </div>
 
             <div class="list-group-item list-group-item-action justify-content-between">
@@ -300,7 +285,12 @@ export default {
       roughness: function(){ return this.$store.state.properties.roughness; },
       metalness: function(){ return this.$store.state.properties.metalness; },
       clearcoat: function(){ return this.$store.state.properties.clearcoat; },
-      clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; }
+      clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; },
+
+      uniforms: function(){ return this.$store.state.shader.uniforms; },
+      fragmentShader: function(){ return this.$store.state.shader.fragmentShader; },
+      vertexShader: function(){ return this.$store.state.shader.vertexShader; }
+
   },
   methods: {
     geoSelector: function(geometry){
