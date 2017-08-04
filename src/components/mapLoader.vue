@@ -1,51 +1,55 @@
 <template>
-    <div class="imageform map" v-on:click.self="show">
-        {{ this.image }}
-        <div v-if="modal" class="card mapmodal">
-            <div class="card-block text-left">
-                <h4 class="card-title">{{ this.data.title }}</h4>
-                <p class="card-text">{{ this.data.description }}</p>
-            </div>
-            <div class="card-block" style="position: relative;">
-                <button class="btn btn-secondary dropdown-toggle btn-fullwidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Predefined Images:
-                </button>
-                <div class="dropdown-menu">
-                    <button class="dropdown-item" type="button" v-for="(url, imageTitle) in images" v-on:click="loadPredefinedImage(url, imageTitle)">{{ imageTitle }}</button>
+    <div class="list-group-item justify-content-between" v-bind:class="{ hidden: this.data.spec!==true }">
+        <span class="align-bottom">{{ this.data.title }}</span>
+        <div class="imageform map" v-on:click.self="show">
+            {{ this.image }}
+            <div v-if="modal" class="card mapmodal">
+                <div class="card-block text-left">
+                    <h4 class="card-title">{{ this.data.title }}</h4>
+                    <p class="card-text">{{ this.data.description }}</p>
                 </div>
-            </div>
-            <div class="file-upload-form card-block">
-                <input type="file" @change.self="previewImage" accept="image/*">
-                {{ image || 'Click to select an image' }}
-                <button class="remove" v-if="image" @click.self="removeImage">Remove</button>
-            </div>
-            <div class="draw card-block">
-                <CanvasEdit v-bind:data="data"></CanvasEdit>
-            </div>
-            <ul class="list-group list-group-flush">
-                <div class="list-group-item justify-content-between disabled">
-                    <span>x Repeat</span>
-                    <vue-slider ref="slider" v-bind="sliderSettings" v-model="xRepeatSliderValue" @input="xRepeatSliderUpdate"></vue-slider>
+                <div class="card-block" style="position: relative;">
+                    <button class="btn btn-secondary dropdown-toggle btn-fullwidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Predefined Images:
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" v-for="(url, imageTitle) in images" v-on:click="loadPredefinedImage(url, imageTitle)">{{ imageTitle }}</button>
+                    </div>
                 </div>
-                <div class="list-group-item justify-content-between disabled">
-                    <span>y Repeat</span>
-                    <vue-slider ref="slider" v-bind="sliderSettings" v-model="yRepeatSliderValue" @input="yRepeatSliderUpdate"></vue-slider>
+                <div class="file-upload-form card-block">
+                    <input type="file" @change.self="previewImage" accept="image/*">
+                    {{ image || 'Click to select an image' }}
+                    <button class="remove" v-if="image" @click.self="removeImage">Remove</button>
                 </div>
-                <div class="list-group-item justify-content-between text-left explainer">
-                    <span>THREE.js doesn't support repeat or offset data  for individual maps yet, so these are disabled. Use the global values instead, or repeat the map in the image.</span>
+                <div class="draw card-block">
+                    <CanvasEdit v-bind:data="data"></CanvasEdit>
                 </div>
-                <div class="list-group-item justify-content-between" v-if="sliderTitle">
-                    <span>{{ sliderTitle }}</span>
-                    <vue-slider ref="slider" v-bind="sliderSettings" v-model="sliderValue" @input="sliderUpdate"></vue-slider>
+                <ul class="list-group list-group-flush">
+                    <div class="list-group-item justify-content-between disabled">
+                        <span>x Repeat</span>
+                        <vue-slider ref="slider" v-bind="sliderSettings" v-model="xRepeatSliderValue" @input="xRepeatSliderUpdate"></vue-slider>
+                    </div>
+                    <div class="list-group-item justify-content-between disabled">
+                        <span>y Repeat</span>
+                        <vue-slider ref="slider" v-bind="sliderSettings" v-model="yRepeatSliderValue" @input="yRepeatSliderUpdate"></vue-slider>
+                    </div>
+                    <div class="list-group-item justify-content-between text-left explainer">
+                        <span>THREE.js doesn't support repeat or offset data  for individual maps yet, so these are disabled. Use the global values instead, or repeat the map in the image.</span>
+                    </div>
+                    <div class="list-group-item justify-content-between" v-if="sliderTitle">
+                        <span>{{ sliderTitle }}</span>
+                        <vue-slider ref="slider" v-bind="sliderSettings" v-model="sliderValue" @input="sliderUpdate"></vue-slider>
+                    </div>
+                    <div class="list-group-item justify-content-between text-left explainer" v-if="sliderTitle">
+                        <span>Affect the amount of bumpiness a map changes the model by.</span>
+                    </div>
+                </ul>
+                <div class="card-block">
+                    <a href="#" v-on:click="close" class="card-link">Close</a>
                 </div>
-                <div class="list-group-item justify-content-between text-left explainer" v-if="sliderTitle">
-                    <span>Affect the amount of bumpiness a map changes the model by.</span>
-                </div>
-            </ul>
-            <div class="card-block">
-                <a href="#" v-on:click="close" class="card-link">Close</a>
             </div>
         </div>
+
     </div>
 </template>
 

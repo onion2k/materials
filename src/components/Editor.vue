@@ -64,46 +64,16 @@
                 <vue-slider ref="slider" v-bind="slider" v-model="yoffset" @input="updateyoffset"></vue-slider>
             </div>
 
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.map!==true }">
-                <span class="align-bottom">Color Map</span>
-                <mapLoader v-bind:data="colorMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.alphaMap!==true }">
-                <span class="align-bottom">Alpha Map</span>
-                <mapLoader v-bind:data="alphaMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.bumpMap!==true }">
-                <span class="align-bottom">Bump Map</span>
-                <mapLoader v-bind:data="bumpMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.emissiveMap!==true }">
-                <span class="align-bottom">Emissive Map</span>
-                <mapLoader v-bind:data="emissiveMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.aoMap!==true }">
-                <span class="align-bottom">AO Map</span>
-                <mapLoader v-bind:data="aoMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.normalMap!==true }">
-                <span class="align-bottom">Normal Map</span>
-                <mapLoader v-bind:data="normalMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.displacementMap!==true }">
-                <span class="align-bottom">Displacement Map</span>
-                <mapLoader v-bind:data="displacementMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.lightMap!==true }">
-                <span class="align-bottom">Light Map</span>
-                <mapLoader v-bind:data="lightMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.specularMap!==true }">
-                <span class="align-bottom">Specular Map</span>
-                <mapLoader v-bind:data="specularMapData"></mapLoader>
-            </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.envMap!==true }">
-                <span class="align-bottom">Environment Map</span>
-                <mapLoader v-bind:data="envMapData"></mapLoader>
-            </div>
+            <mapLoader v-bind:data="colorMapData"></mapLoader>
+            <mapLoader v-bind:data="alphaMapData"></mapLoader>
+            <mapLoader v-bind:data="bumpMapData"></mapLoader>
+            <mapLoader v-bind:data="emissiveMapData"></mapLoader>
+            <mapLoader v-bind:data="aoMapData"></mapLoader>
+            <mapLoader v-bind:data="normalMapData"></mapLoader>
+            <mapLoader v-bind:data="displacementMapData"></mapLoader>
+            <mapLoader v-bind:data="lightMapData"></mapLoader>
+            <mapLoader v-bind:data="specularMapData"></mapLoader>
+            <mapLoader v-bind:data="envMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.shininess!==true }">
                 <span class="align-bottom">Shininess</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
@@ -112,19 +82,13 @@
                 <span class="align-bottom">Roughness</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="roughness" @input="updateroughness"></vue-slider>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.roughnessMap!==true }">
-                <span class="align-bottom">Roughness Map</span>
-                <mapLoader v-bind:data="roughnessMapData"></mapLoader>
-            </div>
+            <mapLoader v-bind:data="roughnessMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalness!==true }">
                 <span class="align-bottom">Metalness</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="metalness" @input="updatemetalness"></vue-slider>
                 <p class="explainer">Metalness describes the ratio material\'s ratio between being a dialetric and a metal. This should really be 0 (dialetric) or 1 (metal). Anything in between is rare.</p>
             </div>
-            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalnessMap!==true }">
-                <span class="align-bottom">Metalness Map</span>
-                <mapLoader v-bind:data="metalnessMapData"></mapLoader>
-            </div>
+            <mapLoader v-bind:data="metalnessMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoat!==true }">
                 <span class="align-bottom">Clearcoat</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
@@ -208,69 +172,6 @@ export default {
 
         colorModal: false,
 
-        alphaMapData: {
-            title: 'Alpha Map',
-            description: 'Map an image\'s blue channel to the object\s transparency.',
-            namespace: 'alphamap'
-        },
-        bumpMapData: {
-            title: 'Bump Map',
-            description: 'Map an image\'s green channel as a bumpy texture on the object.',
-            namespace: 'bumpmap',
-            sliderTitle: 'Scale'
-        },
-        colorMapData: {
-            title: 'Color Map',
-            description: 'Map an image\'s color data to the object.',
-            namespace: 'colormap'
-        },
-        emissiveMapData: {
-            title: 'Emissive Map',
-            description: 'Map an image\'s green channel as the object\s emissive light.',
-            namespace: 'emissivemap',
-            sliderTitle: 'Intensity'
-        },
-        aoMapData: {
-            title: 'Ambient occlusion Map',
-            description: 'Map an image\'s color data as the object\s abmient occlusion.',
-            namespace: 'aomap'
-        },
-        lightMapData: {
-            title: 'Light Map',
-            description: 'Map an image\'s green channel as the object\s lights.',
-            namespace: 'lightmap'
-        },
-        specularMapData: {
-            title: 'Specular Map',
-            description: 'Map an image\'s blue channel as the object\s specular reflectivity.',
-            namespace: 'specularmap',
-            sliderTitle: 'Intensity'
-        },
-        envMapData: {
-            title: 'Environment Map',
-            description: '',
-            namespace: 'envmap'
-        },
-        roughnessMapData: {
-            title: 'Roughness Map',
-            description: '',
-            namespace: 'roughnessmap'
-        },
-        metalnessMapData: {
-            title: 'Metal Map',
-            description: '',
-            namespace: 'metalnessmap'
-        },
-        normalMapData: {
-            title: 'Normal Map',
-            description: '',
-            namespace: 'normalmap'
-        },
-        displacementMapData: {
-            title: 'Displacement Map',
-            description: '',
-            namespace: 'displacementmap'
-        }
     }
   },
   computed: {
@@ -290,7 +191,112 @@ export default {
 
       uniforms: function(){ return this.$store.state.shader.uniforms; },
       fragmentShader: function(){ return this.$store.state.shader.fragmentShader; },
-      vertexShader: function(){ return this.$store.state.shader.vertexShader; }
+      vertexShader: function(){ return this.$store.state.shader.vertexShader; },
+
+        colorMapData: function(){
+            return {
+                spec: this.spec.map,
+                title: 'Color Map',
+                description: 'Map an image\'s color data to the object.',
+                namespace: 'colormap'
+            }
+        },
+
+
+        alphaMapData:  function(){
+            return {
+            spec: this.spec.alphaMap,
+            title: 'Alpha Map',
+            description: 'Map an image\'s blue channel to the object\s transparency.',
+            namespace: 'alphamap'
+            }
+        },
+        bumpMapData:  function(){
+            return {
+            spec: this.spec.bumpMap,
+            title: 'Bump Map',
+            description: 'Map an image\'s green channel as a bumpy texture on the object.',
+            namespace: 'bumpmap',
+            sliderTitle: 'Scale'
+            }
+        },
+        emissiveMapData:  function(){
+            return {
+            spec: this.spec.emissiveMap,
+            title: 'Emissive Map',
+            description: 'Map an image\'s green channel as the object\s emissive light.',
+            namespace: 'emissivemap',
+            sliderTitle: 'Intensity'
+            }
+        },
+        aoMapData:  function(){
+            return {
+            spec: this.spec.aoMap,
+            title: 'Ambient occlusion Map',
+            description: 'Map an image\'s color data as the object\s abmient occlusion.',
+            namespace: 'aomap'
+            }
+        },
+        lightMapData:  function(){
+            return {
+            spec: this.spec.lightMap,
+            title: 'Light Map',
+            description: 'Map an image\'s green channel as the object\s lights.',
+            namespace: 'lightmap'
+            }
+        },
+        specularMapData:  function(){
+            return {
+            spec: this.spec.specularMap,
+            title: 'Specular Map',
+            description: 'Map an image\'s blue channel as the object\s specular reflectivity.',
+            namespace: 'specularmap',
+            sliderTitle: 'Intensity'
+            }
+        },
+        envMapData:  function(){
+            return {
+            spec: this.spec.envMap,
+            title: 'Environment Map',
+            description: '',
+            namespace: 'envmap'
+            }
+        },
+        roughnessMapData:  function(){
+            return {
+            spec: this.spec.roughnessMap,
+            title: 'Roughness Map',
+            description: '',
+            namespace: 'roughnessmap'
+            }
+        },
+        metalnessMapData:  function(){
+            return {
+            spec: this.spec.metalnessMap,
+            title: 'Metal Map',
+            description: '',
+            namespace: 'metalnessmap'
+            }
+        },
+        normalMapData:  function(){
+            return {
+            spec: this.spec.normalMap,
+            title: 'Normal Map',
+            description: '',
+            namespace: 'normalmap'
+            }
+        },
+        displacementMapData:  function(){
+            return {
+            spec: this.spec.displacementMap,
+            title: 'Displacement Map',
+            description: '',
+            namespace: 'displacementmap'
+            }
+        }
+
+
+
 
   },
   methods: {
