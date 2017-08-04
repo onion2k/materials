@@ -119,6 +119,7 @@
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalness!==true }">
                 <span class="align-bottom">Metalness</span>
                 <vue-slider ref="slider" v-bind="slider" v-model="metalness" @input="updatemetalness"></vue-slider>
+                <p class="explainer">Metalness describes the ratio material\'s ratio between being a dialetric and a metal. This should really be 0 (dialetric) or 1 (metal). Anything in between is rare.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalnessMap!==true }">
                 <span class="align-bottom">Metalness Map</span>
@@ -376,7 +377,11 @@ li {
 a {
     text-decoration: none;
 }
-
+.explainer {
+    margin-top: 5px;
+    font-size: 0.75rem;
+    text-align: left;
+}
 .btn-group, .btn-fullwidth { width: 100%; }
 .dropdown-menu { width: 100%; }
 
