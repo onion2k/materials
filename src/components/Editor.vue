@@ -116,7 +116,17 @@
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">
-                <span class="align-top">Load Shader</span>
+
+                <div class="btn-group col-xs-12">
+                    <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Load Shader
+                    </button>
+                    <div class="dropdown-menu col-xs-12">
+                        <button class="dropdown-item" type="button" v-on:click="loadShader('Checkerboard')">Checkerboard</button>
+                        <button class="dropdown-item" type="button" v-on:click="loadShader('Checkerboard2')">Checkerboard 2</button>
+                    </div>
+                </div>
+
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.uniforms!==true }">
@@ -344,6 +354,9 @@ export default {
     },
     updateroughness: function(roughness) {
         this.$store.commit('properties/updateRoughness', { 'roughness': roughness });
+    },
+    loadShader: function(shader){
+        this.$store.dispatch('shader/loadshader', { 'shader': shader });
     },
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });

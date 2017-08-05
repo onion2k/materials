@@ -36,7 +36,6 @@ export default {
         this.modal = false;
     },
     updatecolor: function(color){
-        console.log(parseInt(rgbHex(color.rgba.r,color.rgba.g,color.rgba.b), 16));
         this.$store.commit('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
     }
   },

@@ -234,6 +234,20 @@ export default {
         this.material.clearCoatRoughness = val/100;
         this.material.needsUpdate = true;
     },
+
+    uniforms: function(val) {
+        this.material.uniforms = val;
+        //this.material.needsUpdate = true;
+    },
+    fragmentShader: function(val) {
+        this.material.fragmentShader = val;
+        this.material.needsUpdate = true;
+    },
+    vertexShader: function(val) {
+        this.material.vertexShader = val;
+        this.material.needsUpdate = true;
+    },
+
     sidedness: function(val) {
         switch (val) {
             case 'double':
