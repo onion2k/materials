@@ -32,15 +32,15 @@ export default {
   namespaced: true,
   state: Object.assign({}, shaders.Checkerboard),
   mutations: {
-    updateUniforms (state, payload) { state.uniforms = payload.uniforms; },
+    updateUniforms (state, payload) { state.uniforms = payload.uniforms;  },
     updateFragmentShader (state, payload) { state.fragmentShader = payload.fragmentShader; },
-    updateVertexShader (state, payload) { state.vertexShader = payload.vertexShader; }
+    updateVertexShader (state, payload) { state.vertexShader = payload.vertexShader; },
   },
   actions: {
     loadshader (context, payload) {
-      context.commit('updateUniforms', { uniforms: shaders[payload.shader].uniforms });
-      //context.commit('updateFragmentShader', { fragmentShader: shaders[payload.shader].fragmentShader });
-      //context.commit('updateVertexShader', { vertexShader: shaders[payload.shader].vertexShader });
+       context.commit('updateUniforms', { uniforms: shaders[payload.shader].uniforms });
+       context.commit('updateFragmentShader', { fragmentShader: shaders[payload.shader].fragmentShader });
+       context.commit('updateVertexShader', { vertexShader: shaders[payload.shader].vertexShader });
     }
   }
 }

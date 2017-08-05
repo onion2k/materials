@@ -144,6 +144,10 @@
                 <textarea name="vShader">{{ vertexShader }}</textarea>
             </div>
 
+            <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.uniforms!==true }">
+                <button v-on:click="updateShader()">Update</button>
+            </div>
+
             <div class="list-group-item list-group-item-action justify-content-between">
                 Show wireframe
                 <input type="checkbox" id="wire" v-model="showwire" v-on:click="updatewire">
@@ -305,9 +309,6 @@ export default {
             }
         }
 
-
-
-
   },
   methods: {
     geoSelector: function(geometry){
@@ -366,6 +367,9 @@ export default {
     },
     showcolors: function(){
         this.colorModal = !this.colorModal;
+    },
+    updateShader: function(){
+        this.$emit('updateshader', { 'shader': true });
     }
   },
   components: {
@@ -439,12 +443,13 @@ a {
 }
 
 textarea {
-    width: 60%;
+    width: 100%;
     min-height: 200px;
     border: 1px dashed #bbb;
     font-family: courier;
     font-size: 12px;
-    padding: 0;
+    margin: 10px 0 0 0;
+    padding: 5px;
     white-space: pre;
     tab-size: 2; 
 }

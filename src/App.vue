@@ -7,7 +7,8 @@
             :wire="this.wire"
             :shadow="this.shadow"
             v-on:updatewire="updatewire"
-            v-on:updateshadows="updateshadows">
+            v-on:updateshadows="updateshadows"
+            v-on:updateshader="updateshader">
         </Editor>
         <Material :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
       </div>
@@ -237,7 +238,7 @@ export default {
 
     uniforms: function(val) {
         this.material.uniforms = val;
-        //this.material.needsUpdate = true;
+        this.material.needsUpdate = true;
     },
     fragmentShader: function(val) {
         this.material.fragmentShader = val;
@@ -382,6 +383,10 @@ export default {
     },
     updateshadows: function(payload) {
         this.shadow = payload.shadow;
+    },
+    updateshader: function(){
+        this.material = new ShaderMaterial({ uniforms: this.uniforms, fragmentShader: this.fragmentShader, vertexShader: this.vertexShader });
+        this.material.needsUpdate = true;
     }
   },
   components: {
