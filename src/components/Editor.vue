@@ -131,17 +131,17 @@
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.uniforms!==true }">
                 <span class="align-top">Uniforms</span>
-                <textarea name="uniforms">{{ uniforms }}</textarea>
+                <textarea name="uniforms" v-model="uniforms" v-on:blur="updateuniforms">{{ uniforms }}</textarea>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">
                 <span class="align-top">Fragment Shader</span>
-                <textarea name="fShader">{{ fragmentShader }}</textarea>
+                <textarea name="fShader" v-model="fragmentShader" v-on:blur="updateuniforms">{{ fragmentShader }}</textarea>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.vertexShader!==true }">
                 <span class="align-top">Vertex Shader</span>
-                <textarea name="vShader">{{ vertexShader }}</textarea>
+                <textarea name="vShader" v-model="vertexShader" v-on:blur="updateuniforms">{{ vertexShader }}</textarea>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.uniforms!==true }">
@@ -203,7 +203,7 @@ export default {
       clearcoat: function(){ return this.$store.state.properties.clearcoat; },
       clearcoatRoughness: function(){ return this.$store.state.properties.clearcoatRoughness; },
 
-      uniforms: function(){ return this.$store.state.shader.uniforms; },
+      uniforms: function(){ return JSON.stringify(this.$store.state.shader.uniforms, null, '  '); },
       fragmentShader: function(){ return this.$store.state.shader.fragmentShader; },
       vertexShader: function(){ return this.$store.state.shader.vertexShader; },
 
@@ -215,7 +215,6 @@ export default {
                 namespace: 'colormap'
             }
         },
-
 
         alphaMapData:  function(){
             return {
@@ -358,6 +357,7 @@ export default {
     },
     loadShader: function(shader){
         this.$store.dispatch('shader/loadshader', { 'shader': shader });
+        this.$emit('updateshader', { 'shader': true });
     },
     updatewire: function() {
         this.$emit('updatewire', { 'wire': this.showwire });
@@ -370,6 +370,9 @@ export default {
     },
     updateShader: function(){
         this.$emit('updateshader', { 'shader': true });
+    },
+    updateuniforms: function(e){
+        console.log('updating uniforms');
     }
   },
   components: {
