@@ -372,7 +372,7 @@ export default {
         this.$emit('updateshader', { 'shader': true });
     },
     updateuniforms: function(e){
-        console.log('updating uniforms');
+        this.$store.commit('shader/updateUniforms', { 'uniforms': JSON.parse(e.target.value) });
     }
   },
   components: {

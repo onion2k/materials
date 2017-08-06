@@ -2,7 +2,7 @@
 export default {
   namespaced: true,
   state: {
-    material: 'ShaderMaterial',
+    material: 'MeshPhysicalMaterial',
     geometry: 'SphereGeometry',
     color: { r: 255, g: 255, b: 255, a: 0 },
     shininess: 0,
