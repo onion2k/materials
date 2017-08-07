@@ -37,6 +37,8 @@ import {
     ObjectLoader
 } from '../../node_modules/three/build/three.module';
 
+import { EffectComposer, SMAAPass, DotScreenPass, RenderPass } from 'postprocessing';
+
 import MaterialCode from './MaterialCode.vue';
 import Models from '../lib/models';
 
@@ -195,6 +197,13 @@ export default {
 
     wrapper.appendChild(renderer.domElement);
 
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(this.scene, camera));
+    
+    const pass = new SMAAPass(window.Image);
+    pass.renderToScreen = true;
+    composer.addPass(pass);
+
     let animate = () => {
 
         requestAnimationFrame(animate);
@@ -205,7 +214,8 @@ export default {
 
     let render = () => {
         //this.material.uniforms.time.value = this.material.uniforms.time.value+0.01;
-        renderer.render(this.scene, camera);
+        //renderer.render(this.scene, camera);
+        composer.render();
     }
 
     animate();

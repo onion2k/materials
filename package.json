@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "highlight.js": "^9.12.0",
+    "postprocessing": "^2.2.0",
     "rgb-hex": "^2.1.0",
     "three": "^0.85.2",
     "vue": "^2.3.3",
