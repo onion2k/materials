@@ -10,8 +10,8 @@ import {
 let shaders = {
     'Checkerboard':{
         uniforms: {
-            color1: { type: "c", value: new Color(0xff0000) },
-            color2: { type: "c", value: new Color(0xffffff) },
+            color1: { type: "c", value: [255,0,0] },
+            color2: { type: "c", value: [255,255,255] },
             scale: { type: "f", value: 5 }
         },
         fragmentShader: 'uniform vec3 color1;\nuniform vec3 color2;\nuniform float scale;\nvarying vec2 vUv;\nvoid main() {\nvec2 center = -1.0 + 2.0 * vUv;\nvec2 uv = floor(center.xy * scale);\nif(mod(uv.x + uv.y, 2.0) > 0.5){\n    gl_FragColor = vec4(color1, 1.0);\n}else{\n    gl_FragColor = vec4(color2, 1.0);\n}\n    }',
@@ -19,8 +19,8 @@ let shaders = {
     },
     'Checkerboard2':{
         uniforms: {
-            color1: { type: "c", value: new Color(0xff00ff) },
-            color2: { type: "c", value: new Color(0x00ff00) },
+            color1: { type: "c", value: [255,0,255] },
+            color2: { type: "c", value: [0,255,0] },
             scale: { type: "f", value: 3 }
         },
         fragmentShader: 'uniform vec3 color1;\nuniform vec3 color2;\nuniform float scale;\nvarying vec2 vUv;\nvoid main() {\nvec2 center = -1.0 + 2.0 * vUv;\nvec2 uv = floor(center.xy * scale);\nif(mod(uv.x + uv.y, 2.0) > 0.5){\n    gl_FragColor = vec4(color1, 1.0);\n}else{\n    gl_FragColor = vec4(color2, 1.0);\n}\n    }',
@@ -32,7 +32,7 @@ export default {
   namespaced: true,
   state: Object.assign({}, shaders.Checkerboard),
   mutations: {
-    updateUniforms (state, payload) { state.uniforms = payload.uniforms;  },
+    updateUniforms (state, payload) { console.log(payload.uniforms); state.uniforms =  payload.uniforms;  },
     updateFragmentShader (state, payload) { state.fragmentShader = payload.fragmentShader; },
     updateVertexShader (state, payload) { state.vertexShader = payload.vertexShader; },
   },
