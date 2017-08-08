@@ -18,6 +18,7 @@
                         <button class="dropdown-item" type="button" v-on:click="geoSelector('Windmill')">Windmill</button>
                     </div>
                 </div>
+                <p class="explainer">Select an object to render. THREE.js's object types are included, and a couple of meshes that are loaded from JSON files.</p>
             </div>
             <div class="list-group-item">
                 <materialList></materialList>
@@ -31,6 +32,8 @@
                         <button class="dropdown-item" type="button" v-for="material in materialTypes" v-on:click="materialSelector(material)" v-bind:class="{ active: material===materialTypeSelected }">{{ material }}</button>
                     </div>
                 </div>
+                <p class="explainer">The material type is the shader that's used to render the material. Different materials have different capabilities. MeshLambertMaterial is fast, MeshPhysicalMaterial is the highest quality, and MeshPhongMaterial sits in the middle.</p>
+                <p class="explainer">ShaderMaterial is special. To use it you need to write a WebGL/GLSL shader that a GPU renders. GLSL is *much* harder to work with but it can do some very clever things. There are a few example shaders included.</p>
             </div>
             <div class="list-group-item list-group-item-action">
                 <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,27 +44,33 @@
                     <button class="dropdown-item" type="button" v-on:click="sidednessSelector('back')">Back</button>
                     <button class="dropdown-item" type="button" v-on:click="sidednessSelector('double')">Double</button>
                 </div>
+                <p class="explainer">Sidededness determines which sides of the object's features are drawn. Front is typical. Back turns the object 'inside out'. Both is useful for transparent objects.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.color!==true }">
                 <span class="align-bottom">Color</span>
                 <colorLoader :color="color"></colorLoader>
+                <p class="explainer">The material's base color. Other textures in the material are multiplied by this color.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.xrep!==true }">
                 <span class="align-bottom">X Repeat</span>
                 <vue-slider ref="slider" v-bind="slider" :value="xrepeat" @input="updatexrepeat"></vue-slider>
+                <p class="explainer">The number of times the material is repeated across the x axis of the object's surface. <br/>NOTE: Currently in THREE.js it's not possible to have different repeat values for textures in a material. This might change in the future.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.yrep!==true }">
                 <span class="align-bottom">Y Repeat</span>
                 <vue-slider ref="slider" v-bind="slider" :value="yrepeat" @input="updateyrepeat"></vue-slider>
+                <p class="explainer">The number of times the material is repeated across the y axis of the object's surface.</p>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.xoff!==true }">
                 <span class="align-bottom">X Offset</span>
                 <vue-slider ref="slider" v-bind="slider" :value="xoffset" @input="updatexoffset"></vue-slider>
+                <p class="explainer">The offset distance for the material in the x axis of the object's surface. <br/>NOTE: Currently in THREE.js it's not possible to have different offset values for textures in a material. This might change in the future.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.yoff!==true }">
                 <span class="align-bottom">Y Offset</span>
                 <vue-slider ref="slider" v-bind="slider" :value="yoffset" @input="updateyoffset"></vue-slider>
+                <p class="explainer">The offset distance for the material in the y axis of the object's surface.</p>
             </div>
 
             <mapLoader v-bind:data="colorMapData"></mapLoader>
@@ -404,7 +413,9 @@ a {
     text-decoration: none;
 }
 .explainer {
+    width: 100%;
     margin-top: 5px;
+    margin-bottom: 5px;
     font-size: 0.75rem;
     text-align: left;
 }
