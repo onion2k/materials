@@ -48,20 +48,20 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.xrep!==true }">
                 <span class="align-bottom">X Repeat</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="xrepeat" @input="updatexrepeat"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="xrepeat" @input="updatexrepeat"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.yrep!==true }">
                 <span class="align-bottom">Y Repeat</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="yrepeat" @input="updateyrepeat"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="yrepeat" @input="updateyrepeat"></vue-slider>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.xoff!==true }">
                 <span class="align-bottom">X Offset</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="xoffset" @input="updatexoffset"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="xoffset" @input="updatexoffset"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.yoff!==true }">
                 <span class="align-bottom">Y Offset</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="yoffset" @input="updateyoffset"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="yoffset" @input="updateyoffset"></vue-slider>
             </div>
 
             <mapLoader v-bind:data="colorMapData"></mapLoader>
@@ -76,26 +76,26 @@
             <mapLoader v-bind:data="envMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.shininess!==true }">
                 <span class="align-bottom">Shininess</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="shininess" @input="updateshininess"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="shininess" @input="updateshininess"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.roughness!==true }">
                 <span class="align-bottom">Roughness</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="roughness" @input="updateroughness"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="roughness" @input="updateroughness"></vue-slider>
             </div>
             <mapLoader v-bind:data="roughnessMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalness!==true }">
                 <span class="align-bottom">Metalness</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="metalness" @input="updatemetalness"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="metalness" @input="updatemetalness"></vue-slider>
                 <p class="explainer">Metalness describes the ratio material\'s ratio between being a dialetric and a metal. This should really be 0 (dialetric) or 1 (metal). Anything in between is rare.</p>
             </div>
             <mapLoader v-bind:data="metalnessMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoat!==true }">
                 <span class="align-bottom">Clearcoat</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="clearcoat" @input="updateclearcoat"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="clearcoat" @input="updateclearcoat"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoatRoughness!==true }">
                 <span class="align-bottom">Clearcoard Roughness</span>
-                <vue-slider ref="slider" v-bind="slider" v-model="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
+                <vue-slider ref="slider" v-bind="slider" :value="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.combine!==true }">
                 <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

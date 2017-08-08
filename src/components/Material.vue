@@ -34,7 +34,8 @@ import {
     EdgesGeometry,
     LineBasicMaterial,
     LineSegments,
-    ObjectLoader
+    ObjectLoader,
+    Clock
 } from '../../node_modules/three/build/three.module';
 
 import { EffectComposer, SMAAPass, DotScreenPass, RenderPass } from 'postprocessing';
@@ -201,8 +202,15 @@ export default {
     composer.addPass(new RenderPass(this.scene, camera));
     
     const pass = new SMAAPass(window.Image);
+    // const pass = new DotScreenPass({
+	// 		scale: 0.8,
+	// 		angle: Math.PI * 0.5,
+	// 		intensity: 0.25
+	// 	});
     pass.renderToScreen = true;
     composer.addPass(pass);
+
+    const clock = new Clock();
 
     let animate = () => {
 
@@ -215,7 +223,7 @@ export default {
     let render = () => {
         //this.material.uniforms.time.value = this.material.uniforms.time.value+0.01;
         //renderer.render(this.scene, camera);
-        composer.render();
+        composer.render(clock.getDelta());
     }
 
     animate();
