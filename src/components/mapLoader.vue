@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-
+        <p class="explainer" v-if="this.data.explainer">{{ this.data.explainer }}</p>
     </div>
 </template>
 
@@ -202,4 +202,10 @@ export default {
         z-index: 99;
         box-shadow: 0px 6px 6px 2px rgba(0, 0, 0, 0.3);
     }
+
+    .explainer {
+        margin-top: 5px;
+        text-align: left;
+    }
+
 </style>

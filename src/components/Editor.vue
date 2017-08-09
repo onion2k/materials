@@ -1,6 +1,5 @@
 <template>
     <div class="editor col-sm-12 col-md-6 hidden-xs-down bg-faded sidebar">
-        Editing {{ materialTypeSelected }}
         <div class="list-group">
             <div class="list-group-item list-group-item-action">
                 <div class="btn-group col-xs-12">
@@ -221,6 +220,7 @@ export default {
                 spec: this.spec.map,
                 title: 'Color Map',
                 description: 'Map an image\'s color data to the object.',
+                explainer: 'A texture that is mapped to the objects UV coordinates that affects the color. The texture is multiplied by the base color in the shader to get the pixel color.',
                 namespace: 'colormap'
             }
         },
