@@ -145,22 +145,15 @@ export default {
     },
     material : function(value) {
 
+        //multimaterial index
         var ms = this.materialSelected;
-
-        this.mat = this.hook.children[0].children[0].material[0]; //.find(function(m){ return m.name === ms });
-
-        this.mat = value;
-        this.mat.needsUpdate = true;
-
-        console.log(ms, this.mat);
+        var i = this.hook.children[0].children[0].material.findIndex(function(m){ return m.name === ms });
+        value.name = ms;
+        this.hook.children[0].children[0].material[i] = value;
+        this.hook.children[0].children[0].material[i].needsUpdate = true;
 
         this.box.material = value;
         this.box.material.needsUpdate = true;
-
-    },
-    materialSelected: function(value) {
-
-        //this.mat = this.hook.children[0].children[0].material.find(function(m){ return m.name === value });
 
     }
   },
