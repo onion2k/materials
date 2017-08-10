@@ -14,7 +14,9 @@ export default {
     selectMaterial (state, payload) {
         state.materialSelected = payload.name;
     },
-    removeMaterial (state, payload) { state.materials.splice(payload.index, 1); },
+    removeMaterial (state, payload) {
+      state.materials.splice(payload.index, 1);
+    },
     replaceMaterials (state, payload) {
       state.materials = [];
       payload.materials.map((material)=>{
@@ -27,7 +29,8 @@ export default {
     selectMaterial (context, payload) {
         let material = context.state.materials.find((m)=>{ return m.name === payload.name });
         context.commit('selectMaterial', { 'name': material.name });
-        context.commit('properties/updatematerial', { 'material': material.type }, {root:true});
+        context.commit('properties/updateColor', { 'r': material.color.r, 'g': material.color.g, 'b': material.color.b, 'a':0 }, { root:true });
+        context.commit('properties/updatematerial', { 'material': material.type }, { root:true });
     },
     loadMaterials (context, payload) {
       context.commit('replaceMaterials', payload);

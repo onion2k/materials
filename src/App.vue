@@ -3,6 +3,7 @@
       <div class="row">
         <Editor 
             :geometry="geometry" 
+            :materialSelected="this.materialSelected"
             :materialTypeSelected="this.materialTypeSelected"
             :wire="this.wire"
             :shadow="this.shadow"
@@ -10,7 +11,7 @@
             v-on:updateshadows="updateshadows"
             v-on:updateshader="updateshader">
         </Editor>
-        <Material :material="this.material" :wire="this.wire" :shadow="this.shadow"></Material>
+        <Material :material="this.material" :materialSelected="this.materialSelected" :wire="this.wire" :shadow="this.shadow"></Material>
       </div>
     </div>
 </template>
@@ -56,8 +57,9 @@ export default {
   computed: {
 
     objmaterial:  function () { return this.$store.getters['object/material']; },
-
+    materialSelected:  function () { return this.$store.state.object.materialSelected; },
     materialTypeSelected:  function () { return this.$store.state.properties.material; },
+
     geometry:  function () { return this.$store.state.properties.geometry; },
     sidedness:  function () { return this.$store.state.properties.sidedness; },
 
@@ -264,14 +266,19 @@ export default {
         }
         this.material.needsUpdate = true;
     },
-    objmaterial: function(){
+
+    objmaterial: function(val){
+
+        // run when material type is changed, not when a material list item is selected
+
+        console.log("Color: ", this.color);
 
         this.materialTypeSelected = this.objmaterial.type;
 
         switch (this.objmaterial.type) {
 
             case "MeshBasicMaterial":
-                this.material = new MeshBasicMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true });
+                this.material = new MeshBasicMaterial({ color: this.material.color, shading: SmoothShading, transparent:true });
             break;
 
             case "MeshLambertMaterial":
@@ -324,10 +331,12 @@ export default {
 
     materialTypeSelected: function(payload){
 
+        console.log("MTS Color: ", this.color);
+
         switch (payload) {
 
             case "MeshBasicMaterial":
-                this.material = new MeshBasicMaterial({ color: 0xffffff, shading: SmoothShading, transparent:true });
+                this.material = new MeshBasicMaterial({ color: this.color, shading: SmoothShading, transparent:true });
             break;
 
             case "MeshLambertMaterial":

@@ -1,6 +1,7 @@
 <template>
     <div class="material col-sm-12 col-md-6 p-0 bg-faded">
         <div ref="wrapper"></div>
+        -{{ materialSelected }}-
         <MaterialCode></MaterialCode>
     </div>
 </template>
@@ -45,9 +46,10 @@ import Models from '../lib/models';
 
 export default {
   name: 'Material',
-  props: ['material', 'wire', 'shadow'],
+  props: ['material', 'materialSelected', 'wire', 'shadow'],
   data: function() {
 
+    let mat = {};
     let boxgeo = new SphereGeometry(40, 60, 60);
 
     let mesh = new Mesh(boxgeo, this.material);
@@ -69,7 +71,8 @@ export default {
         hook: hook,
         wireframe: wireframe,
         box: mesh,
-        light: light
+        light: light,
+        mat: mat
     }
 
   },
@@ -141,8 +144,24 @@ export default {
         this.light.castShadow = value;
     },
     material : function(value) {
+
+        var ms = this.materialSelected;
+
+        this.mat = this.hook.children[0].children[0].material[0]; //.find(function(m){ return m.name === ms });
+
+        this.mat = value;
+        this.mat.needsUpdate = true;
+
+        console.log(ms, this.mat);
+
         this.box.material = value;
         this.box.material.needsUpdate = true;
+
+    },
+    materialSelected: function(value) {
+
+        //this.mat = this.hook.children[0].children[0].material.find(function(m){ return m.name === value });
+
     }
   },
   mounted: function(){
