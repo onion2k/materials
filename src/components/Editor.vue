@@ -94,7 +94,7 @@
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalness!==true }">
                 <span class="align-bottom">Metalness</span>
                 <vue-slider ref="slider" v-bind="slider" :value="metalness" @input="updatemetalness"></vue-slider>
-                <p class="explainer">Metalness describes the ratio material\'s ratio between being a dialetric and a metal. This should really be 0 (dialetric) or 1 (metal). Anything in between is rare.</p>
+                <p class="explainer">Metalness describes the ratio material's ratio between being a dialetric and a metal. This should really be 0 (dialetric) or 1 (metal). Anything in between is rare.</p>
             </div>
             <mapLoader v-bind:data="metalnessMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoat!==true }">
@@ -230,6 +230,7 @@ export default {
             spec: this.spec.alphaMap,
             title: 'Alpha Map',
             description: 'Map an image\'s blue channel to the object\s transparency.',
+            explainer: 'A texture that determines the material\'s alpha (transparency).',
             namespace: 'alphamap'
             }
         },
@@ -237,7 +238,8 @@ export default {
             return {
             spec: this.spec.bumpMap,
             title: 'Bump Map',
-            description: 'Map an image\'s green channel as a bumpy texture on the object.',
+            description: 'Map an image\'s black/white values as a bumpy texture on the object.',
+            explainer: 'A texture that modifies the material to add a bumpiness to the surface by multipling the color with a light color determined by the angle of incidence. NOTE: This doesn\'t affect the actual geometry of the object.',
             namespace: 'bumpmap',
             sliderTitle: 'Scale'
             }
@@ -247,6 +249,7 @@ export default {
             spec: this.spec.emissiveMap,
             title: 'Emissive Map',
             description: 'Map an image\'s green channel as the object\s emissive light.',
+            explainer: 'A texture that simulates light emitted from the material. These aren\'t actual lights so they won\'t show on other materials though.',
             namespace: 'emissivemap',
             sliderTitle: 'Intensity'
             }
@@ -256,6 +259,7 @@ export default {
             spec: this.spec.aoMap,
             title: 'Ambient occlusion Map',
             description: 'Map an image\'s color data as the object\s abmient occlusion.',
+            explainer: 'Use the red channel of a texture to add ambient occulusion. Requires a seconds set of UVs.',
             namespace: 'aomap'
             }
         },
@@ -264,6 +268,7 @@ export default {
             spec: this.spec.lightMap,
             title: 'Light Map',
             description: 'Map an image\'s green channel as the object\s lights.',
+            explainer: 'A lightmap texture (not sure what this actually does yet). Requires a seconds set of UVs.',
             namespace: 'lightmap'
             }
         },
@@ -272,6 +277,7 @@ export default {
             spec: this.spec.specularMap,
             title: 'Specular Map',
             description: 'Map an image\'s blue channel as the object\s specular reflectivity.',
+            explainer: 'A texture that controls the specular shininess of an object.',
             namespace: 'specularmap',
             sliderTitle: 'Intensity'
             }
@@ -281,6 +287,7 @@ export default {
             spec: this.spec.envMap,
             title: 'Environment Map',
             description: '',
+            explainer: 'An environment texture (technically a texture cube) that the material uses for reflections.',
             namespace: 'envmap'
             }
         },
@@ -289,6 +296,7 @@ export default {
             spec: this.spec.roughnessMap,
             title: 'Roughness Map',
             description: '',
+            explainer: 'In a physical material the roughness controls the scattering of light hitting the surface. The roughness map enables you to have areas of shininess and roughness.',
             namespace: 'roughnessmap'
             }
         },
@@ -313,6 +321,7 @@ export default {
             spec: this.spec.displacementMap,
             title: 'Displacement Map',
             description: '',
+            explainer: 'Displacement maps are used to modify the vertex positions - they actually modify the geometry.',
             namespace: 'displacementmap'
             }
         }
