@@ -46,7 +46,7 @@ import Models from '../lib/models';
 
 export default {
   name: 'Renderer',
-  props: ['material', 'materialSelected', 'wire', 'shadow'],
+  props: ['material', 'geometry', 'materialSelected', 'wire', 'shadow'],
   data: function() {
 
     let mat = {};

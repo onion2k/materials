@@ -11,7 +11,13 @@
             v-on:updateshadows="updateshadows"
             v-on:updateshader="updateshader">
         </Editor>
-        <Renderer :material="this.material" :materialSelected="this.materialSelected" :wire="this.wire" :shadow="this.shadow"></Renderer>
+        <Renderer 
+            :geometry="this.geometry"
+            :material="this.material"
+            :materialSelected="this.materialSelected"
+            :wire="this.wire"
+            :shadow="this.shadow">
+        </Renderer>
       </div>
     </div>
 </template>
@@ -50,6 +56,7 @@ export default {
   data () {
     return {
         material: base,
+        geometry: {},
         wire: false,
         shadow: false
     }
