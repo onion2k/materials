@@ -11,7 +11,7 @@
             v-on:updateshadows="updateshadows"
             v-on:updateshader="updateshader">
         </Editor>
-        <Material :material="this.material" :materialSelected="this.materialSelected" :wire="this.wire" :shadow="this.shadow"></Material>
+        <Renderer :material="this.material" :materialSelected="this.materialSelected" :wire="this.wire" :shadow="this.shadow"></Renderer>
       </div>
     </div>
 </template>
@@ -39,7 +39,7 @@ import {
 } from '../node_modules/three/build/three.module';
 
 import { mapState, mapActions } from 'vuex'
-import Material from './components/Material.vue';
+import Renderer from './components/Renderer.vue';
 import Editor from './components/Editor.vue';
 import rgbHex from 'rgb-hex';
 
@@ -399,7 +399,7 @@ export default {
     }
   },
   components: {
-    Material,
+    Renderer,
     Editor
   }
 }

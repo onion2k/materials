@@ -45,7 +45,7 @@ import MaterialCode from './MaterialCode.vue';
 import Models from '../lib/models';
 
 export default {
-  name: 'Material',
+  name: 'Renderer',
   props: ['material', 'materialSelected', 'wire', 'shadow'],
   data: function() {
 
