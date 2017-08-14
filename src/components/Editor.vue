@@ -82,13 +82,16 @@
             <mapLoader v-bind:data="lightMapData"></mapLoader>
             <mapLoader v-bind:data="specularMapData"></mapLoader>
             <mapLoader v-bind:data="envMapData"></mapLoader>
+
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.shininess!==true }">
                 <span class="align-bottom">Shininess</span>
                 <vue-slider ref="slider" v-bind="slider" :value="shininess" @input="updateshininess"></vue-slider>
+                <p class="explainer">The base level of shininess of an object.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.roughness!==true }">
                 <span class="align-bottom">Roughness</span>
                 <vue-slider ref="slider" v-bind="slider" :value="roughness" @input="updateroughness"></vue-slider>
+                <p class="explainer">The base level of roughness of a material. Use this rather than specular.</p>
             </div>
             <mapLoader v-bind:data="roughnessMapData"></mapLoader>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.metalness!==true }">
@@ -100,10 +103,12 @@
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoat!==true }">
                 <span class="align-bottom">Clearcoat</span>
                 <vue-slider ref="slider" v-bind="slider" :value="clearcoat" @input="updateclearcoat"></vue-slider>
+                <p class="explainer">Introduces a second environment map or highlight as if the material had a glossy coating.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.clearCoatRoughness!==true }">
                 <span class="align-bottom">Clearcoard Roughness</span>
                 <vue-slider ref="slider" v-bind="slider" :value="clearcoatRoughness" @input="updateclearcoatroughness"></vue-slider>
+                <p class="explainer">Makes the clearcoat rougher so it doesn't reflect highlights as much.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.combine!==true }">
                 <button class="btn btn-secondary dropdown-toggle btn-fullwidth text-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,7 +119,7 @@
                     <button class="dropdown-item" type="button" v-on:click="combineSelector('mix')">Mix</button>
                     <button class="dropdown-item" type="button" v-on:click="combineSelector('add')">Add</button>
                 </div>
-
+                <p class="explainer">Determines how the envmap is applied to the material.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.reflectivity!==true }">
                 <span class="align-bottom">Reflectivity</span>
