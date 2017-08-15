@@ -123,9 +123,11 @@
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.reflectivity!==true }">
                 <span class="align-bottom">Reflectivity</span>
+                <p class="explainer">A rarely used setting to set the base level of reflectivity for envmaps.</p>
             </div>
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.refractionRatio!==true }">
                 <span class="align-bottom">Refraction Ratio</span>
+                <p class="explainer">Sets the angle of refraction of an envmap.</p>
             </div>
 
             <div class="list-group-item justify-content-between" v-bind:class="{ hidden: spec.fragmentShader!==true }">
