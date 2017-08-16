@@ -46,17 +46,19 @@ import Models from '../lib/models';
 
 export default {
   name: 'Renderer',
-  props: ['material', 'geometry', 'materialSelected', 'wire', 'shadow'],
+  props: ['material', 'mesh', 'materialSelected', 'wire', 'shadow'],
   data: function() {
 
     let mat = {};
-    let boxgeo = new SphereGeometry(40, 60, 60);
+    //let boxgeo = new SphereGeometry(40, 60, 60);
 
-    let mesh = new Mesh(boxgeo, this.material);
-        mesh.castShadow = true;
-        mesh.receiveShadow = false;
+    // let mesh = new Mesh(boxgeo, this.material);
+    //     mesh.castShadow = true;
+    //     mesh.receiveShadow = false;
 
-    let wiregeo = new EdgesGeometry( mesh.geometry );
+    console.log(this.mesh)
+
+    let wiregeo = new EdgesGeometry( this.mesh.geometry );
     let wiremat = new LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
     let wireframe = new LineSegments( wiregeo, wiremat );
 
@@ -70,92 +72,89 @@ export default {
         scene: scene,
         hook: hook,
         wireframe: wireframe,
-        box: mesh,
+        //box: mesh,
         light: light,
         mat: mat
     }
 
   },
   computed: {
-      geometry: function() { return this.$store.state.properties.geometry; }
+      //geometry: function() { return this.$store.state.properties.geometry; }
   },
   watch : {
-    geometry : function(value) {
+    // geometry : function(value) {
 
-        let geo;
-        let box_ = this.box;
-        let loader = new ObjectLoader();
+    //     let geo;
+    //     let box_ = this.box;
+    //     let loader = new ObjectLoader();
 
-        switch (value) {
-            case "SphereGeometry":
-                geo = new SphereGeometry(40, 60, 60);
-                this.box.geometry = geo;
-                break;
-            case "BoxGeometry":
-                geo = new BoxGeometry(60, 60, 60);
-                this.box.geometry = geo;
-                break;
-            case "TorusKnotGeometry":
-                geo = new TorusKnotGeometry(30, 10, 100, 16);
-                this.box.geometry = geo;
-                break;
-            case "ConeGeometry":
-                geo = new ConeGeometry(30, 60, 32);
-                this.box.geometry = geo;
-                break;
-            case "TorusGeometry":
-                geo = new TorusGeometry(40, 10, 16, 100);
-                this.box.geometry = geo;
-                break;
-            case "IcosahedronGeometry":
-                geo = new IcosahedronGeometry(50);
-                this.box.geometry = geo;
-                break;
-            case "Flower":
-                loader.load(Models.Flower, (g) => {
-                    this.hook.remove(this.box);
-                    this.hook.add(g);
-                    g.scale.set(400,400,400);
-                    this.$store.dispatch('object/loadMaterials', { materials: g.children[0].material });
-                });
-                break;
-            case "Windmill":
-                loader.load(Models.Windmill, (g) => {
-                    this.hook.remove(this.box);
-                    this.hook.add(g);
-                    g.scale.set(0.5,0.5,0.5);
-                });
-                break;
-            case "Spaceship":
-                loader.load(Models.Spaceship, (g) => {
-                    this.hook.remove(this.box);
-                    this.hook.add(g);
-                    g.scale.set(100,100,100);
-                    //g.position.x = 50;
-                });
-                break;
-        }
+    //     switch (value) {
+    //         case "SphereGeometry":
+    //             geo = new SphereGeometry(40, 60, 60);
+    //             this.box.geometry = geo;
+    //             break;
+    //         case "BoxGeometry":
+    //             geo = new BoxGeometry(60, 60, 60);
+    //             this.box.geometry = geo;
+    //             break;
+    //         case "TorusKnotGeometry":
+    //             geo = new TorusKnotGeometry(30, 10, 100, 16);
+    //             this.box.geometry = geo;
+    //             break;
+    //         case "ConeGeometry":
+    //             geo = new ConeGeometry(30, 60, 32);
+    //             this.box.geometry = geo;
+    //             break;
+    //         case "TorusGeometry":
+    //             geo = new TorusGeometry(40, 10, 16, 100);
+    //             this.box.geometry = geo;
+    //             break;
+    //         case "IcosahedronGeometry":
+    //             geo = new IcosahedronGeometry(50);
+    //             this.box.geometry = geo;
+    //             break;
+    //         case "Flower":
+    //             loader.load(Models.Flower, (g) => {
+    //                 this.hook.remove(this.box);
+    //                 this.hook.add(g);
+    //                 g.scale.set(400,400,400);
+    //                 this.$store.dispatch('object/loadMaterials', { materials: g.children[0].material });
+    //             });
+    //             break;
+    //         case "Windmill":
+    //             loader.load(Models.Windmill, (g) => {
+    //                 this.hook.remove(this.box);
+    //                 this.hook.add(g);
+    //                 g.scale.set(0.5,0.5,0.5);
+    //             });
+    //             break;
+    //         case "Spaceship":
+    //             loader.load(Models.Spaceship, (g) => {
+    //                 this.hook.remove(this.box);
+    //                 this.hook.add(g);
+    //                 g.scale.set(100,100,100);
+    //                 //g.position.x = 50;
+    //             });
+    //             break;
+    //     }
 
-    },
+    // },
     wire : function(value) {
         this.wireframe.visible = value;
     },
     shadow : function(value) {
         this.light.castShadow = value;
     },
-    material : function(value) {
-
-        //multimaterial index
-        var ms = this.materialSelected;
-        var i = this.hook.children[0].children[0].material.findIndex(function(m){ return m.name === ms });
-        value.name = ms;
-        this.hook.children[0].children[0].material[i] = value;
-        this.hook.children[0].children[0].material[i].needsUpdate = true;
-
-        this.box.material = value;
-        this.box.material.needsUpdate = true;
-
-    }
+    // material : function(value) {
+    //     //multimaterial index
+    //     var ms = this.materialSelected;
+    //     var i = this.hook.children[0].children[0].material.findIndex(function(m){ return m.name === ms });
+    //     value.name = ms;
+    //     this.hook.children[0].children[0].material[i] = value;
+    //     this.hook.children[0].children[0].material[i].needsUpdate = true;
+    //     this.box.material = value;
+    //     this.box.material.needsUpdate = true;
+    // }
   },
   mounted: function(){
 
@@ -176,11 +175,11 @@ export default {
         camera.lookAt(new Vector3(0,0,0));
         this.scene.add(camera);
 
-    this.box.add(this.wireframe);
-        this.wireframe.visible = this.wire;
-
-    this.hook.add(this.box);
+    this.hook.add(this.mesh);
         this.scene.add(this.hook);
+
+    this.hook.add(this.wireframe);
+        this.wireframe.visible = this.wire;
 
     this.light.position.set(100, 200, 75);
         this.light.lookAt(new Vector3(0,0,0));

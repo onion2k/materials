@@ -2,7 +2,6 @@
     <div id="app" class="container-fluid">
       <div class="row">
         <Editor 
-            :geometry="geometry" 
             :materialSelected="this.materialSelected"
             :materialTypeSelected="this.materialTypeSelected"
             :wire="this.wire"
@@ -12,7 +11,7 @@
             v-on:updateshader="updateshader">
         </Editor>
         <Renderer 
-            :geometry="this.geometry"
+            :mesh="this.mesh"
             :material="this.material"
             :materialSelected="this.materialSelected"
             :wire="this.wire"
@@ -41,7 +40,9 @@ import {
     DoubleSide,
     BackSide,
     FrontSide,
-    Vector2
+    Vector2,
+    Mesh,
+    SphereGeometry
 } from '../node_modules/three/build/three.module';
 
 import { mapState, mapActions } from 'vuex'
@@ -51,12 +52,18 @@ import rgbHex from 'rgb-hex';
 
 let base = new MeshPhysicalMaterial({ name:'Standard', color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
 
+let geometry = new SphereGeometry(40, 60, 60);
+
+let mesh = new Mesh(geometry, base);
+    mesh.castShadow = true;
+    mesh.receiveShadow = false;
+
 export default {
   name: 'app',
   data () {
     return {
         material: base,
-        geometry: {},
+        mesh: mesh,
         wire: false,
         shadow: false
     }
