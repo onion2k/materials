@@ -42,7 +42,8 @@ import {
     FrontSide,
     Vector2,
     Mesh,
-    SphereGeometry
+    SphereGeometry,
+    BoxGeometry
 } from '../node_modules/three/build/three.module';
 
 import { mapState, mapActions } from 'vuex'
@@ -50,23 +51,37 @@ import Renderer from './components/Renderer.vue';
 import Editor from './components/Editor.vue';
 import rgbHex from 'rgb-hex';
 
-let base = new MeshPhysicalMaterial({ name:'Standard', color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
-
-let geometry = new SphereGeometry(40, 60, 60);
-
-let mesh = new Mesh(geometry, base);
-    mesh.castShadow = true;
-    mesh.receiveShadow = false;
-
 export default {
   name: 'app',
   data () {
+
+    console.log("data");
+
+    let base = new MeshPhysicalMaterial({ name:'Standard', color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
+
+    let geometry = new SphereGeometry(40, 60, 60);
+
+    let mesh = new Mesh(geometry, base);
+        mesh.castShadow = true;
+        mesh.receiveShadow = false;
+
     return {
         material: base,
         mesh: mesh,
         wire: false,
         shadow: false
     }
+  },
+  mounted: function(){
+
+    console.log("mount");
+
+    // let box = new BoxGeometry(10, 10, 10);
+
+    // this.mesh = new Mesh(box, this.material);
+    //     this.mesh.castShadow = true;
+    //     this.mesh.receiveShadow = false;
+
   },
   computed: {
 
@@ -287,12 +302,12 @@ export default {
 
         console.log("Color: ", this.color);
 
-        this.materialTypeSelected = this.objmaterial.type;
+        //this.materialTypeSelected = this.objmaterial.type;
 
         switch (this.objmaterial.type) {
 
             case "MeshBasicMaterial":
-                this.material = new MeshBasicMaterial({ color: this.material.color, shading: SmoothShading, transparent:true });
+                this.material = new MeshBasicMaterial({ name: 'Basic', color: this.material.color, shading: SmoothShading, transparent:true });
             break;
 
             case "MeshLambertMaterial":
@@ -350,7 +365,7 @@ export default {
         switch (payload) {
 
             case "MeshBasicMaterial":
-                this.material = new MeshBasicMaterial({ color: this.color, shading: SmoothShading, transparent:true });
+                this.material = new MeshBasicMaterial({ name: "MTS Basic", color: this.color, shading: SmoothShading, transparent:true });
             break;
 
             case "MeshLambertMaterial":
@@ -395,6 +410,8 @@ export default {
         if (this.material.hasOwnProperty('metalnessMap')) { this.material.metalnessMap = this.metalnessTexture; }
         if (this.material.hasOwnProperty('normalMap')) { this.material.normalMap = this.normalTexture; }
         if (this.material.hasOwnProperty('displacementMap')) { this.material.displacementMap = this.displacementTexture; }
+
+        this.mesh.material = this.material;
 
         this.material.needsUpdate = true;
 

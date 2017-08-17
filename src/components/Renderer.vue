@@ -82,6 +82,10 @@ export default {
       //geometry: function() { return this.$store.state.properties.geometry; }
   },
   watch : {
+    mesh: function(mesh){
+        this.hook.remove(this.hook.children[0]);
+        this.hook.add(mesh);
+    },
     // geometry : function(value) {
 
     //     let geo;
