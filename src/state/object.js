@@ -32,8 +32,14 @@ export default {
         context.commit('properties/updateColor', { 'r': material.color.r, 'g': material.color.g, 'b': material.color.b, 'a':0 }, { root:true });
         context.commit('properties/updatematerial', { 'material': material.type }, { root:true });
     },
+    updateMaterial (context, payload) {
+        // let material = context.state.materials.find((m)=>{ return m.name === payload.name });
+        console.log(context.state.materialSelected);
+        console.log(payload);
+        //context.commit('replaceMaterials', payload);
+    },
     loadMaterials (context, payload) {
-      context.commit('replaceMaterials', payload);
+        context.commit('replaceMaterials', payload);
     }
   },
   getters: {

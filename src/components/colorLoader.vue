@@ -36,7 +36,8 @@ export default {
         this.modal = false;
     },
     updatecolor: function(color){
-        this.$store.commit('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
+        //this.$store.commit('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
+        this.$store.dispatch('properties/updateColor', { 'r': color.rgba.r, 'g': color.rgba.g, 'b': color.rgba.b });
     }
   },
   components: {

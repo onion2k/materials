@@ -34,6 +34,9 @@ export default {
     updatematerial (state, payload) { state.material = payload.material; }
   },
   actions: {
-
+    updateColor (context, payload) {
+        context.commit('updateColor', payload);
+        context.dispatch('object/updateMaterial', { 'color': payload }, { root: true });
+    },
   }
 }

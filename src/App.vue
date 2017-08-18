@@ -55,8 +55,6 @@ export default {
   name: 'app',
   data () {
 
-    console.log("data");
-
     let base = new MeshPhysicalMaterial({ name:'Standard', color: 0xffffff, shading: SmoothShading, transparent:true, emissive: 0xffffff, emissiveIntensity: 0 });
 
     let geometry = new SphereGeometry(40, 60, 60);
@@ -71,17 +69,6 @@ export default {
         wire: false,
         shadow: false
     }
-  },
-  mounted: function(){
-
-    console.log("mount");
-
-    // let box = new BoxGeometry(10, 10, 10);
-
-    // this.mesh = new Mesh(box, this.material);
-    //     this.mesh.castShadow = true;
-    //     this.mesh.receiveShadow = false;
-
   },
   computed: {
 

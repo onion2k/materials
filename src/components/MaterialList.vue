@@ -26,9 +26,7 @@ export default {
   methods: {
       activeMaterial: function(material){
         var c = [material.type];
-        if (material.name==this.materialSelected) {
-            c.push('active');
-        }
+        if (material.name==this.materialSelected) { c.push('active'); }
         return c;
       },
       styleMaterial: function(material){
